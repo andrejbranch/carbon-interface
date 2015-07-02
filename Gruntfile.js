@@ -21,17 +21,16 @@ module.exports = function (grunt) {
 
         // The grunt server settings
         connect: {
-            options: {
-                port: 9000,
-                livereload: true
-            },
-            dist: {
+            dev: {
                 options: {
+                    port: 9000,
                     open: true,
-                    base: '<%= inspinia.dist %>'
+                    base: '<%= inspinia.dist %>',
+                    livereload: true
                 }
             }
         },
+
         // Compile less to css
         less: {
             development: {
@@ -44,6 +43,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         // Watch for changes in live edit
         watch: {
             styles: {
@@ -51,18 +51,18 @@ module.exports = function (grunt) {
                 tasks: ['less', 'copy:styles'],
                 options: {
                     nospawn: true,
-                    livereload: '<%= connect.options.livereload %>'
+                    livereload: true
                 },
             },
             js: {
                 files: ['<%= inspinia.app %>/scripts/{,*/}*.js'],
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
+                    livereload: true
                 }
             },
             livereload: {
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
+                    livereload: true
                 },
                 files: [
                     '<%= inspinia.app %>/**/*.html',
@@ -71,6 +71,7 @@ module.exports = function (grunt) {
                 ]
             }
         },
+
         // If you want to turn on uglify you will need write your angular code with string-injection based syntax
         // For example this is normal syntax: function exampleCtrl ($scope, $rootScope, $location, $http){}
         // And string-injection based syntax is: ['$scope', '$rootScope', '$location', '$http', function exampleCtrl ($scope, $rootScope, $location, $http){}]
@@ -79,6 +80,7 @@ module.exports = function (grunt) {
                 mangle: false
             }
         },
+
         // Clean dist folder
         clean: {
             dist: {
@@ -93,6 +95,7 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
+
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
@@ -134,6 +137,7 @@ module.exports = function (grunt) {
                 src: '{,*/}*.css'
             }
         },
+
         // Renames files for browser caching purposes
         filerev: {
             dist: {
@@ -181,9 +185,9 @@ module.exports = function (grunt) {
     ]);
 
     // Run build version of app
-    grunt.registerTask('server', [
+    grunt.registerTask('dev:server', [
         'build',
-        'connect:livereload',
+        'connect:dev',
         'watch'
     ]);
 
