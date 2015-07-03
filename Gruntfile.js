@@ -27,7 +27,7 @@ module.exports = function (grunt) {
                 options: {
                     port: 9000,
                     open: true,
-                    base: '<%= carbon.build %>',
+                    base: ['', '<%= carbon.build %>', 'bower_components'],
                     livereload: true
                 }
             }
@@ -170,15 +170,41 @@ module.exports = function (grunt) {
             }
         },
 
-        useminPrepare: {
-            html: 'src/index.html',
-            options: {
-                dest: 'build'
+        htmlbuild: {
+            dist: {
+                src: 'src/index.html',
+                dest: 'build/',
+                options: {
+                    styles: {
+                        bundle: [
+                            'bower_components/fontawesome/css/font-awesome.min.css',
+                            'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                            'src/styles/*.css'
+                        ]
+                    },
+                    beautify: true,
+                    relative: true,
+                    scripts: {
+                        bundle: [
+                            'bower_components/jquery/dist/jquery.min.js',
+                            'bower_components/jquery-ui/jquery-ui.min.js',
+                            'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                            'bower_components/metisMenu/dist/metisMenu.min.js',
+                            'bower_components/slimScroll/jquery.slimscroll.min.js',
+                            'bower_components/PACE/pace.min.js',
+                            'bower_components/angular/angular.min.js',
+                            'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                            'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                            'src/**/*.js'
+                        ]
+                    },
+                    data: {
+                        // Data to pass to templates
+                        version: "0.1.0",
+                        title: "test",
+                    }
+                }
             }
-        },
-
-        usemin: {
-            html: ['build/index.html']
         }
 
     });
@@ -201,15 +227,16 @@ module.exports = function (grunt) {
     // Build version for production
     grunt.registerTask('build', [
         'clean:build',
-        'less',
-        'useminPrepare',
-        'concat',
+        // 'less',
+        // 'useminPrepare',
+        // 'concat',
         'copy:build',
-        'cssmin',
-        'uglify',
-        'filerev:build',
-        'usemin',
-        'htmlmin'
+        // 'cssmin',
+        // 'uglify',
+        // 'filerev:build',
+        'htmlbuild'
+        // 'usemin',
+        // 'htmlmin'
     ]);
 
 };
