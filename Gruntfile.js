@@ -10,14 +10,14 @@ module.exports = function (grunt) {
     // Configurable paths for the app
     var appConfig = {
         app: 'app',
-        dist: 'dist'
+        build: 'build'
     };
 
     // Grunt configuration
     grunt.initConfig({
 
         // Project settings
-        inspinia: appConfig,
+        carbon: appConfig,
 
         // The grunt server settings
         connect: {
@@ -25,7 +25,7 @@ module.exports = function (grunt) {
                 options: {
                     port: 9000,
                     open: true,
-                    base: '<%= inspinia.dist %>',
+                    base: '<%= carbon.build %>',
                     livereload: true
                 }
             }
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                 },
             },
             js: {
-                files: ['<%= inspinia.app %>/scripts/{,*/}*.js'],
+                files: ['<%= carbon.app %>/scripts/{,*/}*.js'],
                 options: {
                     livereload: true
                 }
@@ -65,9 +65,9 @@ module.exports = function (grunt) {
                     livereload: true
                 },
                 files: [
-                    '<%= inspinia.app %>/**/*.html',
+                    '<%= carbon.app %>/**/*.html',
                     '.tmp/styles/{,*/}*.css',
-                    '<%= inspinia.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= carbon.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
@@ -81,15 +81,15 @@ module.exports = function (grunt) {
             }
         },
 
-        // Clean dist folder
+        // Clean build folder
         clean: {
-            dist: {
+            build: {
                 files: [{
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= inspinia.dist %>/{,*/}*',
-                        '!<%= inspinia.dist %>/.git*'
+                        '<%= carbon.build %>/{,*/}*',
+                        '!<%= carbon.build %>/.git*'
                     ]
                 }]
             },
@@ -98,13 +98,13 @@ module.exports = function (grunt) {
 
         // Copies remaining files to places other tasks can use
         copy: {
-            dist: {
+            build: {
                 files: [
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= inspinia.app %>',
-                        dest: '<%= inspinia.dist %>',
+                        cwd: '<%= carbon.app %>',
+                        dest: '<%= carbon.build %>',
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
@@ -119,20 +119,20 @@ module.exports = function (grunt) {
                         dot: true,
                         cwd: 'bower_components/fontawesome',
                         src: ['fonts/*.*'],
-                        dest: '<%= inspinia.dist %>'
+                        dest: '<%= carbon.build %>'
                     },
                     {
                         expand: true,
                         dot: true,
                         cwd: 'bower_components/bootstrap',
                         src: ['fonts/*.*'],
-                        dest: '<%= inspinia.dist %>'
+                        dest: '<%= carbon.build %>'
                     },
                 ]
             },
             styles: {
                 expand: true,
-                cwd: '<%= inspinia.app %>/styles',
+                cwd: '<%= carbon.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             }
@@ -140,16 +140,17 @@ module.exports = function (grunt) {
 
         // Renames files for browser caching purposes
         filerev: {
-            dist: {
+            build: {
                 src: [
-                    '<%= inspinia.dist %>/scripts/{,*/}*.js',
-                    '<%= inspinia.dist %>/styles/{,*/}*.css',
-                    '<%= inspinia.dist %>/styles/fonts/*'
+                    '<%= carbon.build %>/scripts/{,*/}*.js',
+                    '<%= carbon.build %>/styles/{,*/}*.css',
+                    '<%= carbon.build %>/styles/fonts/*'
                 ]
             }
         },
+
         htmlmin: {
-            dist: {
+            build: {
                 options: {
                     collapseWhitespace: true,
                     conservativeCollapse: true,
@@ -159,21 +160,24 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= inspinia.dist %>',
+                    cwd: '<%= carbon.build %>',
                     src: ['*.html', 'views/{,*/}*.html'],
-                    dest: '<%= inspinia.dist %>'
+                    dest: '<%= carbon.build %>'
                 }]
             }
         },
+
         useminPrepare: {
             html: 'app/index.html',
             options: {
-                dest: 'dist'
+                dest: 'build'
             }
         },
+
         usemin: {
-            html: ['dist/index.html']
+            html: ['build/index.html']
         }
+
     });
 
     // Run live version of app
@@ -193,11 +197,11 @@ module.exports = function (grunt) {
 
     // Build version for production
     grunt.registerTask('build', [
-        'clean:dist',
+        'clean:build',
         'less',
         'useminPrepare',
         'concat',
-        'copy:dist',
+        'copy:build',
         'cssmin',
         'uglify',
         'filerev',
