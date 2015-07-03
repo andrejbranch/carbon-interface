@@ -5,7 +5,7 @@
     "Damian Dudziak - WebAppLayers"
   ],
   "description": "INSPINIA - Responsive Admin Theme",
-  "main": "app/index.html",
+  "main": "src/index.html",
   "private": true,
   "ignore": [
     "**/.*",

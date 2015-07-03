@@ -9,12 +9,14 @@ module.exports = function (grunt) {
 
     // Configurable paths for the app
     var appConfig = {
-        app: 'app',
+        app: 'src',
         build: 'build'
     };
 
     // Grunt configuration
     grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
 
         // Project settings
         carbon: appConfig,
@@ -39,7 +41,7 @@ module.exports = function (grunt) {
                     optimization: 2
                 },
                 files: {
-                    "app/styles/style.css": "app/less/style.less"
+                    "src/styles/style.css": "src/less/style.less"
                 }
             }
         },
@@ -47,7 +49,7 @@ module.exports = function (grunt) {
         // Watch for changes in live edit
         watch: {
             styles: {
-                files: ['app/less/**/*.less'],
+                files: ['src/less/**/*.less'],
                 tasks: ['less', 'copy:styles'],
                 options: {
                     nospawn: true,
@@ -112,6 +114,7 @@ module.exports = function (grunt) {
                             'views/{,*/}*.html',
                             'styles/patterns/*.*',
                             'img/{,*/}*.*'
+                            // 'scripts/{,*/}*.*'
                         ]
                     },
                     {
@@ -168,7 +171,7 @@ module.exports = function (grunt) {
         },
 
         useminPrepare: {
-            html: 'app/index.html',
+            html: 'src/index.html',
             options: {
                 dest: 'build'
             }
@@ -184,7 +187,7 @@ module.exports = function (grunt) {
     grunt.registerTask('live', [
         'clean:server',
         'copy:styles',
-        'connect:livereload',
+        'connect:dev',
         'watch'
     ]);
 
@@ -204,7 +207,7 @@ module.exports = function (grunt) {
         'copy:build',
         'cssmin',
         'uglify',
-        'filerev',
+        'filerev:build',
         'usemin',
         'htmlmin'
     ]);
