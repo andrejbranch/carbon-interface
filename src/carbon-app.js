@@ -1,9 +1,8 @@
-angular.module('carbonApp', [
+var carbonApp = angular.module('carbonApp', [
     'ui.router',
     'ui.bootstrap',
     'templates',
-    'mainCtrl',
-    'login',
+    'common'
 ]);
 
 angular.module('carbonApp').run(

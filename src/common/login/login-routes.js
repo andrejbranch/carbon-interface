@@ -12,4 +12,6 @@ angular.module('login.routes', [ 'ui.router', 'ui.router.stateHelper'])
             })
         ;
 
-    });
+    }
+
+);

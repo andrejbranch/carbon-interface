@@ -302,6 +302,7 @@ module.exports = function (grunt) {
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                    'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
                 dest: '<%= carbon.build %>/production/carbon.js'
