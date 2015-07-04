@@ -6,7 +6,7 @@
 /**
  * MainCtrl - controller
  */
-function MainCtrl() {
+function MainCtrl($scope) {
 
     this.userName = 'Example user';
     this.helloText = 'Welcome in SeedProject';
@@ -16,5 +16,5 @@ function MainCtrl() {
 
 
 angular
-    .module('inspinia')
+    .module('mainCtrl', [])
     .controller('MainCtrl', MainCtrl)

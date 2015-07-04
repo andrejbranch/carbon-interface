@@ -34,9 +34,9 @@ module.exports = function (grunt) {
             prod: {
                 options: {
                     port: 9001,
-                    open: false,
+                    open: true,
                     base: ['<%= carbon.build %>/production'],
-                    livereload: false
+                    livereload: true
                 }
             }
         },
@@ -48,11 +48,11 @@ module.exports = function (grunt) {
                     compress: true,
                     optimization: 2,
                     modifyVars: {
-                        "fa-font-path": '"../../build/develop/fonts"',
+                        "fa-font-path": '"../../<%= carbon.build %>/develop/fonts"',
                     }
                 },
                 files: {
-                    "src/styles/style.css": "src/less/style.less"
+                    "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             },
             prod: {
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                     optimization: 2,
                 },
                 files: {
-                    "src/styles/style.css": "src/less/style.less"
+                    "<%= carbon.build %>/production/style.css": "<%= carbon.app %>/common/less/style.less"
                 },
             }
         },
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
         // Watch for changes in live edit
         watch: {
             styles: {
-                files: ['src/less/**/*.less'],
+                files: ['<%= carbon.app %>/**/*.less'],
                 tasks: ['less:dev'],
                 options: {
                     nospawn: true,
@@ -77,10 +77,17 @@ module.exports = function (grunt) {
                 },
             },
             js: {
-                files: ['<%= carbon.app %>/scripts/{,*/}*.js'],
+                files: ['<%= carbon.app %>/**/*.js'],
                 options: {
                     livereload: true
                 }
+            },
+            html: {
+                files: ['<%= carbon.app %>/**/*.html'],
+                options: {
+                    livereload: true
+                },
+                tasks: ['html2js:dev']
             },
             livereload: {
                 options: {
@@ -103,9 +110,9 @@ module.exports = function (grunt) {
             },
             prod: {
                 files: {
-                    'build/production/carbon.js': [
-                        'build/production/carbon.js',
-                        'build/production/templates.js'
+                    '<%= carbon.build %>/production/carbon.js': [
+                        '<%= carbon.build %>/production/carbon.js',
+                        '<%= carbon.build %>/production/templates.js'
                     ]
                 }
             }
@@ -148,7 +155,6 @@ module.exports = function (grunt) {
                             '.htaccess',
                             '*.html',
                             'views/{,*/}*.html',
-                            'styles/patterns/*.*',
                             'styles/style.css',
                             'img/{,*/}*.*'
                         ]
@@ -181,7 +187,6 @@ module.exports = function (grunt) {
                             '.htaccess',
                             '*.html',
                             'views/{,*/}*.html',
-                            'styles/patterns/*.*',
                             'styles/style.css',
                             'img/{,*/}*.*'
                         ]
@@ -208,8 +213,8 @@ module.exports = function (grunt) {
         filerev: {
             prod: {
                 src: [
-                    'build/production/*.js',
-                    'build/production/styles/{,*/}*.css',
+                    '<%= carbon.build %>/production/*.js',
+                    '<%= carbon.build %>/production/*.css',
                 ]
             }
         },
@@ -234,12 +239,12 @@ module.exports = function (grunt) {
 
         htmlbuild: {
             dev: {
-                src: 'src/index.html',
-                dest: 'build/develop',
+                src: '<%= carbon.app %>/index.html',
+                dest: '<%= carbon.build %>/develop',
                 options: {
                     styles: {
                         bundle: [
-                            'src/styles/*.css'
+                            '<%= carbon.build %>/develop/*.css'
                         ]
                     },
                     beautify: false,
@@ -255,24 +260,25 @@ module.exports = function (grunt) {
                             'bower_components/angular/angular.min.js',
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                            'build/develop/templates.js',
-                            'src/**/*.js'
+                            'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
+                            '<%= carbon.build %>/develop/templates.js',
+                            '<%= carbon.app %>/**/*.js'
                         ]
                     }
                 }
             },
             prod: {
-                src: 'src/index.html',
-                dest: 'build/production',
+                src: '<%= carbon.app %>/index.html',
+                dest: '<%= carbon.build %>/production',
                 options: {
                     styles: {
                         bundle: [
-                            'build/production/styles/style*.css'
+                            '<%= carbon.build %>/production/*.css'
                         ]
                     },
                     scripts: {
                         bundle: [
-                            'build/production/carbon*.js'
+                            '<%= carbon.build %>/production/carbon*.js'
                         ]
                     }
                 }
@@ -296,9 +302,9 @@ module.exports = function (grunt) {
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                    'build/production/**/*.js'
+                    '<%= carbon.build %>/production/**/*.js'
                 ],
-                dest: 'build/production/carbon.js'
+                dest: '<%= carbon.build %>/production/carbon.js'
             }
         },
 
@@ -318,12 +324,33 @@ module.exports = function (grunt) {
                 module: 'templates'
             },
             dev: {
-                src: ['src/**/*.html'],
-                dest: 'build/develop/templates.js'
+                src: ['<%= carbon.app %>/**/*.html'],
+                dest: '<%= carbon.build %>/develop/templates.js'
             },
             prod: {
                 src: ['src/**/*.html'],
-                dest: 'build/production/templates.js'
+                dest: '<%= carbon.build %>/production/templates.js'
+            }
+        },
+
+        imagemin: {
+            dev: {
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    cwd: '<%= carbon.app %>',
+                    src: ['**/*.{png,jpg,gif,ico,svg}'],
+                    dest: '<%= carbon.build %>/develop/images/'
+                }]
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    cwd: '<%= carbon.app %>',
+                    src: ['**/*.{png,jpg,gif,ico,svg}'],
+                    dest: '<%= carbon.build %>/production/images/'
+                }]
             }
         }
 
@@ -357,7 +384,8 @@ module.exports = function (grunt) {
         'less:dev',
         'copy:dev',
         'html2js:dev',
-        'htmlbuild:dev'
+        'htmlbuild:dev',
+        'imagemin:dev'
     ]);
 
     // Build version for production
@@ -372,7 +400,8 @@ module.exports = function (grunt) {
         'uglify:prod',
         'filerev:prod',
         'htmlbuild:prod',
-        'htmlmin:prod'
+        'htmlmin:prod',
+        'imagemin:prod'
     ]);
 
 };
