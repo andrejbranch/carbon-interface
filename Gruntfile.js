@@ -103,7 +103,10 @@ module.exports = function (grunt) {
             },
             prod: {
                 files: {
-                    'build/production/carbon.js': ['build/production/carbon.js']
+                    'build/production/carbon.js': [
+                        'build/production/carbon.js',
+                        'build/production/templates.js'
+                    ]
                 }
             }
         },
@@ -252,6 +255,7 @@ module.exports = function (grunt) {
                             'bower_components/angular/angular.min.js',
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                            'build/develop/templates.js',
                             'src/**/*.js'
                         ]
                     }
@@ -309,6 +313,20 @@ module.exports = function (grunt) {
             }
         },
 
+        html2js: {
+            options: {
+                module: 'templates'
+            },
+            dev: {
+                src: ['src/**/*.html'],
+                dest: 'build/develop/templates.js'
+            },
+            prod: {
+                src: ['src/**/*.html'],
+                dest: 'build/production/templates.js'
+            }
+        }
+
     });
 
     // Run live version of app
@@ -338,6 +356,7 @@ module.exports = function (grunt) {
         'clean:dev',
         'less:dev',
         'copy:dev',
+        'html2js:dev',
         'htmlbuild:dev'
     ]);
 
@@ -349,6 +368,7 @@ module.exports = function (grunt) {
         'concat:prod',
         'copy:prod',
         // 'cssmin',
+        'html2js:prod',
         'uglify:prod',
         'filerev:prod',
         'htmlbuild:prod',
