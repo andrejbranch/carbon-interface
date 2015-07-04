@@ -27,7 +27,15 @@ module.exports = function (grunt) {
                 options: {
                     port: 9000,
                     open: true,
-                    base: ['', '<%= carbon.build %>', 'bower_components'],
+                    base: ['', '<%= carbon.build %>'],
+                    livereload: true
+                }
+            },
+            prod: {
+                options: {
+                    port: 9001,
+                    open: true,
+                    base: ['<%= carbon.build %>/production'],
                     livereload: true
                 }
             }
@@ -100,7 +108,7 @@ module.exports = function (grunt) {
 
         // Copies remaining files to places other tasks can use
         copy: {
-            build: {
+            dev: {
                 files: [
                     {
                         expand: true,
@@ -113,8 +121,8 @@ module.exports = function (grunt) {
                             '*.html',
                             'views/{,*/}*.html',
                             'styles/patterns/*.*',
+                            'styles/style.css',
                             'img/{,*/}*.*'
-                            // 'scripts/{,*/}*.*'
                         ]
                     },
                     {
@@ -133,21 +141,47 @@ module.exports = function (grunt) {
                     },
                 ]
             },
-            styles: {
-                expand: true,
-                cwd: '<%= carbon.app %>/styles',
-                dest: '.tmp/styles/',
-                src: '{,*/}*.css'
-            }
+            prod: {
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= carbon.app %>',
+                        dest: '<%= carbon.build %>/production',
+                        src: [
+                            '*.{ico,png,txt}',
+                            '.htaccess',
+                            '*.html',
+                            'views/{,*/}*.html',
+                            'styles/patterns/*.*',
+                            'styles/style.css',
+                            'img/{,*/}*.*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: 'bower_components/fontawesome',
+                        src: ['fonts/*.*'],
+                        dest: '<%= carbon.build %>/production'
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: 'bower_components/bootstrap',
+                        src: ['fonts/*.*'],
+                        dest: '<%= carbon.build %>/production/bootstrap'
+                    }
+                ]
+            },
         },
 
         // Renames files for browser caching purposes
         filerev: {
-            build: {
+            prod: {
                 src: [
-                    '<%= carbon.build %>/scripts/{,*/}*.js',
-                    '<%= carbon.build %>/styles/{,*/}*.css',
-                    '<%= carbon.build %>/styles/fonts/*'
+                    'build/production/*.js',
+                    'build/production/styles/{,*/}*.css',
                 ]
             }
         },
@@ -171,18 +205,16 @@ module.exports = function (grunt) {
         },
 
         htmlbuild: {
-            dist: {
+            dev: {
                 src: 'src/index.html',
                 dest: 'build/',
                 options: {
                     styles: {
                         bundle: [
-                            'bower_components/fontawesome/css/font-awesome.min.css',
-                            'bower_components/bootstrap/dist/css/bootstrap.min.css',
                             'src/styles/*.css'
                         ]
                     },
-                    beautify: true,
+                    beautify: false,
                     relative: true,
                     scripts: {
                         bundle: [
@@ -204,6 +236,56 @@ module.exports = function (grunt) {
                         title: "test",
                     }
                 }
+            },
+            prod: {
+                src: 'src/index.html',
+                dest: 'build/production',
+                options: {
+                    styles: {
+                        bundle: [
+                            'build/production/styles/style*.css'
+                        ]
+                    },
+                    scripts: {
+                        bundle: [
+                            'build/production/carbon*.js'
+                        ]
+                    }
+                }
+            }
+
+        },
+
+        concat: {
+            options: {
+                separator: '\n',
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
+            },
+            prod: {
+                src: [
+                    'bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/jquery-ui/jquery-ui.min.js',
+                    'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                    'bower_components/metisMenu/dist/metisMenu.min.js',
+                    'bower_components/slimScroll/jquery.slimscroll.min.js',
+                    'bower_components/PACE/pace.min.js',
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                    'build/production/**/*.js'
+                ],
+                dest: 'build/production/carbon.js'
+            }
+        },
+
+        ngAnnotate: {
+            options: {
+                singleQuotes: true
+            },
+            prod: {
+                files: {
+                    '<%= concat.prod.dest %>': ['src/**/*.js']
+                }
             }
         }
 
@@ -219,23 +301,44 @@ module.exports = function (grunt) {
 
     // Run build version of app
     grunt.registerTask('dev:server', [
-        'build',
+        'build:dev',
         'connect:dev',
         'watch'
     ]);
 
+    // Run build version of app
+    grunt.registerTask('prod:server', [
+        'build:prod',
+        'connect:prod',
+        'watch'
+    ]);
+
     // Build version for production
-    grunt.registerTask('build', [
+    grunt.registerTask('build:dev', [
         'clean:build',
         // 'less',
         // 'useminPrepare',
         // 'concat',
-        'copy:build',
+        'copy:dev',
         // 'cssmin',
         // 'uglify',
         // 'filerev:build',
-        'htmlbuild'
+        'htmlbuild:dev'
         // 'usemin',
+        // 'htmlmin'
+    ]);
+
+    // Build version for production
+    grunt.registerTask('build:prod', [
+        'clean:build',
+        'less',
+        'ngAnnotate:prod',
+        'concat:prod',
+        'copy:prod',
+        // 'cssmin',
+        // 'uglify',
+        'filerev:prod',
+        'htmlbuild:prod'
         // 'htmlmin'
     ]);
 
