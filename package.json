@@ -1,7 +1,11 @@
 {
-  "name": "INSPINIA",
-  "version": "2.2.0",
-  "description": "INSPINIA - Responsive Admin Theme",
+  "name": "Carbon",
+  "version": "0.0.1",
+  "description": "Carbon Interface - Admin themed interface that integrates with carbon API",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:andrejbranch/carbon-interface.git"
+  },
   "dependencies": {
     "connect-livereload": "^0.5.3",
     "grunt": "^0.4.5"
@@ -15,7 +19,7 @@
     "grunt-contrib-copy": "^0.6.0",
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-htmlmin": "^0.3.0",
-    "grunt-contrib-less": "^0.11.4",
+    "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-html-build": "~0.3.2",

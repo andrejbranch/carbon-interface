@@ -26,15 +26,15 @@ module.exports = function (grunt) {
             dev: {
                 options: {
                     port: 9000,
-                    open: true,
-                    base: ['', '<%= carbon.build %>'],
+                    open: false,
+                    base: ['', '<%= carbon.build %>/develop'],
                     livereload: true
                 }
             },
             prod: {
                 options: {
                     port: 9001,
-                    open: true,
+                    open: false,
                     base: ['<%= carbon.build %>/production'],
                     livereload: true
                 }
@@ -43,14 +43,26 @@ module.exports = function (grunt) {
 
         // Compile less to css
         less: {
-            development: {
+            dev: {
                 options: {
                     compress: true,
-                    optimization: 2
+                    optimization: 2,
+                    modifyVars: {
+                        "fa-font-path": '"../../build/develop/fonts"',
+                    }
                 },
                 files: {
                     "src/styles/style.css": "src/less/style.less"
-                }
+                },
+            },
+            prod: {
+                options: {
+                    compress: true,
+                    optimization: 2,
+                },
+                files: {
+                    "src/styles/style.css": "src/less/style.less"
+                },
             }
         },
 
@@ -58,7 +70,7 @@ module.exports = function (grunt) {
         watch: {
             styles: {
                 files: ['src/less/**/*.less'],
-                tasks: ['less', 'copy:styles'],
+                tasks: ['less:dev'],
                 options: {
                     nospawn: true,
                     livereload: true
@@ -93,13 +105,21 @@ module.exports = function (grunt) {
 
         // Clean build folder
         clean: {
-            build: {
+            dev: {
                 files: [{
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= carbon.build %>/{,*/}*',
-                        '!<%= carbon.build %>/.git*'
+                        '<%= carbon.build %>/develop/{,*/}*',
+                    ]
+                }]
+            },
+            prod: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '.tmp',
+                        '<%= carbon.build %>/production/{,*/}*',
                     ]
                 }]
             },
@@ -114,7 +134,7 @@ module.exports = function (grunt) {
                         expand: true,
                         dot: true,
                         cwd: '<%= carbon.app %>',
-                        dest: '<%= carbon.build %>',
+                        dest: '<%= carbon.build %>/develop',
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
@@ -130,14 +150,14 @@ module.exports = function (grunt) {
                         dot: true,
                         cwd: 'bower_components/fontawesome',
                         src: ['fonts/*.*'],
-                        dest: '<%= carbon.build %>'
+                        dest: '<%= carbon.build %>/develop'
                     },
                     {
                         expand: true,
                         dot: true,
                         cwd: 'bower_components/bootstrap',
                         src: ['fonts/*.*'],
-                        dest: '<%= carbon.build %>'
+                        dest: '<%= carbon.build %>/develop'
                     },
                 ]
             },
@@ -187,7 +207,7 @@ module.exports = function (grunt) {
         },
 
         htmlmin: {
-            build: {
+            prod: {
                 options: {
                     collapseWhitespace: true,
                     conservativeCollapse: true,
@@ -197,9 +217,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= carbon.build %>',
+                    cwd: '<%= carbon.build %>/production',
                     src: ['*.html', 'views/{,*/}*.html'],
-                    dest: '<%= carbon.build %>'
+                    dest: '<%= carbon.build %>/production'
                 }]
             }
         },
@@ -207,7 +227,7 @@ module.exports = function (grunt) {
         htmlbuild: {
             dev: {
                 src: 'src/index.html',
-                dest: 'build/',
+                dest: 'build/develop',
                 options: {
                     styles: {
                         bundle: [
@@ -229,11 +249,6 @@ module.exports = function (grunt) {
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                             'src/**/*.js'
                         ]
-                    },
-                    data: {
-                        // Data to pass to templates
-                        version: "0.1.0",
-                        title: "test",
                     }
                 }
             },
@@ -287,7 +302,7 @@ module.exports = function (grunt) {
                     '<%= concat.prod.dest %>': ['src/**/*.js']
                 }
             }
-        }
+        },
 
     });
 
@@ -315,31 +330,24 @@ module.exports = function (grunt) {
 
     // Build version for production
     grunt.registerTask('build:dev', [
-        'clean:build',
-        // 'less',
-        // 'useminPrepare',
-        // 'concat',
+        'clean:dev',
+        'less:dev',
         'copy:dev',
-        // 'cssmin',
-        // 'uglify',
-        // 'filerev:build',
         'htmlbuild:dev'
-        // 'usemin',
-        // 'htmlmin'
     ]);
 
     // Build version for production
     grunt.registerTask('build:prod', [
-        'clean:build',
-        'less',
+        'clean:prod',
+        'less:prod',
         'ngAnnotate:prod',
         'concat:prod',
         'copy:prod',
         // 'cssmin',
-        // 'uglify',
+        'uglify',
         'filerev:prod',
-        'htmlbuild:prod'
-        // 'htmlmin'
+        'htmlbuild:prod',
+        'htmlmin:prod'
     ]);
 
 };
