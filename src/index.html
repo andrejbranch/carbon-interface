@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html ng-app="inspinia">
 
-<head>
+    <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Page title set in pageTitle directive -->
-    <title page-title></title>
+        <!-- Page title set in pageTitle directive -->
+        <title page-title></title>
 
-    <!-- Google Open Sans -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+        <!-- build:style bundle -->
+        <!-- /build -->
 
-    <!-- build:style bundle -->
-    <!-- /build -->
+    </head>
 
-</head>
+    <!-- ControllerAs syntax -->
+    <!-- Main controller -->
+    <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}">
 
-<!-- ControllerAs syntax -->
-<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
-<body ng-controller="MainCtrl as main">
+        <!-- Main view  -->
+        <div ui-view></div>
 
-<!-- Main view  -->
-<div ui-view></div>
+        <!-- build:script bundle -->
+        <!-- /build -->
 
-<!-- build:script bundle -->
-<!-- /build -->
-
-</body>
+    </body>
 </html>

@@ -26,6 +26,11 @@ function config($stateProvider, $urlRouterProvider) {
             templateUrl: "views/minor.html",
             data: { pageTitle: 'Example view' }
         })
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            data: { pageTitle: 'Login', specialClass: 'gray-bg' }
+        })
 }
 angular
     .module('inspinia')

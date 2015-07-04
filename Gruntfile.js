@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                     port: 9001,
                     open: false,
                     base: ['<%= carbon.build %>/production'],
-                    livereload: true
+                    livereload: false
                 }
             }
         },
@@ -100,6 +100,11 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 mangle: false
+            },
+            prod: {
+                files: {
+                    'build/production/carbon.js': ['build/production/carbon.js']
+                }
             }
         },
 
@@ -344,7 +349,7 @@ module.exports = function (grunt) {
         'concat:prod',
         'copy:prod',
         // 'cssmin',
-        'uglify',
+        'uglify:prod',
         'filerev:prod',
         'htmlbuild:prod',
         'htmlmin:prod'
