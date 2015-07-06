@@ -78,6 +78,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['<%= carbon.app %>/**/*.js'],
+                tasks: ['htmlbuild:dev'],
                 options: {
                     livereload: true
                 }
@@ -244,7 +245,9 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
-                            '<%= carbon.build %>/develop/*.css'
+                            'bower_components/angular-toastr/dist/angular-toastr.min.css',
+                            'bower_components/angular-loading-bar/build/loading-bar.min.css',
+                            '<%= carbon.build %>/develop/*.css',
                         ]
                     },
                     beautify: false,
@@ -261,6 +264,12 @@ module.exports = function (grunt) {
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                             'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
+                            'bower_components/ngstorage/ngStorage.min.js',
+                            'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
+                            'bower_components/angular-loading-bar/build/loading-bar.min.js',
+                            'bower_components/ngStorage/ngStorage.min.js',
+                            'bower_components/angular-permission/dist/angular-permission.js',
+                            'bower_components/angular-cookies/angular-cookies.min.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]
@@ -303,6 +312,12 @@ module.exports = function (grunt) {
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
+                    'bower_components/ngstorage/ngStorage.min.js',
+                    'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
+                    'bower_components/angular-loading-bar/build/loading-bar.min.js',
+                    'bower_components/ngStorage/ngStorage.min.js',
+                    'bower_components/angular-permission/dist/angular-permission.js.min.js',
+                    'bower_components/angular-cookies/angular-cookies.min.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
                 dest: '<%= carbon.build %>/production/carbon.js'

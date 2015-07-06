@@ -1,7 +1,27 @@
 angular.module('login.loginCtrl', [])
-    .controller('loginCtrl', ['$scope', '$state',
-        function ($scope, $state) {
-            console.log($state.current.data);
+    .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr',
+        function ($scope, $state, sessionFactory, toastr) {
+
+            $scope.submit = function () {
+
+                sessionFactory.login($scope.username, $scope.password).then(
+
+                    function (response) {
+
+                        $state.go('dashboard.main');
+
+                    },
+
+                    function () {
+
+                        toastr.error('Incorrect username or password. Please try again.');
+
+                    }
+
+                );
+
+            }
+
         }
     ])
 ;

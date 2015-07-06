@@ -2,7 +2,13 @@ var carbonApp = angular.module('carbonApp', [
     'ui.router',
     'ui.bootstrap',
     'templates',
-    'common'
+    'common',
+    'carbonAppDirectives',
+    'ngStorage',
+    'carbonConfig',
+    'toastr',
+    'angular-loading-bar',
+    'permission'
 ]);
 
 angular.module('carbonApp').run(

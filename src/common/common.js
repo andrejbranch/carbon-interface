@@ -1,6 +1,6 @@
-angular.module('common',
-    [
-        'common.commonCtrl',
-        'login'
-    ]
-);
+angular.module('common', [
+    'common.commonCtrl',
+    'login',
+    'dashboard',
+    'session'
+]);

@@ -1,0 +1,20 @@
+angular.module('carbonConfig', ['toastr'])
+
+    .constant('API', {
+        url: 'http://andre.dev.carbon.com'
+    })
+
+    // override toastr configs
+    .config(['toastrConfig', function (toastrConfig) {
+
+        angular.extend(toastrConfig, {
+            closeButton: true,
+            extendedTimeOut: 1000,
+            maxOpened: 0,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            timeOut: 3000,
+        });
+
+    }])
+;
