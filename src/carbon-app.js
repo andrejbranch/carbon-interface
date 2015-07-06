@@ -8,7 +8,8 @@ var carbonApp = angular.module('carbonApp', [
     'carbonConfig',
     'toastr',
     'angular-loading-bar',
-    'permission'
+    'permission',
+    'ngCookies'
 ]);
 
 angular.module('carbonApp').run(

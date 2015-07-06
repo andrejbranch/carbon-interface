@@ -1,7 +1,7 @@
-angular.module('session.sessionFactory', ['ngCookies'])
-    .factory('sessionFactory', ['$http', 'API', '$cookieStore', '$state',
+angular.module('session.sessionFactory', [])
+    .factory('sessionFactory', ['$http', 'API', '$localStorage', '$state',
 
-        function ($http, API, $cookieStore, $state) {
+        function ($http, API, $localStorage, $state) {
 
             var sessionFactory = {
 
@@ -27,7 +27,9 @@ angular.module('session.sessionFactory', ['ngCookies'])
 
                         function (response) {
 
-                            $cookieStore.put('User', response.data);
+                            $localStorage.$default({
+                                User: response.data
+                            });
 
                         },
 
@@ -51,8 +53,7 @@ angular.module('session.sessionFactory', ['ngCookies'])
 
                 isLoggedInUser: function () {
 
-                    console.log($cookieStore.get('User'));
-                    return $cookieStore.get('User');
+                    return $localStorage.User;
 
                 }
             };
