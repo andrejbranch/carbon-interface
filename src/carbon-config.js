@@ -17,4 +17,10 @@ angular.module('carbonConfig', ['toastr'])
         });
 
     }])
+
+    .config(['$urlRouterProvider', function($urlRouterProvider) {
+
+        $urlRouterProvider.otherwise('/login');
+
+    }])
 ;

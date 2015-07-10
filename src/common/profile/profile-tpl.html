@@ -1,0 +1,157 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+
+    <div class="col-lg-12">
+        <h2>Profile</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="dashboard.main">Home</a>
+            </li>
+            <li class="active">
+                <strong>Profile</strong>
+            </li>
+        </ol>
+    </div>
+
+</div>
+
+<div class="row wrapper wrapper-content">
+
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>User Details</h5>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">
+                            Username
+                        </label>
+                        <p class="form-control-static col-lg-10" ng-bind="user.username"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">
+                           Email
+                        </label>
+                        <p class="form-control-static col-lg-10" ng-bind="user.email"></p>
+                    </div>
+                </form>
+            </div>
+            <div class="ibox-footer"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Activity</h5>
+            </div>
+            <div class="ibox-content">
+                 watching model:
+                    <div class="button" ngf-select ng-model="files">Upload using model $watch</div>
+                    <div class="button" ngf-select ngf-change="upload($files)">Upload on file change</div>
+                    Drop File:
+                    <div ngf-drop ng-model="files" class="drop-box"
+                        ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                        ngf-accept="'image/*,application/pdf'">Drop Images or PDFs files here</div>
+                    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+                    Image thumbnail: <img ngf-src="files[0]" ngf-accept="'image/*'">
+
+            </div>
+            <div class="ibox-footer"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Flot Charts</h2>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="profileCtrl as charts">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Bar Chart Example
+                        <small>With custom colors.</small>
+                    </h5>
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart">
+                        <div flot class="flot-chart-content" dataset="charts.flotChartData" options="charts.flotBarOptions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Line Cahrt Example</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="flot-chart">
+                        <div flot class="flot-chart-content" dataset="charts.flotChartData" options="charts.flotLineOptions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Pie Chart Example</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart">
+                        <div flot class="flot-chart-content" dataset="charts.flotPieData" options="charts.flotPieOptions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Line Area</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="flot-chart">
+                        <div flot class="flot-chart-content" dataset="charts.flotLineAreaData" options="charts.flotLineAreaOptions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Multiple Axes Line Chart Example </h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart">
+                        <div flot class="flot-chart-content" dataset="charts.flotMultiData" options="charts.flotMultiOptions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

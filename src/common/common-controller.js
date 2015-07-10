@@ -1,8 +1,13 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', '$localStorage',
+    .controller('commonCtrl', ['$scope', 'sessionFactory',
 
-        function ($scope, sessionFactory, $localStorage) {
+        function ($scope, sessionFactory) {
 
+            this.logout = function () {
+
+                sessionFactory.logout();
+
+            }
 
         }
 

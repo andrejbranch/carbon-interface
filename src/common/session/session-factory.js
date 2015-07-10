@@ -31,12 +31,6 @@ angular.module('session.sessionFactory', [])
                                 User: response.data
                             });
 
-                        },
-
-                        function () {
-
-                            //
-
                         }
 
                     );

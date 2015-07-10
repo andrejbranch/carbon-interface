@@ -3,5 +3,6 @@ angular.module('common', [
     'login',
     'dashboard',
     'session',
-    'navigation'
+    'navigation',
+    'profile'
 ]);

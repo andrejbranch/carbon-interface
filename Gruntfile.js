@@ -247,6 +247,7 @@ module.exports = function (grunt) {
                         bundle: [
                             'bower_components/angular-toastr/dist/angular-toastr.min.css',
                             'bower_components/angular-loading-bar/build/loading-bar.min.css',
+                            'bower_components/animate.css/animate.min.css',
                             '<%= carbon.build %>/develop/*.css',
                         ]
                     },
@@ -270,6 +271,8 @@ module.exports = function (grunt) {
                             'bower_components/ngStorage/ngStorage.min.js',
                             'bower_components/angular-permission/dist/angular-permission.js',
                             'bower_components/angular-cookies/angular-cookies.min.js',
+                            'bower_components/ng-file-upload/ng-file-upload-all.min.js',
+                            'vendor/flot/**.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]
@@ -318,6 +321,7 @@ module.exports = function (grunt) {
                     'bower_components/ngStorage/ngStorage.min.js',
                     'bower_components/angular-permission/dist/angular-permission.js.min.js',
                     'bower_components/angular-cookies/angular-cookies.min.js',
+                    'vendor/flot/**.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
                 dest: '<%= carbon.build %>/production/carbon.js'

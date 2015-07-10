@@ -7,13 +7,16 @@
                     <a class="dropdown-toggle" dropdown-toggle href>
                         <span class="clear">
                             <span class="block m-t-xs">
-                                    <strong class="font-bold">{{userName}}</strong>
-                             </span>
-                            <span class="text-muted text-xs block">profile<b class="caret"></b></span>
+                                <button class="btn btn-primary btn-circle btn-lg btn-outline m-r-xs">
+                                    <i class="fa fa-user"></i>
+                                </button>
+                                <strong class="font-bold">{{userName}}</strong>
+                                <b class="caret"></b>
+                            </span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="">Profile</a></li>
+                        <li><a ui-sref="profile.index">Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
