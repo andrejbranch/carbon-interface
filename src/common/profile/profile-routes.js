@@ -3,25 +3,25 @@ angular.module('profile.routes', [])
 
         stateHelperProvider
             .state({
-                abstract: true,
+                // abstract: true,
                 url: '/profile',
                 name: 'profile',
-                templateUrl: 'common/layout/carbon-layout.html',
-                children: [
-                    {
-                        templateUrl: 'common/profile/profile-tpl.html',
-                        controller: 'profileCtrl',
-                        url: '/index',
-                        name: 'index',
-                        data: {
-                            pageTitle: 'Profile',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            }
-                        },
-                    }
-                ]
+                templateUrl: 'common/profile/profile-tpl.html',
+                // children: [
+                //     {
+                //         templateUrl: 'common/profile/profile-tpl.html',
+                //         controller: 'profileCtrl',
+                //         url: '/index',
+                //         name: 'index',
+                //         data: {
+                //             pageTitle: 'Profile',
+                //             permissions: {
+                //                 except: ['anonymous'],
+                //                 redirectTo: 'login'
+                //             }
+                //         },
+                //     }
+                // ]
             })
         ;
 

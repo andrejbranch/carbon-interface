@@ -245,9 +245,13 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
+                            'bower_components/bootstrap/dist/css/bootstrap.min.css',
                             'bower_components/angular-toastr/dist/angular-toastr.min.css',
                             'bower_components/angular-loading-bar/build/loading-bar.min.css',
                             'bower_components/animate.css/animate.min.css',
+                            'bower_components/metisMenu/dist/metisMenu.min.css',
+                            'bower_components/fontawesome/css/font-awesome.min.css',
+                            '<%= carbon.app %>/common/fonts/**/*.css',
                             '<%= carbon.build %>/develop/*.css',
                         ]
                     },
@@ -260,7 +264,7 @@ module.exports = function (grunt) {
                             'bower_components/bootstrap/dist/js/bootstrap.min.js',
                             'bower_components/metisMenu/dist/metisMenu.min.js',
                             'bower_components/slimScroll/jquery.slimscroll.min.js',
-                            'bower_components/PACE/pace.min.js',
+                            // 'bower_components/PACE/pace.min.js',
                             'bower_components/angular/angular.min.js',
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
@@ -321,7 +325,7 @@ module.exports = function (grunt) {
                     'bower_components/ngStorage/ngStorage.min.js',
                     'bower_components/angular-permission/dist/angular-permission.js.min.js',
                     'bower_components/angular-cookies/angular-cookies.min.js',
-                    'vendor/flot/**.js',
+                    'vendor/**.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
                 dest: '<%= carbon.build %>/production/carbon.js'

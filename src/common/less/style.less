@@ -1,52 +1,60 @@
-/*
- *
- *   INSPINIA - Responsive Admin Theme
- *   version 2.2
- *
-*/
+// Import Google font
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en);
 
-// bootstrap
-@import "../../../bower_components/bootstrap/less/bootstrap.less";
+// Color list
+@color-navy-blue:#1c84c6;
+@color-violet:#9b59b6;
+@color-blue:#23c6c8;
+@color-green:#1ab394;
+@color-yellow:#f8ac59;
+@color-orange:#e67e22;
+@color-red:#ed5565;
+@color-red-deep:#c0392b;
 
-// font awesome
-@import "../../../bower_components/fontawesome/less/font-awesome.less";
+// Additional colors
+@color-text: #6a6c6f;
+@color-bright: #f7f9fa;
+@color-background: #edf0f5;
+@border-color: #e4e5e7;
 
-// Google Fonts
-@import url("http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
+// Additional variables
+@menu-width: 180px;
+@main-transition: all 0.1s ease-out 0s;
 
-// Variables, Mixins
-@import "variables.less";
-@import "mixins.less";
 
-// INSPINIA Theme Elements
-@import "typography.less";
-@import "navigation.less";
-@import "top_navigation.less";
-@import "buttons.less";
-@import "badgets_labels.less";
-@import "elements.less";
-@import "sidebar.less";
-@import "base.less";
-@import "pages.less";
+// Import all styles
+@import "margins.less";
+@import "alerts.less";
+@import "modal.less";
+@import "progress_bar.less";
+@import "login.less";
+@import "timeline.less";
+@import "contact.less";
+@import "calendar.less";
+@import "text_editor.less";
+@import "grid.less";
+@import "dropdown.less";
 @import "chat.less";
-@import "metismenu.less";
-@import "spinners.less";
+@import "buttons.less";
+@import "fonts.less";
+@import "icheck.less";
+@import "layout.less";
+@import "lists.less";
+@import "panels.less";
+@import "tabs.less";
+@import "tooltip.less";
+@import "various.less";
+@import "base.less";
+@import "projects.less";
+@import "social_board.less";
+@import "nestable_list.less";
+@import "tour.less";
+@import "blog.less";
+@import "forum.less";
+@import "wizard.less";
+@import "mailbox.less";
 
-// Landing page styles
+// Styles for landing page
 @import "landing.less";
 
-// RTL Support
-@import "rtl.less";
 
-// For demo only - config box style
-@import "theme-config.less";
-
-// INSPINIA Skins
-@import "skins.less";
-
-// Media query style
-@import "media.less";
-
-// Custom style
-// Your custom style to override base style
-@import "custom.less";
