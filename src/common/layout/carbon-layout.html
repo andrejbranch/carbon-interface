@@ -1,24 +1,20 @@
 <!-- Wrapper-->
-<div id="wrapper">
+<div>
 
     <!-- Navigation -->
     <div ng-include="'common/navigation/navigation-tpl.html'"></div>
+    <div ng-include="'common/views/topnavbar-tpl.html'"></div>
 
-    <!-- Page wraper -->
+    <!-- Page wrapper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
     <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
 
-        <!-- Page wrapper -->
-        <div ng-include="'common/views/topnavbar-tpl.html'"></div>
-
-        <!-- Main view  -->
-        <div ui-view class="animated fadeInDown"></div>
+        <!-- Main Wrapper -->
+        <div id="wrapper" ui-view class="animated fadeInDown"></div>
 
         <!-- Footer -->
-        <div ng-include="'common/views/footer-tpl.html'"></div>
 
     </div>
     <!-- End page wrapper-->
 
 </div>
-<!-- End wrapper-->

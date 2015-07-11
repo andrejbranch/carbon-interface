@@ -8,7 +8,7 @@ angular.module('login.loginCtrl', [])
 
                     function (response) {
 
-                        $state.go('dashboard.main');
+                        $state.go('profile.index');
 
                     },
 

@@ -264,21 +264,20 @@ module.exports = function (grunt) {
                             'bower_components/bootstrap/dist/js/bootstrap.min.js',
                             'bower_components/metisMenu/dist/metisMenu.min.js',
                             'bower_components/slimScroll/jquery.slimscroll.min.js',
-                            // 'bower_components/PACE/pace.min.js',
                             'bower_components/angular/angular.min.js',
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                             'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
                             'bower_components/ngstorage/ngStorage.min.js',
                             'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
-                            'bower_components/angular-loading-bar/build/loading-bar.min.js',
                             'bower_components/ngStorage/ngStorage.min.js',
                             'bower_components/angular-permission/dist/angular-permission.js',
                             'bower_components/angular-cookies/angular-cookies.min.js',
                             'bower_components/ng-file-upload/ng-file-upload-all.min.js',
                             'vendor/flot/**.js',
                             '<%= carbon.build %>/develop/templates.js',
-                            '<%= carbon.app %>/**/*.js'
+                            '<%= carbon.app %>/**/*.js',
+                            'bower_components/angular-loading-bar/build/loading-bar.js'
                         ]
                     }
                 }
@@ -314,7 +313,6 @@ module.exports = function (grunt) {
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'bower_components/metisMenu/dist/metisMenu.min.js',
                     'bower_components/slimScroll/jquery.slimscroll.min.js',
-                    'bower_components/PACE/pace.min.js',
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
