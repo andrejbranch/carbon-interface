@@ -7,10 +7,10 @@
 
     <!-- Page wrapper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+    <div id="page-wrapper" class="{{$state.current.name}}">
 
         <!-- Main Wrapper -->
-        <div id="wrapper" ui-view class="animated fadeInDown"></div>
+        <div id="wrapper" ui-view></div>
 
         <!-- Footer -->
 

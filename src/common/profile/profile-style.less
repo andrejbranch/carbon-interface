@@ -1,18 +1,18 @@
 #profile-container {
     .avatar-container {
         position: relative;
-        &:hover {
-            cursor: pointer;
-            .avatar-edit {
-                display: block;
-            }
-        }
     }
     .avatar {
         position: relative;
         display: table;
         margin-left: auto;
         margin-right: auto;
+        &:hover {
+            cursor: pointer;
+            .avatar-edit {
+                display: block;
+            }
+        }
         .img-circle {
             background: url('images/avatar.jpg');
             width: 100%;
@@ -28,6 +28,8 @@
             background: url('images/avatar-edit.png');
             background-size: 100%;
             max-width: 205px;
+        }
+        .user-info {
         }
     }
 }

@@ -68,7 +68,7 @@ $(document).ready(function () {
     });
 
     // Set minimal height of #wrapper to fit the window
-    fixWrapperHeight();
+    // fixWrapperHeight();
 
     // Sparkline bar chart data and options used under Profile image on left navigation panel
     $("#sparkline1").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 11, 4], {
@@ -105,7 +105,7 @@ $(window).bind("resize click", function () {
 
     // Waint until metsiMenu, collapse and other effect finish and set wrapper height
     setTimeout(function () {
-        fixWrapperHeight();
+        // fixWrapperHeight();
     }, 300);
 })
 
