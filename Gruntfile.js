@@ -52,6 +52,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
+                    "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
                     "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             },

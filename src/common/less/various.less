@@ -116,7 +116,7 @@
 /* Slider */
 #logo {
   float: left;
-  width: @menu-width;
+  width: @sidebar-width;
   background-color: @color-navy-blue;
   padding: 18px 10px 18px 18px;
   height: 56px;
@@ -144,6 +144,10 @@
 .profile-picture {
   padding: 20px 20px;
   text-align: center;
+  color: #D2D5DB;
+  small {
+    color: #D2D5DB;
+  }
 }
 
 .stats-box div {
@@ -178,49 +182,6 @@
   position: absolute;
   right: 18px;
   top: 12px;
-}
-
-/* Menu */
-#side-menu {
-  background: @color-bright;
-}
-
-#side-menu li a {
-  color: @color-text;
-  text-transform: uppercase;
-  font-weight: 700;
-  padding: 15px 20px;
-}
-
-#side-menu li {
-  .border-bottom
-}
-
-#side-menu li:first-child {
-  border-top: 1px solid @border-color;
-}
-
-#side-menu li.active a, #side-menu li:hover a {
-  color: @color-dark-blue;
-}
-
-#side-menu li .nav-second-level li a {
-  padding: 10px 10px 10px 30px;
-  color: @color-text;
-  text-transform: none;
-  font-weight: 600;
-}
-
-#side-menu li .nav-second-level li.active a {
-  color: @color-dark-blue;
-}
-
-#side-menu.nav > li > a:hover, #side-menu.nav > li > a:focus {
-  background: #fff;
-}
-
-#side-menu li.active {
-  background: #fff;
 }
 
 .arrow {
