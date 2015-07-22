@@ -11,7 +11,9 @@ var carbonApp = angular.module('carbonApp', [
     'permission',
     'ngCookies',
     'form',
-    'button'
+    'button',
+    'ngImgCrop',
+    'blueimp.fileupload'
 ]);
 
 angular.module('carbonApp').run(

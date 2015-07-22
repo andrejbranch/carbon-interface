@@ -1,7 +1,8 @@
 angular.module('carbonConfig', ['toastr'])
 
     .constant('API', {
-        url: 'http://andre.dev.carbon.com'
+        url: 'http://andre.dev.carbon.com',
+        apiKeyParam: 'apikey'
     })
 
     // override toastr configs

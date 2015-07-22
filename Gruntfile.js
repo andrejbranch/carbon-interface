@@ -62,7 +62,8 @@ module.exports = function (grunt) {
                     optimization: 2,
                 },
                 files: {
-                    "<%= carbon.build %>/production/style.css": "<%= carbon.app %>/common/less/style.less"
+                    "<%= carbon.build %>/production/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
+                    "<%= carbon.build %>/production/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             }
         },
@@ -206,6 +207,13 @@ module.exports = function (grunt) {
                         cwd: 'bower_components/bootstrap',
                         src: ['fonts/*.*'],
                         dest: '<%= carbon.build %>/production/bootstrap'
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= carbon.app %>/scripts',
+                        src: ['*.js'],
+                        dest: '<%= carbon.build %>/production/scripts'
                     }
                 ]
             },
@@ -246,12 +254,6 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
-                            'bower_components/bootstrap/dist/css/bootstrap.min.css',
-                            'bower_components/angular-toastr/dist/angular-toastr.min.css',
-                            'bower_components/angular-loading-bar/build/loading-bar.min.css',
-                            'bower_components/animate.css/animate.min.css',
-                            'bower_components/metisMenu/dist/metisMenu.min.css',
-                            'bower_components/fontawesome/css/font-awesome.min.css',
                             '<%= carbon.app %>/common/fonts/**/*.css',
                             '<%= carbon.build %>/develop/*.css',
                         ]
@@ -274,11 +276,17 @@ module.exports = function (grunt) {
                             'bower_components/ngStorage/ngStorage.min.js',
                             'bower_components/angular-permission/dist/angular-permission.js',
                             'bower_components/angular-cookies/angular-cookies.min.js',
-                            'bower_components/ng-file-upload/ng-file-upload-all.min.js',
-                            'vendor/flot/**.js',
+                            'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
+                            'bower_components/blueimp-file-upload/js/vendor/*.js',
+                            'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
+                            'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
+                            'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
+                            'bower_components/iCheck/icheck.min.js',
+                            'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
+                            'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
+                            'bower_components/angular-loading-bar/build/loading-bar.js',
                             '<%= carbon.build %>/develop/templates.js',
-                            '<%= carbon.app %>/**/*.js',
-                            'bower_components/angular-loading-bar/build/loading-bar.js'
+                            '<%= carbon.app %>/**/*.js'
                         ]
                     }
                 }
@@ -314,16 +322,24 @@ module.exports = function (grunt) {
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'bower_components/metisMenu/dist/metisMenu.min.js',
                     'bower_components/slimScroll/jquery.slimscroll.min.js',
-                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular/angular.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
                     'bower_components/ngstorage/ngStorage.min.js',
                     'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
-                    'bower_components/angular-loading-bar/build/loading-bar.min.js',
                     'bower_components/ngStorage/ngStorage.min.js',
-                    'bower_components/angular-permission/dist/angular-permission.js.min.js',
+                    'bower_components/angular-permission/dist/angular-permission.js',
                     'bower_components/angular-cookies/angular-cookies.min.js',
+                    'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
+                    'bower_components/blueimp-file-upload/js/vendor/*.js',
+                    'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
+                    'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
+                    'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
+                    'bower_components/iCheck/icheck.min.js',
+                    'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
+                    'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
+                    'bower_components/angular-loading-bar/build/loading-bar.js',
                     'vendor/**.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
@@ -416,10 +432,10 @@ module.exports = function (grunt) {
         'clean:prod',
         'less:prod',
         'ngAnnotate:prod',
+        'html2js:prod',
         'concat:prod',
         'copy:prod',
         // 'cssmin',
-        'html2js:prod',
         'uglify:prod',
         'filerev:prod',
         'htmlbuild:prod',

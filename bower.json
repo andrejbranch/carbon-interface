@@ -34,6 +34,10 @@
     "ng-file-upload": "~5.0.9",
     "bower": "*",
     "install": "~1.0.4",
-    "angular-flot": "~0.0.9"
+    "angular-flot": "~0.0.9",
+    "ngImgCrop": "~0.3.2",
+    "blueimp-file-upload": "~9.10.4",
+    "iCheck": "~1.0.2",
+    "angular-svg-round-progressbar": "~0.2.10"
   }
 }

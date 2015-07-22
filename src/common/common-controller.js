@@ -11,7 +11,6 @@ angular.module('common.commonCtrl', [])
 
             }
 
-
         }
 
     ])

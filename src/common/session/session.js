@@ -1,5 +1,6 @@
 angular.module('session', [
     'session.sessionFactory',
     'session.httpInterceptor',
-    'session.roleDefiner'
+    'session.roleDefiner',
+    'session.authInterceptor'
 ]);

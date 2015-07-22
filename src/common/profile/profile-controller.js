@@ -1,4 +1,4 @@
-angular.module('profile.profileCtrl', ['ngFileUpload', 'angular-flot'])
+angular.module('profile.profileCtrl', [])
     .controller('profileCtrl', ['$scope', '$localStorage', '$modal',
 
         function ($scope, $localStorage, $modal) {
