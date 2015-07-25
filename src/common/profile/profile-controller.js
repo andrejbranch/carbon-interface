@@ -1,9 +1,18 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$localStorage', '$modal',
+    .controller('profileCtrl', ['$scope', '$localStorage', '$modal', 'user', 'API',
 
-        function ($scope, $localStorage, $modal) {
+        function ($scope, $localStorage, $modal, user, API) {
 
-            $scope.user = $localStorage.User;
+            $scope.user = user;
+
+            $scope.hasAvatar = function () {
+                return typeof $scope.user.avatar_attachment !== 'undefined';
+            }
+
+            $scope.avatarSrc = $scope.hasAvatar()
+                ? API.url + '/attachment/' + $scope.user.avatar_attachment.id + '/download'
+                : null
+            ;
 
             $scope.uploadPhoto = function () {
                 $modal.open({

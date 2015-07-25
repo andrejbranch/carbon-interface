@@ -20,6 +20,21 @@ angular.module('profile.routes', [])
                                 redirectTo: 'login'
                             }
                         },
+                        resolve: {
+
+                            user: function (sessionFactory, profileFactory) {
+
+                                if (sessionFactory.isLoggedInUser()) {
+
+                                    return sessionFactory.getLoggedInUser();
+
+                                }
+
+                                return profileFactory.getUser($localStorage.User.id);
+
+                            }
+
+                        }
                     }
                 ]
             })

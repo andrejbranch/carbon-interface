@@ -6,11 +6,11 @@
 
                 <div class="profile-element align-center" dropdown>
                     <a class="block" ui-sref="profile.index">
-                        <img alt="image" class="img-circle" src="images/profile.jpg"/>
+                        <img ng-if="!hasAvatar()" class="img-circle" src="http://andre.dev.carbon.com/attachment/2/download"></img>
                     </a>
                     <a dropdown-toggle href>
-                        <a class="m-t-md font-bold block">David Williams</a>
-                        <a class="block">Art Director</span>
+                        <a class="m-t-md font-bold block">{{main.user.username}}</a>
+                        <a class="block">Software Engineer</span>
                     </a>
                 </div>
                 <div class="logo-element">

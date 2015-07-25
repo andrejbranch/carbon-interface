@@ -47,6 +47,12 @@ angular.module('session.sessionFactory', [])
 
                 isLoggedInUser: function () {
 
+                    return typeof $localStorage.User !== 'undefined';
+
+                },
+
+                getLoggedInUser: function () {
+
                     return $localStorage.User;
 
                 }

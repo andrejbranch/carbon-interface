@@ -10,7 +10,7 @@ angular.module('session.authInterceptor', [])
                     config.headers = config.headers || {};
 
                     if (typeof $localStorage.User !== 'undefined') {
-                        config.headers.apikey = $localStorage.User.apiKey;
+                        config.headers.apikey = $localStorage.User.api_key;
                     }
 
                     return config;

@@ -7,7 +7,7 @@ angular.module('session.httpInterceptor', [])
 
                 request: function(config) {
 
-                    if (!$localStorage.apiKey) {
+                    if (!$localStorage.api) {
 
                         $state = $injector.get('$state');
 

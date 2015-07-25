@@ -1,7 +1,7 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'profileFactory', '$localStorage',
 
-        function ($scope, sessionFactory, navigationInitializer) {
+        function ($scope, sessionFactory, navigationInitializer, $localStorage) {
 
             navigationInitializer.initialize();
 
@@ -11,6 +11,9 @@ angular.module('common.commonCtrl', [])
 
             }
 
+            if (typeof $localStorage.User !== 'undefined') {
+                this.user = $localStorage.User;
+            }
         }
 
     ])

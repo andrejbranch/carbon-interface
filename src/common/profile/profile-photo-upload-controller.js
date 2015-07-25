@@ -48,7 +48,7 @@ angular.module('profile.photoUploadCtrl', ['ngImgCrop', 'angular-svg-round-progr
                     headers: {}
                 };
 
-                options.headers[API.apiKeyParam] = $localStorage.User.apiKey;
+                options.headers[API.apiKeyParam] = $localStorage.User.api_key;
 
                 angular.element('#profile-picture-upload-form')
                     .fileupload('send', options)
