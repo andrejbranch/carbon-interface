@@ -38,8 +38,7 @@
                             <!-- Profile picture -->
                             <div class="avatar-container align-center">
                                 <div class="avatar" ng-click="uploadPhoto()">
-                                    <img ng-if="!hasAvatar()" class="img-circle" src="images/avatar.jpg"></img>
-                                    <img ng-if="hasAvatar()" class="img-circle" ng-src="{{avatarSrc}}"></img>
+                                    <profile-avatar></profile-avatar>
                                     <div class="img-circle avatar-edit animated pulse"></div>
                                 </div>
                             </div>

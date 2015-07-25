@@ -62,9 +62,17 @@ angular.module('session.sessionFactory', [])
                     var url = API.url + '/user?id=' + this.getLoggedInUser().id;
 
                     var promise = $http.get(url).then(function (response) {
+
+                        var apiKey = $localStorage.User.api_key;
+
+                        delete $localStorage.User;
+
                         $localStorage.$default({
-                            User: response.data[0]
+                            User: response.data.data[0]
                         });
+
+                        $localStorage.User.api_key = apiKey;
+
                     });
 
                     return promise;
