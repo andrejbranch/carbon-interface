@@ -55,6 +55,19 @@ angular.module('session.sessionFactory', [])
 
                     return $localStorage.User;
 
+                },
+
+                refreshUser: function () {
+
+                    var url = API.url + '/user?id=' + this.getLoggedInUser().id;
+
+                    var promise = $http.get(url).then(function (response) {
+                        $localStorage.$default({
+                            User: response.data[0]
+                        });
+                    });
+
+                    return promise;
                 }
             };
 

@@ -1,7 +1,7 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'profileFactory', '$localStorage',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer',
 
-        function ($scope, sessionFactory, navigationInitializer, $localStorage) {
+        function ($scope, sessionFactory, navigationInitializer) {
 
             navigationInitializer.initialize();
 
@@ -11,8 +11,10 @@ angular.module('common.commonCtrl', [])
 
             }
 
-            if (typeof $localStorage.User !== 'undefined') {
-                this.user = $localStorage.User;
+            if (sessionFactory.isLoggedInUser()) {
+
+                this.user = sessionFactory.getLoggedInUser();
+
             }
         }
 

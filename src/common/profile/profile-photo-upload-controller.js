@@ -1,7 +1,7 @@
 angular.module('profile.photoUploadCtrl', ['ngImgCrop', 'angular-svg-round-progress'])
-    .controller('photoUploadCtrl', ['$scope', '$modalInstance', 'API', '$localStorage', 'toastr',
+    .controller('photoUploadCtrl', ['$scope', '$modalInstance', 'API', '$localStorage', 'toastr', 'sessionFactory',
 
-        function ($scope, $modalInstance, API, $localStorage, toastr) {
+        function ($scope, $modalInstance, API, $localStorage, toastr, sessionFactory) {
 
             $scope.progress = 0;
             $scope.myImage='';
@@ -60,6 +60,7 @@ angular.module('profile.photoUploadCtrl', ['ngImgCrop', 'angular-svg-round-progr
             };
 
             $scope.onUploadSuccess = function () {
+                sessionFactory.refreshUser();
                 $scope.close();
                 toastr.info('Profile photo uploaded successfully');
             }
