@@ -7,9 +7,14 @@
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
+                <li class="dropdown" ng-if="-1 < main.user.roles.indexOf('ROLE_ADMIN')" ui-sref="admin.index">
+                    <a>
+                        <i class="fa fa-cog"></i>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a ng-click="main.logout()">
-                        <i class="pe-7s-upload pe-rotate-90"></i>
+                        <i class="fa fa-sign-out"></i>
                     </a>
                 </li>
             </ul>

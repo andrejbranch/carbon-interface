@@ -267,7 +267,7 @@ module.exports = function (grunt) {
                             'bower_components/bootstrap/dist/js/bootstrap.min.js',
                             'bower_components/metisMenu/dist/metisMenu.min.js',
                             'bower_components/slimScroll/jquery.slimscroll.min.js',
-                            'bower_components/angular/angular.min.js',
+                            'bower_components/angular/angular.js',
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                             'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
@@ -284,7 +284,10 @@ module.exports = function (grunt) {
                             'bower_components/iCheck/icheck.min.js',
                             'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
                             'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
+                            'bower_components/datatables/media/js/jquery.dataTables.js',
+                            'bower_components/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.js',
                             'bower_components/angular-loading-bar/build/loading-bar.js',
+                            'bower_components/angular-datatables/dist/angular-datatables.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]

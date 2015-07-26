@@ -38,6 +38,10 @@
     "ngImgCrop": "~0.3.2",
     "blueimp-file-upload": "~9.10.4",
     "iCheck": "~1.0.2",
-    "angular-svg-round-progressbar": "~0.2.10"
+    "angular-svg-round-progressbar": "~0.2.10",
+    "angular-datatables": "0.4.3",
+    "datatables": "~1.10.5",
+    "datatables_plugins": "https://github.com/DataTables/Plugins.git#~1.10.5"
+
   }
 }

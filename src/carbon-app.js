@@ -13,7 +13,8 @@ var carbonApp = angular.module('carbonApp', [
     'form',
     'button',
     'ngImgCrop',
-    'blueimp.fileupload'
+    'blueimp.fileupload',
+    'datatables'
 ]);
 
 angular.module('carbonApp').run(

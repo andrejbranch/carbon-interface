@@ -1,7 +1,14 @@
 angular.module('session.authInterceptor', [])
-    .factory('authInterceptor',['$localStorage',
+    .factory('authInterceptor',['$localStorage', 'API',
 
-        function ($localStorage) {
+        function ($localStorage, API) {
+
+            // for all jquery ajax requests
+            $.ajaxSetup({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.api_key);
+                }
+            });
 
             return {
 

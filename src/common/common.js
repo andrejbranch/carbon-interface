@@ -4,5 +4,6 @@ angular.module('common', [
     'dashboard',
     'session',
     'navigation',
-    'profile'
+    'profile',
+    'admin'
 ]);
