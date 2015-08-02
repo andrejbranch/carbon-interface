@@ -12,7 +12,6 @@ angular.module('admin.adminCtrl', [])
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
                 })
-                // or here
                 .withDataProp('data')
                     .withOption('processing', true)
                     .withOption('serverSide', true)
@@ -28,6 +27,8 @@ angular.module('admin.adminCtrl', [])
                         return '<a ui-sref="profile.index">' + data + '</a>';
                     }
                 ),
+                DTColumnBuilder.newColumn('firstName').withTitle('First Name'),
+                DTColumnBuilder.newColumn('lastName').withTitle('Last Name'),
                 DTColumnBuilder.newColumn('email').withTitle('Email'),
                 DTColumnBuilder.newColumn('username').withTitle('Username')
             ];

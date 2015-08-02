@@ -30,6 +30,19 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                             }
 
                         }
+                    },
+                    {
+                        url: '/create-user',
+                        name: 'createUser',
+                        templateUrl: 'common/admin/admin-user-create-tpl.html',
+                        controller: 'userCreateCtrl',
+                        data: {
+                            pageTitle: 'Create User',
+                            permissions: {
+                                except: ['anonymous'],
+                                redirectTo: 'login'
+                            },
+                        }
                     }
                 ]
             })

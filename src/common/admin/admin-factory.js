@@ -14,6 +14,18 @@ angular.module('admin.adminFactory', [])
                     });
 
                     return promise;
+                },
+
+                createUser: function (user) {
+
+                    var url = API.url + '/user';
+
+                    var promise = $http.post(url, user).then(function (response) {
+                        return response.data.data;
+                    });
+
+                    return promise;
+
                 }
 
             };

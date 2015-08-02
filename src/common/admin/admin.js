@@ -1,5 +1,6 @@
 angular.module('admin', [
     'admin.adminCtrl',
     'admin.routes',
-    'admin.adminFactory'
+    'admin.adminFactory',
+    'admin.userCreateCtrl',
 ]);

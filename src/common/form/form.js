@@ -1,3 +1,4 @@
 angular.module('form', [
-    'form.routes'
+    'form.routes',
+    'form.icheckDirective'
 ]);

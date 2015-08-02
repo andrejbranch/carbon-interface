@@ -14,14 +14,14 @@ angular.module('profile.profileAvatarDirective', [])
 
                     $scope.hasAvatar = function () {
 
-                        return typeof $scope.getUser().avatar_attachment !== 'undefined';
+                        return typeof $scope.getUser().avatarAttachment !== 'undefined';
 
                     }
 
                     var setAvatarSrc = function () {
 
                         $scope.avatarSrc = $scope.hasAvatar()
-                            ? API.url + '/attachment/' + $scope.getUser().avatar_attachment.id + '/download'
+                            ? API.url + '/attachment/' + $scope.getUser().avatarAttachment.id + '/download'
                             : null
                         ;
 
@@ -31,7 +31,7 @@ angular.module('profile.profileAvatarDirective', [])
 
                         function () {
 
-                            return sessionFactory.getLoggedInUser().avatar_attachment.id
+                            return sessionFactory.getLoggedInUser().avatarAttachment.id
 
                         },
 

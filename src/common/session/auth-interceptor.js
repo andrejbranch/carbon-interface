@@ -6,7 +6,7 @@ angular.module('session.authInterceptor', [])
             // for all jquery ajax requests
             $.ajaxSetup({
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.api_key);
+                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
                 }
             });
 
@@ -17,7 +17,7 @@ angular.module('session.authInterceptor', [])
                     config.headers = config.headers || {};
 
                     if (typeof $localStorage.User !== 'undefined') {
-                        config.headers.apikey = $localStorage.User.api_key;
+                        config.headers.apikey = $localStorage.User.apiKey;
                     }
 
                     return config;

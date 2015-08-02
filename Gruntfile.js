@@ -288,6 +288,7 @@ module.exports = function (grunt) {
                             'bower_components/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.js',
                             'bower_components/angular-loading-bar/build/loading-bar.js',
                             'bower_components/angular-datatables/dist/angular-datatables.js',
+                            'bower_components/angular-messages/angular-messages.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]
