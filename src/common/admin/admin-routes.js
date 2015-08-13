@@ -27,6 +27,12 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                 return adminFactory.getUsers();
 
+                            },
+
+                            roles: function (adminFactory) {
+
+                                return adminFactory.getRoles();
+
                             }
 
                         }

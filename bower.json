@@ -42,6 +42,7 @@
     "angular-datatables": "0.4.3",
     "datatables": "~1.10.5",
     "datatables_plugins": "https://github.com/DataTables/Plugins.git#~1.10.5",
-    "angular-messages": "~1.4.3"
+    "angular-messages": "~1.4.3",
+    "datatables-responsive": "~1.0.6"
   }
 }

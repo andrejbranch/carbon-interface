@@ -26,7 +26,18 @@ angular.module('admin.adminFactory', [])
 
                     return promise;
 
-                }
+                },
+
+                getRoles: function () {
+
+                    var url = API.url + '/role';
+
+                    var promise = $http.get(url).then(function (response) {
+                        return response.data.data;
+                    });
+
+                    return promise;
+                },
 
             };
 
