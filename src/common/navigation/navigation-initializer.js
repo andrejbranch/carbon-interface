@@ -35,7 +35,7 @@ angular.module('navigation.navigationInitializer', [])
                         $('.animate-panel').animatePanel();
 
                         // Function for collapse hpanel
-                        $('.showhide').click(function (event) {
+                        $('body').on('click', '.showhide', function (event) {
                             event.preventDefault();
                             var hpanel = $(this).closest('div.hpanel');
                             var icon = $(this).find('i:first');
