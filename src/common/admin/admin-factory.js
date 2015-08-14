@@ -7,10 +7,10 @@ angular.module('admin.adminFactory', [])
 
                 getUsers: function () {
 
-                    var url = API.url + '/user';
+                    var url = API.url + '/user?cPerPage=10';
 
                     var promise = $http.get(url).then(function (response) {
-                        return response.data.data;
+                        return response.data;
                     });
 
                     return promise;
@@ -30,10 +30,10 @@ angular.module('admin.adminFactory', [])
 
                 getRoles: function () {
 
-                    var url = API.url + '/role';
+                    var url = API.url + '/role?cPerPage=10';
 
                     var promise = $http.get(url).then(function (response) {
-                        return response.data.data;
+                        return response.data;
                     });
 
                     return promise;

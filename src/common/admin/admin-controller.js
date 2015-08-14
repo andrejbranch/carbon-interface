@@ -1,7 +1,13 @@
 angular.module('admin.adminCtrl', [])
-    .controller('adminCtrl', ['$scope', 'DTOptionsBuilder', 'DTColumnBuilder', 'API', '$compile', 'users', 'roles',
+    .controller('adminCtrl', ['$scope', 'DTOptionsBuilder', 'DTColumnBuilder', 'API', '$compile', 'userRequest', 'roleRequest',
 
-        function ($scope, DTOptionsBuilder, DTColumnBuilder, API, $compile, users, roles) {
+        function ($scope, DTOptionsBuilder, DTColumnBuilder, API, $compile, userRequest, roleRequest) {
+
+            var users = userRequest.data;
+            var userUnpaginatedTotal = userRequest.unpaginatedTotal;
+
+            var roles = roleRequest.data;
+            var roleUnpaginatedTotal = roleRequest.unpaginatedTotal;
 
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withOption('ajax', {
@@ -16,14 +22,8 @@ angular.module('admin.adminCtrl', [])
                     .withOption('processing', true)
                     .withOption('serverSide', true)
                     .withOption('searchDelay', 600)
-                    .withOption('iDeferLoading', 10)
+                    .withOption('iDeferLoading', userUnpaginatedTotal)
                     .withOption('aaData', users)
-                    .withOption('responsive', {
-                        details: {
-                            type: 'column',
-                            target: 'tr'
-                        }
-                    })
                     .withPaginationType('full_numbers')
             ;
 
@@ -52,7 +52,7 @@ angular.module('admin.adminCtrl', [])
                     .withOption('processing', true)
                     .withOption('serverSide', true)
                     .withOption('searchDelay', 600)
-                    .withOption('iDeferLoading', 10)
+                    .withOption('iDeferLoading', roleUnpaginatedTotal)
                     .withOption('aaData', roles)
                     .withOption('responsive', true)
                     .withPaginationType('full_numbers')

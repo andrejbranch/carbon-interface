@@ -23,13 +23,13 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         },
                         resolve: {
 
-                            users: function (adminFactory) {
+                            userRequest: function (adminFactory) {
 
                                 return adminFactory.getUsers();
 
                             },
 
-                            roles: function (adminFactory) {
+                            roleRequest: function (adminFactory) {
 
                                 return adminFactory.getRoles();
 
