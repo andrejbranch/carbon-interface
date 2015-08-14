@@ -1,13 +1,16 @@
 angular.module('admin.adminCtrl', [])
-    .controller('adminCtrl', ['$scope', 'DTOptionsBuilder', 'DTColumnBuilder', 'API', '$compile', 'userRequest', 'roleRequest',
+    .controller('adminCtrl', ['$scope', 'DTOptionsBuilder', 'DTColumnBuilder', 'API', '$compile', 'userRequest', 'roleRequest', 'groupRequest',
 
-        function ($scope, DTOptionsBuilder, DTColumnBuilder, API, $compile, userRequest, roleRequest) {
+        function ($scope, DTOptionsBuilder, DTColumnBuilder, API, $compile, userRequest, roleRequest, groupRequest) {
 
             var users = userRequest.data;
             var userUnpaginatedTotal = userRequest.unpaginatedTotal;
 
             var roles = roleRequest.data;
             var roleUnpaginatedTotal = roleRequest.unpaginatedTotal;
+
+            var groups = groupRequest.data;
+            var groupUnpaginatedTotal = groupRequest.unpaginatedTotal;
 
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withOption('ajax', {
@@ -44,10 +47,6 @@ angular.module('admin.adminCtrl', [])
                     url: API.url + '/role',
                     type: 'GET'
                 })
-                // .withOption('createdRow', function(row, data, dataIndex) {
-                //     // Recompiling so we can bind Angular directive to the DT
-                //     $compile(angular.element(row).contents())($scope);
-                // })
                 .withDataProp('data')
                     .withOption('processing', true)
                     .withOption('serverSide', true)
@@ -61,6 +60,26 @@ angular.module('admin.adminCtrl', [])
             $scope.dtRoleColumns = [
                 DTColumnBuilder.newColumn('id').withTitle('Id'),
                 DTColumnBuilder.newColumn('role').withTitle('Role')
+            ];
+
+            $scope.dtGroupOptions = DTOptionsBuilder.newOptions()
+                .withOption('ajax', {
+                    url: API.url + '/group',
+                    type: 'GET'
+                })
+                .withDataProp('data')
+                    .withOption('processing', true)
+                    .withOption('serverSide', true)
+                    .withOption('searchDelay', 600)
+                    .withOption('iDeferLoading', groupUnpaginatedTotal)
+                    .withOption('aaData', groups)
+                    .withOption('responsive', true)
+                    .withPaginationType('full_numbers')
+            ;
+
+            $scope.dtGroupColumns = [
+                DTColumnBuilder.newColumn('id').withTitle('Id'),
+                DTColumnBuilder.newColumn('name').withTitle('Name')
             ];
 
             $scope.dtInstanceCallback = function (dtInstance) {

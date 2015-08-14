@@ -7,5 +7,6 @@ angular.module('session.roleDefiner', ['permission', 'session.sessionFactory'])
             return !sessionFactory.isLoggedInUser();
 
         });
+
     })
 ;

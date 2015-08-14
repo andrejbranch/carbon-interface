@@ -33,6 +33,12 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                 return adminFactory.getRoles();
 
+                            },
+
+                            groupRequest: function (adminFactory) {
+
+                                return adminFactory.getGroups();
+
                             }
 
                         }

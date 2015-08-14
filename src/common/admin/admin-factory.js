@@ -39,6 +39,17 @@ angular.module('admin.adminFactory', [])
                     return promise;
                 },
 
+                getGroups: function () {
+
+                    var url = API.url + '/group?cPerPage=10';
+
+                    var promise = $http.get(url).then(function (response) {
+                        return response.data;
+                    });
+
+                    return promise;
+                },
+
             };
 
             return adminFactory;
