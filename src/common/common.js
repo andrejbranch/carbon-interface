@@ -5,5 +5,6 @@ angular.module('common', [
     'session',
     'navigation',
     'profile',
-    'admin'
+    'admin',
+    'grid'
 ]);

@@ -74,6 +74,33 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="col-sm-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                    Users
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <grid init-response="userResponse" request-url="/user">
+
+                            <grid-column column="id" title="Id">
+                                <grid-render>
+                                    <a ui-sref="profile.index">{{data.id}}</a>
+                                </grid-render>
+                            </grid-column>
+
+                            <grid-column column="firstName" title="First Name"></grid-column>
+                            <grid-column column="lastName" title="Last Name"></grid-column>
+                            <grid-column column="username" title="Username"></grid-column>
+
+                        </grid>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </div>

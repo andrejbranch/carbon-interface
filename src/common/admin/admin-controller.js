@@ -3,6 +3,8 @@ angular.module('admin.adminCtrl', [])
 
         function ($scope, DTOptionsBuilder, DTColumnBuilder, API, $compile, userRequest, roleRequest, groupRequest) {
 
+            $scope.userResponse = userRequest;
+
             var users = userRequest.data;
             var userUnpaginatedTotal = userRequest.unpaginatedTotal;
 
