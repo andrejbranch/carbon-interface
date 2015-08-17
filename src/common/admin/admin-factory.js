@@ -50,6 +50,17 @@ angular.module('admin.adminFactory', [])
                     return promise;
                 },
 
+                deactivateUser: function (userId) {
+
+                    var url = API.url + '/user?id=' + userId;
+
+                    var promise = $http.delete(url).then(function (response) {
+                        return response.data;
+                    });
+
+                    return promise;
+                },
+
             };
 
             return adminFactory;

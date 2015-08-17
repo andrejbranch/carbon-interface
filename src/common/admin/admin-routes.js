@@ -12,7 +12,7 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/index',
                         name: 'index',
-                        templateUrl: 'common/admin/admin-tpl.html',
+                        templateUrl: 'common/admin/views/admin-tpl.html',
                         controller: 'adminCtrl',
                         data: {
                             pageTitle: 'Administrator',
@@ -46,7 +46,7 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/create-user',
                         name: 'createUser',
-                        templateUrl: 'common/admin/admin-user-create-tpl.html',
+                        templateUrl: 'common/admin/views/admin-user-create-tpl.html',
                         controller: 'userCreateCtrl',
                         data: {
                             pageTitle: 'Create User',

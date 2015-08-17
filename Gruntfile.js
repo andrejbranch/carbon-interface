@@ -52,6 +52,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
+                    "<%= carbon.build %>/develop/grid.css": "<%= carbon.app %>/common/grid/grid-style.less",
                     "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
                     "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
@@ -269,7 +270,7 @@ module.exports = function (grunt) {
                             'bower_components/slimScroll/jquery.slimscroll.min.js',
                             'bower_components/angular/angular.js',
                             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                            'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                            'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
                             'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
                             'bower_components/ngstorage/ngStorage.min.js',
                             'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
@@ -290,6 +291,7 @@ module.exports = function (grunt) {
                             'bower_components/angular-datatables/dist/angular-datatables.js',
                             'bower_components/angular-messages/angular-messages.js',
                             'bower_components/datatables-responsive/js/dataTables.responsive.js',
+                            'bower_components/sweetalert/dist/sweetalert-dev.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]

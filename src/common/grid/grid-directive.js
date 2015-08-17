@@ -1,7 +1,7 @@
 angular.module('grid.gridDirective', [])
-    .directive('grid', ['DTOptionsBuilder', 'DTColumnBuilder', 'API', '$timeout',
+    .directive('grid', ['API', '$http',
 
-        function (DTOptionsBuilder, DTColumnBuilder, API, $timeout) {
+        function (API, $http) {
 
             return {
 
@@ -11,56 +11,83 @@ angular.module('grid.gridDirective', [])
                 scope: {
                     initResponse: '=',
                     requestUrl: '@',
+                    data: '=',
                 },
                 controller: function ($scope, $compile) {
 
-                    $scope.options = DTOptionsBuilder.newOptions()
-                        .withOption('ajax', {
-                            url: API.url + $scope.requestUrl,
-                            type: 'GET'
-                        })
-                        .withOption('createdRow', function(row, data, dataIndex) {
+                    var gridCtrl = this;
 
-                            // Recompiling so we can bind Angular directive to the DT
-                            (function () {
+                    this.columns = [];
+                    this.sortColumn = null;
+                    this.sortDir = null;
 
-                                var newScope = $scope.$new();
+                    this.addColumn = function (column) {
 
-                                newScope.data = data;
-
-                                $compile(angular.element(row).contents())(newScope);
-
-                                $timeout(function () {
-
-                                    newScope.$apply();
-
-                                });
-
-                            })();
-
-                        })
-                        .withDataProp('data')
-                            .withOption('processing', true)
-                            .withOption('serverSide', true)
-                            .withOption('searchDelay', 600)
-                            .withOption('iDeferLoading', $scope.initResponse.unpaginatedTotal)
-                            .withOption('aaData', $scope.initResponse.data)
-                            .withPaginationType('full_numbers')
-                    ;
-
-                    $scope.columns = this.columns = [];
-
-                    $scope.dtInstanceCallback = function (dtInstance) {
-
-                        new jQuery.fn.dataTable.Responsive(dtInstance.dataTable, {
-                            details: {
-                                type: 'column',
-                                target: 'tr'
-                            }
-                        });
+                        this.columns.push(column);
 
                     };
 
+                    this.setSortColumn = function (column, direction) {
+
+                        this.sortColumn = column;
+                        this.sortDir = direction;
+
+                        // let other child grid headers know to remove sorting classes
+                        $scope.$broadcast('grid.sort', column, direction);
+
+                        this.refresh();
+                    };
+
+                    this.setPagination = function (response) {
+
+                        this.pagination = {
+                            hasNextPage: response.hasNextPage,
+                            page: response.page,
+                            paginatedTotal: response.paginatedTotal,
+                            perPage: response.perPage,
+                            unpaginatedTotal: response.unpaginatedTotal,
+                        };
+
+                    };
+
+                    this.setPage = function (page) {
+
+                        this.page = page;
+
+                    };
+
+                    this.refresh = function () {
+
+                        params = [];
+
+                        if (this.sortColumn.name) {
+
+                            params.push('cOrderBy=' + this.sortColumn.name);
+
+                        }
+
+                        if (this.sortDir) {
+
+                            params.push('cOrderByDirection=' + this.sortDir);
+
+                        }
+
+                        params.push('cPage=' + this.page);
+                        params.push('cPerPage=' + 10);
+
+                        $http.get(API.url + $scope.requestUrl + '?' + params.join('&')).then(function (response) {
+
+                            $scope.data = response.data.data;
+
+                            gridCtrl.setPagination(response.data);
+
+                            $scope.$broadcast('grid.refresh');
+
+                        });
+
+                    }
+
+                    this.setPagination($scope.initResponse);
                 }
 
             };

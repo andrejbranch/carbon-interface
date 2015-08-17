@@ -1,5 +1,8 @@
 angular.module('grid', [
     'grid.gridDirective',
     'grid.gridColumnDirective',
-    'grid.gridRenderDirective'
+    'grid.gridRenderDirective',
+    'grid.gridHeaderDirective',
+    'grid.gridRowDirective',
+    'grid.gridPaginationDirective'
 ]);

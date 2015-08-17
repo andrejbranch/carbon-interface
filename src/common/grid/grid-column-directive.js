@@ -1,24 +1,17 @@
 angular.module('grid.gridColumnDirective', [])
-    .directive('gridColumn', ['DTOptionsBuilder', 'DTColumnBuilder', 'API',
+    .directive('gridColumn', [
 
-        function (DTOptionsBuilder, DTColumnBuilder, API) {
+        function () {
 
             return {
 
-                require: '^grid',
-                restrict: 'E',
+                restrict: 'A',
+                transclude: true,
+                template: '<td ng-transclude></td>',
                 scope: {
-                    column: '@',
-                    title: '@',
+                    name: '@'
                 },
-                controller: function ($scope) {
-
-                    $scope.column = this.column = DTColumnBuilder.newColumn($scope.column).withTitle($scope.title);
-
-                },
-                link: function ($scope, element, attrs, gridCtrl) {
-
-                    gridCtrl.columns.push($scope.column);
+                link: function ($scope, element, attrs) {
 
                 }
 
