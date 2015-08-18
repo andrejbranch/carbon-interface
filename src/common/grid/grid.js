@@ -4,5 +4,6 @@ angular.module('grid', [
     'grid.gridRenderDirective',
     'grid.gridHeaderDirective',
     'grid.gridRowDirective',
-    'grid.gridPaginationDirective'
+    'grid.gridPaginationDirective',
+    'grid.gridPaginationTopDirective'
 ]);

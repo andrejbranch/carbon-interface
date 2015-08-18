@@ -33,6 +33,9 @@
                     <div class="panel-body">
                         <div>
                             <grid request-url="/user" init-response="userResponse" data="users">
+
+                                <grid-pagination-top></grid-pagination-top>
+
                                 <table class="table table-striped table-bordered table-hover dataTable">
                                     <thead>
                                         <th grid-header name="id">Id</th>
@@ -64,23 +67,7 @@
                                 </table>
 
                                 <div class="row m-t-sm">
-                                    <grid-pagination>
-                                        <div class="col-sm-6">
-                                            Showing {{startIndex}} to {{stopIndex}} of {{unpaginatedTotal}} entries
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <pagination
-                                                total-items="unpaginatedTotal"
-                                                ng-model="model.page"
-                                                max-size="5"
-                                                class="pagination-sm pull-right no-margin m-n"
-                                                boundary-links="true"
-                                                ng-change="onPageChange()"
-                                            >
-                                            </pagination>
-                                        </div>
-
-                                    </grid-pagination>
+                                    <grid-pagination></grid-pagination>
                                 </div>
 
                             </grid>

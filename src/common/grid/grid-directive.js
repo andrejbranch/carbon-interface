@@ -56,11 +56,23 @@ angular.module('grid.gridDirective', [])
 
                     };
 
+                    this.setPerPage = function (perPage) {
+
+                        this.perPage = perPage;
+
+                    };
+
+                    this.setSearch = function (search) {
+
+                        this.search = search;
+
+                    };
+
                     this.refresh = function () {
 
                         params = [];
 
-                        if (this.sortColumn.name) {
+                        if (this.sortColumn && this.sortColumn.name) {
 
                             params.push('cOrderBy=' + this.sortColumn.name);
 
@@ -72,8 +84,16 @@ angular.module('grid.gridDirective', [])
 
                         }
 
+                        if (this.search) {
+
+                            console.log(this.search);
+
+                            params.push('cSearch=' + this.search);
+
+                        }
+
                         params.push('cPage=' + this.page);
-                        params.push('cPerPage=' + 10);
+                        params.push('cPerPage=' + this.perPage);
 
                         $http.get(API.url + $scope.requestUrl + '?' + params.join('&')).then(function (response) {
 

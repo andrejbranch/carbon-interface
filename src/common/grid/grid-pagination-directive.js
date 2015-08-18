@@ -8,7 +8,7 @@ angular.module('grid.gridPaginationDirective', [])
                 require: '^grid',
                 restrict: 'E',
                 transclude: true,
-                template: '<ng-transclude></ng-transclude>',
+                templateUrl: 'common/grid/views/grid-pagination-tpl.html',
                 link: function (scope, element, attrs, gridCtrl) {
 
 
@@ -27,6 +27,8 @@ angular.module('grid.gridPaginationDirective', [])
                         scope.model =  {
                             page: scope.page
                         };
+
+                        scope.perPage = gridCtrl.perPage;
 
                         // set the current page
                         gridCtrl.setPage(scope.model.page);
