@@ -15,7 +15,8 @@ var carbonApp = angular.module('carbonApp', [
     'ngImgCrop',
     'blueimp.fileupload',
     'datatables',
-    'ngMessages'
+    'ngMessages',
+    'project'
 ]);
 
 angular.module('carbonApp').run(
