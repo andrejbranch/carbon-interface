@@ -1,7 +1,7 @@
 angular.module('admin.adminCtrl', [])
-    .controller('adminCtrl', ['$scope', 'userRequest', 'roleRequest', 'groupRequest', '$modal', 'adminFactory', 'sessionFactory', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'API', 'DTColumnBuilder',
+    .controller('adminCtrl', ['$scope', 'userRequest', 'roleRequest', 'groupRequest', '$modal', 'adminFactory', 'sessionFactory', 'API',
 
-        function ($scope, userRequest, roleRequest, groupRequest, $modal, adminFactory, sessionFactory, DTOptionsBuilder, DTColumnDefBuilder, API, DTColumnBuilder) {
+        function ($scope, userRequest, roleRequest, groupRequest, $modal, adminFactory, sessionFactory, API) {
 
             $scope.userResponse = userRequest;
             $scope.roleResponse = roleRequest;

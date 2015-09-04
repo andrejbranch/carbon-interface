@@ -8,7 +8,6 @@ var carbonApp = angular.module('carbonApp', [
     'carbonConfig',
     'toastr',
     'angular-loading-bar',
-    'permission',
     'ngCookies',
     'form',
     'button',
@@ -16,7 +15,8 @@ var carbonApp = angular.module('carbonApp', [
     'blueimp.fileupload',
     'datatables',
     'ngMessages',
-    'project'
+    'project',
+    'storage'
 ]);
 
 angular.module('carbonApp').run(

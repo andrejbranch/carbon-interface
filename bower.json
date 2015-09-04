@@ -28,7 +28,6 @@
     "ngstorage": "~0.3.7",
     "angular-toastr": "~1.4.1",
     "angular-loading-bar": "~0.8.0",
-    "angular-permission": "~0.3.0",
     "angular-cookies": "~1.4.2",
     "animate.css": "~3.3.0",
     "ng-file-upload": "~5.0.9",
