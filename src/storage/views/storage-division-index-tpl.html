@@ -1,0 +1,59 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                        <li><a ui-sref="storage.index">Storage</a></li>
+                        <li class="active">
+                            <span>Division {{division.id}} - {{division.title}}</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Division {{division.id}} - {{division.title}}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-sm-12" ng-if="!division.hasDimension">
+                <button class="btn btn-primary">
+                    <i class="fa fa-plus"/> Division
+                </button>
+            </div>
+        </div>
+
+        <div class="row" ng-if="!division.hasDimension">
+            <div class="col-sm-3" ng-repeat="division in children" ui-sref="storage.division({id:division.id})">
+                <div class="hpanel selectable">
+                    <div class="panel-heading hbuilt">
+                        <i class="fa fa-th"/>
+                        {{division.title}}
+                        <div class="panel-tools"></div>
+                    </div>
+                    <div class="panel-body">
+                        {{division.title}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-3">
+                    <div ui-view="navigation"></div>
+                </div>
+                <div class="col-sm-9">
+                    <div ui-view="division"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

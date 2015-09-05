@@ -7,9 +7,17 @@ angular.module('storage.storageFactory', [])
 
                 getParentDivisions: function () {
 
-                    var url = API.url + '/division?parentId=null';
+                    console.log(1);
+                    var req = {
+                        method: 'GET',
+                        url: API.url + '/division?parentId=null',
+                        headers: {
+                            'X-CARBON-SERIALIZATION-GROUPS': 'children'
+                        }
 
-                    var promise = $http.get(url).then(function (response) {
+                    };
+
+                    var promise = $http(req).then(function (response) {
                         return response.data;
                     });
 

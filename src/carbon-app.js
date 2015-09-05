@@ -16,7 +16,8 @@ var carbonApp = angular.module('carbonApp', [
     'datatables',
     'ngMessages',
     'project',
-    'storage'
+    'storage',
+    'treeControl'
 ]);
 
 angular.module('carbonApp').run(

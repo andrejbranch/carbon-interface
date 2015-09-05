@@ -7,53 +7,69 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 abstract: true,
                 url: '/administrator',
                 name: 'admin',
-                templateUrl: 'common/layout/carbon-layout.html',
+                views: {
+                    content: {
+                        templateUrl: 'common/layout/carbon-layout.html',
+                    }
+                },
                 children: [
                     {
                         url: '/index',
                         name: 'index',
-                        templateUrl: 'common/admin/views/admin-tpl.html',
-                        controller: 'adminCtrl',
-                        data: {
-                            pageTitle: 'Administrator',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            },
-                        },
-                        resolve: {
+                        views: {
+                            content: {
 
-                            userRequest: function (adminFactory) {
+                                templateUrl: 'common/admin/views/admin-tpl.html',
+                                controller: 'adminCtrl',
+                                data: {
+                                    pageTitle: 'Administrator',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    },
+                                },
+                                resolve: {
 
-                                return adminFactory.getUsers();
+                                    userRequest: function (adminFactory) {
 
-                            },
+                                        return adminFactory.getUsers();
 
-                            roleRequest: function (adminFactory) {
+                                    },
 
-                                return adminFactory.getRoles();
+                                    roleRequest: function (adminFactory) {
 
-                            },
+                                        return adminFactory.getRoles();
 
-                            groupRequest: function (adminFactory) {
+                                    },
 
-                                return adminFactory.getGroups();
+                                    groupRequest: function (adminFactory) {
+
+                                        return adminFactory.getGroups();
+
+                                    }
+
+                                }
 
                             }
-
                         }
                     },
                     {
                         url: '/create-user',
                         name: 'createUser',
-                        templateUrl: 'common/admin/views/admin-user-create-tpl.html',
-                        controller: 'userCreateCtrl',
-                        data: {
-                            pageTitle: 'Create User',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-user-create-tpl.html',
+                                controller: 'userCreateCtrl',
+                                data: {
+                                    pageTitle: 'Create User',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    },
+                                }
+
+                            }
                         }
                     }
                 ]

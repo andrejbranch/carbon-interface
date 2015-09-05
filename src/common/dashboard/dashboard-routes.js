@@ -7,19 +7,29 @@ angular.module('dashboard.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 abstract: true,
                 url: '/index',
                 name: 'dashboard',
-                templateUrl: 'common/layout/carbon-layout.html',
+                views: {
+                    content: {
+                        templateUrl: 'common/layout/carbon-layout.html',
+                    }
+                },
                 children: [
                     {
                         url: '/main',
                         name: 'main',
-                        templateUrl: 'common/dashboard/dashboard-tpl.html',
-                        controller: 'dashboardCtrl',
-                        data: {
-                            pageTitle: 'Example view',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/dashboard/dashboard-tpl.html',
+                                controller: 'dashboardCtrl',
+                                data: {
+                                    pageTitle: 'Example view',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    },
+                                }
+
+                            }
                         }
                     }
                 ]

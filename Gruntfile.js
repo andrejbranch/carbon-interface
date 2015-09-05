@@ -54,6 +54,7 @@ module.exports = function (grunt) {
                 files: {
                     "<%= carbon.build %>/develop/grid.css": "<%= carbon.app %>/common/grid/grid-style.less",
                     "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
+                    "<%= carbon.build %>/develop/storage.css": "<%= carbon.app %>/storage/storage-styles.less",
                     "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             },
@@ -291,6 +292,7 @@ module.exports = function (grunt) {
                             'bower_components/angular-messages/angular-messages.js',
                             'bower_components/datatables-responsive/js/dataTables.responsive.js',
                             'bower_components/sweetalert/dist/sweetalert-dev.js',
+                            'bower_components/angular-tree-control/angular-tree-control.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]
@@ -346,6 +348,7 @@ module.exports = function (grunt) {
                     'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
                     'bower_components/angular-loading-bar/build/loading-bar.js',
                     'bower_components/datatables-responsive/js/dataTables.responsive.js',
+                    'bower_components/angular-tree-control/angular-tree-control.js',
                     'vendor/**.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],

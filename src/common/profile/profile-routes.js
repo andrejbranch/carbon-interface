@@ -6,34 +6,44 @@ angular.module('profile.routes', [])
                 abstract: true,
                 url: '/profile',
                 name: 'profile',
-                templateUrl: 'common/layout/carbon-layout.html',
+                views: {
+                    content: {
+                        templateUrl: 'common/layout/carbon-layout.html',
+                    }
+                },
                 children: [
                     {
-                        templateUrl: 'common/profile/profile-tpl.html',
-                        controller: 'profileCtrl',
                         url: '/index',
                         name: 'index',
-                        data: {
-                            pageTitle: 'Profile',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            }
-                        },
-                        resolve: {
+                        views: {
+                            content: {
 
-                            user: function (sessionFactory, profileFactory) {
+                                templateUrl: 'common/profile/profile-tpl.html',
+                                controller: 'profileCtrl',
+                                data: {
+                                    pageTitle: 'Profile',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    }
+                                },
+                                resolve: {
 
-                                if (sessionFactory.isLoggedInUser()) {
+                                    user: function (sessionFactory, profileFactory) {
 
-                                    return sessionFactory.getLoggedInUser();
+                                        if (sessionFactory.isLoggedInUser()) {
+
+                                            return sessionFactory.getLoggedInUser();
+
+                                        }
+
+                                        return profileFactory.getUser($localStorage.User.id);
+
+                                    }
 
                                 }
 
-                                return profileFactory.getUser($localStorage.User.id);
-
                             }
-
                         }
                     }
                 ]

@@ -7,65 +7,98 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 abstract: true,
                 url: '/storage',
                 name: 'storage',
-                templateUrl: 'common/layout/carbon-layout.html',
+                views: {
+                    content: {
+                        templateUrl: 'common/layout/carbon-layout.html',
+                    }
+                },
                 children: [
                     {
                         url: '/index',
                         name: 'index',
-                        templateUrl: 'storage/views/storage-index-tpl.html',
-                        controller: 'storageIndexCtrl',
-                        data: {
-                            pageTitle: 'Storage',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            },
-                        },
-                        resolve: {
+                        views: {
+                            content: {
+                                templateUrl: 'storage/views/storage-index-tpl.html',
+                                controller: 'storageIndexCtrl',
+                                data: {
+                                    pageTitle: 'Storage',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    },
+                                },
+                                resolve: {
 
-                            divisionResponse: function (storageFactory) {
+                                    divisionResponse: function (storageFactory) {
 
-                                return storageFactory.getParentDivisions();
+                                        return storageFactory.getParentDivisions();
 
+                                    }
+
+                                }
                             }
-
                         }
                     },
                     {
                         url: '/division/:id',
                         name: 'division',
-                        templateUrl: 'storage/views/storage-division-tpl.html',
-                        controller: 'storageDivisionCtrl',
                         data: {
                             permissions: {
                                 except: ['anonymous'],
                                 redirectTo: 'login'
                             }
                         },
-                        resolve: {
+                        views: {
+                            'content': {
+                                templateUrl: 'storage/views/storage-division-index-tpl.html',
+                                controller: 'storageDivisionCtrl',
+                                resolve: {
 
-                            division: function (storageFactory, $stateParams) {
+                                    division: function (storageFactory, $stateParams) {
 
-                                this.data.pageTitle = 'Storage Division ' + $stateParams.id;
+                                        this.data.pageTitle = 'Storage Division ' + $stateParams.id;
 
-                                return storageFactory.getDivision($stateParams.id).then(
+                                        return storageFactory.getDivision($stateParams.id).then(
 
-                                    function(response) {
+                                            function(response) {
 
-                                        return response.data[0];
+                                                return response.data[0];
+                                            }
+
+                                        );
+
+                                    },
+
+                                    childrenResponse: function (storageFactory, $stateParams) {
+
+                                        return storageFactory.getDivisionChildren($stateParams.id);
+
                                     }
 
-                                );
+                                }
+                            },
+                            'navigation@storage.division': {
+
+                                templateUrl: 'storage/views/storage-navigation-tpl.html',
+                                controller: 'storageNavigationCtrl',
+                                resolve: {
+
+                                    divisionResponse: function (storageFactory) {
+
+                                        return storageFactory.getParentDivisions();
+
+                                    }
+
+                                }
 
                             },
+                            'division@storage.division': {
 
-                            childrenResponse: function (storageFactory, $stateParams) {
-
-                                return storageFactory.getDivisionChildren($stateParams.id);
+                                templateUrl: 'storage/views/storage-division-tpl.html',
 
                             }
-
                         }
+
                     }
                 ]
             })

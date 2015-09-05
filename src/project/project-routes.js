@@ -7,28 +7,38 @@ angular.module('project.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 abstract: true,
                 url: '/project',
                 name: 'project',
-                templateUrl: 'common/layout/carbon-layout.html',
+                views: {
+                    content: {
+                        templateUrl: 'common/layout/carbon-layout.html',
+                    }
+                },
                 children: [
                     {
                         url: '/index',
                         name: 'index',
-                        templateUrl: 'project/views/project-index-tpl.html',
-                        controller: 'projectIndexCtrl',
-                        data: {
-                            pageTitle: 'Projects',
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            },
-                        },
-                        resolve: {
+                        views: {
+                            content: {
 
-                            projectResponse: function (projectFactory) {
+                                templateUrl: 'project/views/project-index-tpl.html',
+                                controller: 'projectIndexCtrl',
+                                data: {
+                                    pageTitle: 'Projects',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    },
+                                },
+                                resolve: {
 
-                                return projectFactory.getProjects();
+                                    projectResponse: function (projectFactory) {
 
-                            },
+                                        return projectFactory.getProjects();
 
+                                    },
+
+                                }
+
+                            }
                         }
                     }
                 ]
