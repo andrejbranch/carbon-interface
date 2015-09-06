@@ -1,3 +1,19 @@
+<div class="row" ng-if="!division.hasDimension">
+    <div class="col-sm-3" ng-repeat="division in children" ui-sref="storage.division({id:division.id})">
+        <div class="hpanel selectable">
+            <div class="panel-heading hbuilt">
+                <i class="fa fa-th"/>
+                {{division.title}}
+                <div class="panel-tools"></div>
+            </div>
+            <div class="panel-body">
+                {{division.title}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="row" ng-if="division.hasDimension">
     <div class="col-sm-12">
 
@@ -33,10 +49,11 @@
                         ng-repeat="cell in [1,2,3,4,5,6,7,8,9,10]"
                     >
                         <div
-                            class="circle"
-                            ng-class="{'has-sample':samples[row][cell]}"
+                            class="has-sample"
+                            ng-if="samples[row][cell]"
                         >
                         </div>
+                        <div ng-if="!samples[row][cell]" class="circle"></div>
                     </td>
                 </tr>
             </tbody>

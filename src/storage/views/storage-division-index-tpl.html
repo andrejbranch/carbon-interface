@@ -29,21 +29,6 @@
             </div>
         </div>
 
-        <div class="row" ng-if="!division.hasDimension">
-            <div class="col-sm-3" ng-repeat="division in children" ui-sref="storage.division({id:division.id})">
-                <div class="hpanel selectable">
-                    <div class="panel-heading hbuilt">
-                        <i class="fa fa-th"/>
-                        {{division.title}}
-                        <div class="panel-tools"></div>
-                    </div>
-                    <div class="panel-body">
-                        {{division.title}}
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-sm-3">
                 <div ui-view="navigation" class="navigation"></div>
