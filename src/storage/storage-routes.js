@@ -87,6 +87,19 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return storageFactory.getParentDivisions();
 
+                                    },
+
+                                    division: function (storageFactory, $stateParams) {
+
+                                        return storageFactory.getDivision($stateParams.id).then(
+
+                                            function(response) {
+
+                                                return response.data[0];
+                                            }
+
+                                        );
+
                                     }
 
                                 }
