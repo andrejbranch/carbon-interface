@@ -2,10 +2,37 @@
     <div class="col-sm-12">
 
         <table id="division-table">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td
+                        ng-class-odd="'odd'"
+                        ng-class-even="'even'"
+                        ng-repeat="number in [1,2,3,4,5,6,7,8,9,10]"
+                    >
+                        {{number}}
+                    </td>
+                </tr>
+            </thead>
             <tbody>
-                <tr ng-repeat="row in [1,2,3,4,5,6,7,8,9,10]">
-                    <td ng-repeat="cell in [1,2,3,4,5,6,7,8,9,10]">
-                        {{"Row " + row + " cell " + cell}}
+                <tr
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    ng-repeat="row in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']"
+                >
+                    <td
+                        class="row-head"
+                        ng-class-odd="'odd'"
+                        ng-class-even="'even'"
+                    >
+                       {{row}}
+                    </td>
+                    <td
+                        ng-class-odd="'odd'"
+                        ng-class-even="'even'"
+                        ng-repeat="cell in [1,2,3,4,5,6,7,8,9,10]"
+                    >
+                        <div class="circle"></div>
                     </td>
                 </tr>
             </tbody>
