@@ -29,7 +29,7 @@ angular.module('storage.storageFactory', [])
                         method: 'GET',
                         url: API.url + '/division?id=' + divisionId,
                         headers: {
-                            'X-CARBON-SERIALIZATION-GROUPS': 'parent'
+                            'X-CARBON-SERIALIZATION-GROUPS': 'parent,samples'
                         }
 
                     };
@@ -50,8 +50,19 @@ angular.module('storage.storageFactory', [])
                     });
 
                     return promise;
-                }
+                },
 
+                getDivisionSamples: function (divisionId) {
+
+                    var url = API.url + '/sample?divisionId=' + divisionId;
+
+                    var promise = $http.get(url).then(function (response) {
+                        return response.data;
+                    });
+
+                    return promise;
+
+                }
             }
 
             return storageFactory;

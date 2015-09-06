@@ -25,14 +25,18 @@
                         ng-class-odd="'odd'"
                         ng-class-even="'even'"
                     >
-                       {{row}}
+                        {{row}}
                     </td>
                     <td
                         ng-class-odd="'odd'"
                         ng-class-even="'even'"
                         ng-repeat="cell in [1,2,3,4,5,6,7,8,9,10]"
                     >
-                        <div class="circle"></div>
+                        <div
+                            class="circle"
+                            ng-class="{'has-sample':samples[row][cell]}"
+                        >
+                        </div>
                     </td>
                 </tr>
             </tbody>
