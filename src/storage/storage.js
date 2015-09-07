@@ -3,5 +3,7 @@ angular.module('storage', [
     'storage.storageIndexCtrl',
     'storage.storageDivisionCtrl',
     'storage.storageNavigationCtrl',
+    'storage.storageBoxDirective',
+    'storage.storageBoxHeading',
     'storage.routes'
 ]);

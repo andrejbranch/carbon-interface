@@ -15,9 +15,17 @@
 
 
 <div class="row" ng-if="division.hasDimension">
+    <div class="col-sm-9">
+    </div>
+    <div class="col-sm-3">
+        <div range-slider min="50" max="100" model-max="zoom.percentage" pin-handle="min"></div>
+    </div>
+</div>
+
+<div class="row" ng-if="division.hasDimension">
     <div class="col-sm-12">
 
-        <table id="division-table">
+        <table id="division-table" storage-box>
             <thead>
                 <tr>
                     <td></td>
@@ -26,7 +34,9 @@
                         ng-class-even="'even'"
                         ng-repeat="number in [1,2,3,4,5,6,7,8,9,10]"
                     >
-                        {{number}}
+                        <span class="column-heading" storage-box-heading>
+                            {{number}}
+                        </span>
                     </td>
                 </tr>
             </thead>
@@ -41,7 +51,9 @@
                         ng-class-odd="'odd'"
                         ng-class-even="'even'"
                     >
-                        {{row}}
+                        <span class="column-heading" storage-box-heading>
+                            {{row}}
+                        </span>
                     </td>
                     <td
                         ng-class-odd="'odd'"

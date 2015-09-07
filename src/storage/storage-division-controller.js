@@ -8,6 +8,10 @@ angular.module('storage.storageDivisionCtrl', [])
 
             $scope.samples = {};
 
+            $scope.zoom = {
+                percentage: 100
+            };
+
             angular.forEach($scope.division.samples, function (sample) {
 
                 var divisionRow = sample.divisionRow;
@@ -18,6 +22,14 @@ angular.module('storage.storageDivisionCtrl', [])
                 }
 
                 $scope.samples[divisionRow][divisionColumn] = sample;
+
+            });
+
+            $scope.$watch('zoom.percentage', function (v) {
+
+                $scope.$broadcast('storage_box.resize', {
+                    percentage: v
+                });
 
             });
 

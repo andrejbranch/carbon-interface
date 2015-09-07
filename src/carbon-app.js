@@ -17,7 +17,8 @@ var carbonApp = angular.module('carbonApp', [
     'ngMessages',
     'project',
     'storage',
-    'treeControl'
+    'treeControl',
+    'ui-rangeSlider'
 ]);
 
 angular.module('carbonApp').run(

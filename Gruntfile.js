@@ -293,6 +293,7 @@ module.exports = function (grunt) {
                             'bower_components/datatables-responsive/js/dataTables.responsive.js',
                             'bower_components/sweetalert/dist/sweetalert-dev.js',
                             'bower_components/angular-tree-control/angular-tree-control.js',
+                            'bower_components/angular-rangeslider/angular.rangeSlider.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]
@@ -349,6 +350,7 @@ module.exports = function (grunt) {
                     'bower_components/angular-loading-bar/build/loading-bar.js',
                     'bower_components/datatables-responsive/js/dataTables.responsive.js',
                     'bower_components/angular-tree-control/angular-tree-control.js',
+                    'bower_components/angular-rangeslider/angular.rangeSlider.js',
                     'vendor/**.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
