@@ -1,7 +1,7 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse',
+    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window',
 
-        function ($scope, division, childrenResponse) {
+        function ($scope, division, childrenResponse, $window) {
 
             $scope.children = childrenResponse.data;
             $scope.division = division;
@@ -27,9 +27,32 @@ angular.module('storage.storageDivisionCtrl', [])
 
             $scope.$watch('zoom.percentage', function (v) {
 
-                $scope.$broadcast('storage_box.resize', {
-                    percentage: v
-                });
+                $scope.$broadcast('storage_box.resize', {percentage: v});
+
+            });
+
+            $scope.rows = [];
+            $scope.columns = [];
+
+            for (var i = 1; i <= division.width; i++) {
+                $scope.columns.push(i);
+            }
+
+            for (var i = 65; i < division.height + 65; i++) {
+                $scope.rows.push(String.fromCharCode(i));
+            }
+
+            var onWindowResize = function () {
+
+                $scope.$broadcast('storage_box.resize');
+
+            };
+
+            angular.element($window).on('resize', onWindowResize);
+
+            $scope.$on('$destroy', function () {
+
+                angular.element($window).off('resize', onWindowResize);
 
             });
 

@@ -6,21 +6,20 @@ angular.module('storage.storageBoxDirective', [])
             return {
 
                 restrict: 'A',
+                scope: {
+                    division: '='
+                },
+                controller: function ($scope) {
+                    this.scope = $scope;
+                    this.division = $scope.division;
+                },
                 link: function ($scope, element, attrs) {
 
-                    element.css('height', element.outerWidth());
-
-                    angular.element($window).on('resize', function () {
-
-                        element.css('height', element.outerWidth());
-
-                    });
+                    $scope.element = element;
 
                     $scope.$on('storage_box.resize', function (event, data) {
 
                         element.css('width', data.percentage + '%');
-                        element.css('height', element.outerWidth());
-                        angular.element($window).trigger('resize');
 
                     });
 
