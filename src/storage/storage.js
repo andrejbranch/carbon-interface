@@ -6,5 +6,6 @@ angular.module('storage', [
     'storage.storageBoxDirective',
     'storage.storageBoxHeading',
     'storage.storageBoxCellDirective',
+    'storage.storageDivisionDetailsCtrl',
     'storage.routes'
 ]);

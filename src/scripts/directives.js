@@ -74,7 +74,7 @@ function iboxTools($timeout) {
 /**
  * minimalizaSidebar - Directive for minimalize sidebar
  */
-function minimalizaSidebar($timeout) {
+function minimalizaSidebar($timeout, $window) {
     return {
         restrict: 'A',
         template: '<div class="header-link hide-menu" ng-click="minimalize()"><i class="fa fa-bars"></i></div>',
@@ -99,6 +99,8 @@ function minimalizaSidebar($timeout) {
                     // Remove all inline style from jquery fadeIn function to reset menu state
                     $('#side-menu').removeAttr('style');
                 }
+
+                angular.element($window).trigger('resize');
             }
         }
     };

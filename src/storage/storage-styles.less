@@ -9,6 +9,40 @@
     border: 1px solid #e4e5e7;
 }
 
+.storage-box-tools {
+    margin-bottom: 15px !important;
+    .panel-body {
+        padding: 10px;
+        .ngrs-range-slider {
+            margin: 0;
+            border: 0;
+            box-shadow: none;
+            .ngrs-handle-max {
+                padding: 9px;
+                i {
+                    background-image: none;
+                    display: inline-block;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    font-size: inherit;
+                    text-rendering: auto;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    transform: translate(0, 0);
+                    position: relative;
+                    &:before {
+                        position: absolute;
+                        content: "\f002";
+                            margin-top: -21px;
+                        margin-left: -6px;
+                        left: 0;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
 #division-table {
     border-spacing: 4px;
     border-collapse: separate;
@@ -16,6 +50,7 @@
     border: 1px solid #e4e5e7;
     width: 100%;
     margin: 0 auto;
+    cursor: pointer;
     thead {
         text-align: center;
         td {
@@ -29,7 +64,7 @@
             background: @evenDark;
         }
         .column-heading {
-            font-size: 0.9vw;
+            font-size: 0.7vw;
             position:absolute;
             left: 0;
             right: 0;
@@ -39,7 +74,7 @@
     tbody {
 
         .column-heading {
-            font-size: 0.9vw;
+            font-size: 0.7vw;
             position: relative;
             margin-top: 48%;
             left: 0;
@@ -64,6 +99,12 @@
             width: 8%;
             padding-bottom: 8%;
             text-align: center;
+            &.selected {
+                background: #417CAE !important;
+                // .cell {
+                //     background-color: #EF5656;
+                // }
+            }
         }
 
         tr.odd {
@@ -85,7 +126,7 @@
         }
 
     }
-    .circle {
+    .cell {
         position: absolute;
         border: 1px solid #ABABAB;
         border-radius: 100%;
@@ -95,20 +136,69 @@
         width: 80%;
         height: 80%;
         background-color: white;
+        &.has-sample {
+
+            background: url("images/default-sample-type.png") no-repeat;
+            background-color: white;
+            background-size: 75%;
+            background-position: 55% 36%;
+
+        }
     }
-    .has-sample {
-        position: absolute;
-        border: 1px solid #ABABAB;
-        border-radius: 100%;
-        margin-top: 10%;
-        margin-left: 10%;
-        width: 80%;
-        top:0;
-        height: 80%;
-        background-color: white;
-        background: url("images/antibody-icon.png") no-repeat;
-        background-color: white;
-        background-size: 80%;
-        background-position: center;
+}
+
+.division-details-container {
+    .panel-body {
+        padding: 0;
     }
+    .sample-detail-header-container {
+        padding: 10px;
+        color: white;
+        background-color: #417CAE;
+        .icon-container {
+            width: 50px;
+            height: 50px;
+            background: url("images/default-sample-type.png") no-repeat;
+            background-size: 50px;
+            background-color: white;
+            background-position: 9px 7px;
+            background-size: 70%;
+            border-radius: 50%;
+            margin-top: 4px;
+        }
+        .sample-details-header {
+            color: white;
+            font-size: 20px;
+        }
+    }
+    .sample-details-container {
+        padding: 10px;
+    }
+    .division-details-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        li {
+            padding: 10px;
+            &.details {
+                color: white;
+                background-color: #417CAE;
+                .name {
+                    margin: 0;
+                    font-size: 1vw;
+                }
+                .id {
+                    margin: 0;
+                    font-size: 1vw;
+                }
+            }
+        }
+    }
+}
+
+.sample-details-table {
+    td {
+        padding: 5px 5px 5px 0px;
+    }
+
 }

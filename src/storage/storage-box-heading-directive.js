@@ -12,7 +12,7 @@ angular.module('storage.storageBoxHeading', [])
 
                         var fontSize;
 
-                        element.css('font-size', (data.percentage / 100) * 0.9 + 'vw');
+                        element.css('font-size', (data.percentage / 100) * 0.7 + 'vw');
 
                     });
 

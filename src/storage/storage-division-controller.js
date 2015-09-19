@@ -1,7 +1,7 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window',
+    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout',
 
-        function ($scope, division, childrenResponse, $window) {
+        function ($scope, division, childrenResponse, $window, $timeout) {
 
             $scope.children = childrenResponse.data;
             $scope.division = division;
@@ -11,6 +11,8 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.zoom = {
                 percentage: 100
             };
+
+            $scope.radioModel = "Left";
 
             angular.forEach($scope.division.samples, function (sample) {
 
@@ -44,7 +46,7 @@ angular.module('storage.storageDivisionCtrl', [])
 
             var onWindowResize = function () {
 
-                $scope.$broadcast('storage_box.resize');
+                $scope.$broadcast('storage_box.resize', {percentage: $scope.zoom.percentage});
 
             };
 
@@ -56,6 +58,23 @@ angular.module('storage.storageDivisionCtrl', [])
 
             });
 
+            $scope.$on('storage_box.well_selected', function (event, data) {
+
+                $scope.$broadcast('storage_box.details.well_selected', data);
+
+            });
+
+            if ($scope.division.samples.length !== 0) {
+                var selectedSample = $scope.division.samples[0];
+            }
+
+            $timeout(function () {
+                $scope.$broadcast('storage_box.details.well_selected', {
+                    sample: selectedSample,
+                    column: selectedSample.divisionColumn,
+                    row: selectedSample.divisionRow
+                });
+            });
         }
 
     ])

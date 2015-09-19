@@ -1,13 +1,15 @@
-<treecontrol class="tree-light"
-   tree-model="divisions"
-   selected-node="selected"
-   on-selection="goToDivision(node)"
-   expanded-nodes="expandedDivisions"
-   options="opts"
->
-    <i class="fa" ng-class="{
-        'fa-th': !node.hasDimension,
-        'fa-stop': node.hasDimension
-    }"/>
-    {{node.title}}
-</treecontrol>
+<div class="tree-container">
+  <treecontrol class="tree-light"
+     tree-model="divisions"
+     selected-node="selected"
+     on-selection="goToDivision(node)"
+     expanded-nodes="expandedDivisions"
+     options="opts"
+  >
+      <i class="fa" ng-class="{
+          'fa-th': !node.hasDimension,
+          'fa-stop': node.hasDimension
+      }"/>
+      {{node.title}}
+  </treecontrol>
+</div>

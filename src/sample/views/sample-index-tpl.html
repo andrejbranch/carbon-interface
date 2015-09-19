@@ -1,0 +1,85 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                        <li class="active">
+                            <span>Samples</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                  Samples
+                </h2>
+                <small>Manage projects</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="row>"
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        Projects
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <grid request-url="/sample" init-response="sampleResponse" data="samples">
+
+                                <grid-pagination-top></grid-pagination-top>
+
+                                <table class="table table-striped table-bordered table-hover dataTable">
+                                    <thead>
+                                        <th grid-header name="id">Id</th>
+                                        <th grid-header name="name">Name</th>
+                                        <th grid-header name="description">Description</th>
+                                        <th grid-header name="idCreatedBy">Created By</th>
+                                        <th grid-header name="createdAt">Date Created</th>
+                                        <th grid-header name="updatedAt">Date Updated</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr grid-row ng-repeat="sample in samples">
+                                            <td grid-column name="id">
+                                                {{sample.id}}
+                                            </td>
+                                            <td grid-column name="firstName">
+                                                {{sample.name}}
+                                            </td>
+                                            <td grid-column name="lastName">
+                                                {{sample.description}}
+                                            </td>
+                                            <td grid-column name="idCreatedBy">
+                                                {{sample.createdBy.fullName}}
+                                            </td>
+                                            <td grid-column name="createdAt">
+                                                {{sample.createdAt | date:'MMM d, y'}}
+                                            </td>
+                                            <td grid-column name="updatedAt">
+                                                {{sample.updatedAt | date:'MMM d, y'}}
+                                            </td>
+                                        </grid-row>
+                                    </tbody>
+
+                                </table>
+
+                                <div class="row m-t-sm">
+                                    <grid-pagination></grid-pagination>
+                                </div>
+
+                            </grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

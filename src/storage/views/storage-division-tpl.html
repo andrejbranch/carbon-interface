@@ -13,9 +13,27 @@
     </div>
 </div>
 
-<div class="hpanel">
+<div class="hpanel storage-box-tools" ng-if="division.hasDimension">
     <div class="panel-body">
-        <div class="col-sm-offset-9 col-sm-3">
+        <div class="col-sm-6">
+            <div class="btn-group">
+                <label class="btn btn-sm btn-default" ng-model="radioModel" btn-radio="'Left'">
+                    <i class="fa fa-hand-o-up" />
+                </label>
+                <label class="btn btn-sm btn-default" ng-model="radioModel" btn-radio="'Right'">
+                    <i class="fa fa-arrows-alt" />
+                </label>
+            </div>
+            <div class="btn-group m-l-md">
+                <label class="btn btn-sm btn-default">
+                    <i class="fa fa-edit" />
+                </label>
+                <label class="btn btn-sm btn-default">
+                    <i class="fa fa-save" />
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-offset-3 col-sm-3">
             <div range-slider min="50" max="100" model-max="zoom.percentage" pin-handle="min"></div>
         </div>
     </div>
@@ -59,13 +77,15 @@
                         ng-class-even="'even'"
                         ng-repeat="column in columns"
                         storage-box-cell
+                        sample="samples[row][column]"
+                        row="row"
+                        column="column"
                     >
                         <div
-                            class="has-sample"
-                            ng-if="samples[row][column]"
+                            class="cell"
+                            ng-class="{'has-sample': samples[row][column]}"
                         >
                         </div>
-                        <div ng-if="!samples[row][column]" class="circle"></div>
                     </td>
                 </tr>
             </tbody>
