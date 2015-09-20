@@ -8,7 +8,6 @@ angular.module('grid.gridRowDirective', [])
                 restrict: 'A',
                 link: function ($scope, element, attrs) {
 
-
                 }
 
             };

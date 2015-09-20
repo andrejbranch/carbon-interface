@@ -6,8 +6,6 @@ angular.module('grid.gridColumnDirective', [])
             return {
 
                 restrict: 'A',
-                transclude: true,
-                template: '<td ng-transclude></td>',
                 scope: {
                     name: '@'
                 },

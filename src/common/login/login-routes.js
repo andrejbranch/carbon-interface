@@ -6,9 +6,13 @@ angular.module('login.routes', [ 'ui.router', 'ui.router.stateHelper'])
             .state({
                 url: '/login',
                 name: 'login',
-                templateUrl: 'common/login/login-tpl.html',
-                controller: 'loginCtrl',
-                data: { pageTitle: 'Login', specialClass: 'gray-bg' }
+                data: { pageTitle: 'Login', specialClass: 'gray-bg' },
+                views: {
+                    content: {
+                        templateUrl: 'common/login/views/login-tpl.html',
+                        controller: 'loginCtrl'
+                    }
+                }
             })
         ;
 
