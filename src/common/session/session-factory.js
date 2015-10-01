@@ -27,9 +27,7 @@ angular.module('session.sessionFactory', [])
 
                         function (response) {
 
-                            $localStorage.$default({
-                                User: response.data
-                            });
+                            $localStorage.User = response.data;
 
                         }
 
@@ -63,15 +61,10 @@ angular.module('session.sessionFactory', [])
 
                     var promise = $http.get(url).then(function (response) {
 
-                        var apiKey = $localStorage.User.api_key;
+                        var user = sessionFactory.getLoggedInUser();
 
-                        delete $localStorage.User;
-
-                        $localStorage.$default({
-                            User: response.data.data[0]
-                        });
-
-                        $localStorage.User.api_key = apiKey;
+                        // update avatar attachment
+                        $localStorage.User.avatarAttachment = response.data.data[0].avatarAttachment;
 
                     });
 

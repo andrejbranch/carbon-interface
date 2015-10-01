@@ -18,7 +18,9 @@ angular.module('profile.profileCtrl', [])
                 $modal.open({
                     templateUrl: 'common/profile/profile-photo-upload-tpl.html',
                     controller: 'photoUploadCtrl',
-                    windowClass: 'inmodal'
+                    windowClass: 'inmodal',
+                    keyboard: false,
+                    backdrop: 'static'
                 });
             }
         }
