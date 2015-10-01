@@ -1,0 +1,69 @@
+<form name="sampleForm" method="get" class="form-horizontal" ng-submit="submit(sampleForm.$valid)" novalidate>
+
+    <div id="sample-form-container">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Edit Sample {{sample.id}}</h4>
+            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+        </div>
+        <div class="modal-body">
+
+
+                <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
+                    <p ng-repeat="error in errors">
+                        <strong>{{error}}</strong>
+                    </p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : sampleForm.name.$invalid && submitted }">
+                    <label class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input name="name" type="text" class="form-control" ng-model="sample.name" required>
+                        <div ng-messages="sampleForm.name.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : sampleForm.description.$invalid && submitted }">
+                    <label class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <input name="description" type="text" class="form-control" ng-model="sample.description" required>
+                        <div ng-messages="sampleForm.description.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : sampleForm.sampleType.$invalid && submitted }">
+                    <label class="col-sm-2 control-label">Sample Type</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group block" dropdown is-open="status.isopen">
+                            <button id="single-button" type="button" class="btn btn-primary btn-block" dropdown-toggle ng-disabled="disabled">
+                                {{sample.sampleType.name || "Select Sample Type"}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                <li role="menuitem" ng-repeat="sampleType in sampleTypes" ng-click="selectSampleType(sampleType)">
+                                    <a>{{sampleType.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div ng-messages="sampleForm.sampleType.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+
+</form>

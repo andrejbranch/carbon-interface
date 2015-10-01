@@ -131,11 +131,19 @@
   border-color: @color-green;
   color: #FFFFFF ;
 }
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
   background-color: darken(@color-green, 6%);
   border-color: darken(@color-green, 6%);
   color: #FFFFFF ;
 }
+
+.btn-primary:active:hover, .btn-primary.active:hover, .open>.dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open>.dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open>.dropdown-toggle.btn-primary.focus {
+  background-color: darken(@color-green, 6%);
+  border-color: darken(@color-green, 6%);
+  color: #FFFFFF ;
+}
+
 .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
   background-image: none;
 }
