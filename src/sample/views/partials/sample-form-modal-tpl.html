@@ -4,7 +4,7 @@
         <div class="modal-header">
             <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title">Edit Sample {{sample.id}}</h4>
-            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+            <small>{{sample.description}}</small>
         </div>
         <div class="modal-body">
 
@@ -35,10 +35,60 @@
                     </div>
                 </div>
 
+                <div class="form-group" ng-class="{'has-error': sampleForm.status.$invalid && submitted }">
+                    <label class="col-sm-2 control-label">Status</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group block" dropdown>
+                            <button id="single-button" type="button" class="btn btn-white btn-block" dropdown-toggle ng-disabled="disabled">
+                                {{sample.status || "Select Status"}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                <li role="menuitem" ng-repeat="status in statuses" ng-click="selectStatus(status)">
+                                    <a>{{status}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-messages="sampleForm.storageContainer.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': sampleForm.storageContainer.$invalid && submitted }">
+                    <label class="col-sm-2 control-label">Storage Container</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group block" dropdown>
+                            <button id="single-button" type="button" class="btn btn-white btn-block" dropdown-toggle ng-disabled="disabled">
+                                {{sample.storageContainer.name || "Select Storage Container"}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                <li role="menuitem" ng-repeat="storageContainer in storageContainers" ng-click="selectStorageContainer(storageContainer)">
+                                    <a>{{storageContainer.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-messages="sampleForm.storageContainer.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': sampleForm.storageBuffer.$invalid && submitted }">
+                    <label class="col-sm-2 control-label">Storage Buffer</label>
+                    <div class="col-sm-10">
+                        <input name="storageBuffer" type="text" class="form-control" ng-model="sample.storageBuffer" required>
+                        <div ng-messages="sampleForm.storageBuffer.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group" ng-class="{ 'has-error' : sampleForm.sampleType.$invalid && submitted }">
                     <label class="col-sm-2 control-label">Sample Type</label>
                     <div class="col-sm-10">
-                        <div class="btn-group block" dropdown is-open="status.isopen">
+                        <div class="btn-group block" dropdown>
                             <button id="single-button" type="button" class="btn btn-primary btn-block" dropdown-toggle ng-disabled="disabled">
                                 {{sample.sampleType.name || "Select Sample Type"}}
                                 <span class="caret"></span>
@@ -49,14 +99,112 @@
                                 </li>
                             </ul>
                         </div>
-
-
-
                         <div ng-messages="sampleForm.sampleType.$error" ng-show="submitted">
                             <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
                     </div>
                 </div>
+
+                <!-- DNA -->
+                <div ng-if="sample.sampleType.name === 'DNA'">
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.vectorName.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Vector Name</label>
+                        <div class="col-sm-10">
+                            <input name="vectorName" type="text" class="form-control" ng-model="sample.vectorName" required>
+                            <div ng-messages="sampleForm.vectorName.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.concentration.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Concentration</label>
+
+                        <div class="col-sm-5">
+                            <input name="concentration" type="text" class="form-control" ng-model="sample.concentration" required money min="0" precision="3">
+                            <div ng-messages="sampleForm.concentration.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultConcentrationUnits()">
+                            <button id="single-button" type="button" class="btn btn-white btn-block" dropdown-toggle ng-disabled="disabled">
+                                {{sample.concentrationUnits}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                <li role="menuitem" ng-repeat="concentrationUnit in concentrationUnits" ng-click="selectConcentrationUnits(concentrationUnit)">
+                                    <a>{{concentrationUnit}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.dnaSequence.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">DNA Sequence</label>
+                        <div class="col-sm-10">
+                            <input name="dnaSequence" type="text" class="form-control" ng-model="sample.dnaSequence" required>
+                            <div ng-messages="sampleForm.dnaSequence.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.aminoAcidSequence.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Amino Acid Sequence</label>
+                        <div class="col-sm-10">
+                            <input name="aminoAcidSequence" type="text" class="form-control" ng-model="sample.aminoAcidSequence" required>
+                            <div ng-messages="sampleForm.aminoAcidSequence.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.aminoAcidCount.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Total Amino Acids</label>
+                        <div class="col-sm-10">
+                            <input name="aminoAcidCount" type="text" class="form-control" ng-model="sample.aminoAcidCount" required money min="0" precision="0">
+                            <div ng-messages="sampleForm.aminoAcidCount.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.molecularWeight.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Molecular Weight</label>
+                        <div class="col-sm-10">
+                            <input name="molecularWeight" type="text" class="form-control" ng-model="sample.molecularWeight" required money min="0" precision="3">
+                            <div ng-messages="sampleForm.molecularWeight.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.extinctionCoefficient.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Extinction Coefficient</label>
+                        <div class="col-sm-10">
+                            <input name="extinctionCoefficient" type="text" class="form-control" ng-model="sample.extinctionCoefficient" required money min="0" precision="3">
+                            <div ng-messages="sampleForm.extinctionCoefficient.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.purificationTags.$invalid && submitted }">
+                        <label class="col-sm-2 control-label">Purification Tags</label>
+                        <div class="col-sm-10">
+                            <input name="purificationTags" type="text" class="form-control" ng-model="sample.purificationTags" required>
+                            <div ng-messages="sampleForm.purificationTags.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
 
 
         </div>

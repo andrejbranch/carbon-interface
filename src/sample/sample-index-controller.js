@@ -1,10 +1,11 @@
 angular.module('sample.sampleIndexCtrl', [])
-    .controller('sampleIndexCtrl', ['$scope', 'sampleResponse', '$modal', '$state', '$stateParams', 'sampleTypes',
+    .controller('sampleIndexCtrl', ['$scope', 'sampleResponse', '$modal', '$state', '$stateParams', 'sampleTypes', 'storageContainers',
 
-        function ($scope, sampleResponse, $modal, $state, $stateParams, sampleTypes) {
+        function ($scope, sampleResponse, $modal, $state, $stateParams, sampleTypes, storageContainers) {
 
             $scope.sampleResponse = sampleResponse;
             $scope.samples = sampleResponse.data;
+            $scope.storageContainers;
 
             var sampleCallback = function () {
 
@@ -31,6 +32,12 @@ angular.module('sample.sampleIndexCtrl', [])
                         sampleTypes: function () {
 
                             return sampleTypes.data;
+
+                        },
+
+                        storageContainers: function () {
+
+                            return storageContainers.data;
 
                         },
 

@@ -19,7 +19,8 @@ var carbonApp = angular.module('carbonApp', [
     'storage',
     'sample',
     'treeControl',
-    'ui-rangeSlider'
+    'ui-rangeSlider',
+    'fiestah.money'
 ]);
 
 angular.module('carbonApp').run(

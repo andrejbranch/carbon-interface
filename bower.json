@@ -46,6 +46,7 @@
     "ng-sweet-alert": "~1.0.4",
     "sweetalert": "~1.1.0",
     "angular-tree-control": "~0.2.15",
-    "angular-rangeslider": "~0.0.14"
+    "angular-rangeslider": "~0.0.14",
+    "angular-money-directive": "~1.2.5"
   }
 }

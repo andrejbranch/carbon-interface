@@ -35,7 +35,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return sampleFactory.getSampleTypes();
 
-                                    }
+                                    },
+
+                                    storageContainers: function (sampleFactory) {
+
+                                        return sampleFactory.getStorageContainers();
+
+                                    },
+
 
                                 }
                             }

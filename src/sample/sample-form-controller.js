@@ -1,16 +1,43 @@
 angular.module('sample.sampleFormCtrl', [])
-    .controller('sampleFormCtrl', ['$scope', '$modalInstance', 'sample', 'sampleFactory', 'toastr', 'callback', 'sampleTypes',
+    .controller('sampleFormCtrl', ['$scope', '$modalInstance', 'sample', 'sampleFactory', 'toastr', 'callback', 'sampleTypes', 'storageContainers',
 
-        function ($scope, $modalInstance, sample, sampleFactory, toastr, callback, sampleTypes) {
+        function ($scope, $modalInstance, sample, sampleFactory, toastr, callback, sampleTypes, storageContainers) {
 
             $scope.sample = sample ? angular.copy(sample) : {};
             $scope.errors = [];
             $scope.sampleForm = {};
             $scope.sampleTypes = sampleTypes;
+            $scope.storageContainers = storageContainers;
+            $scope.statuses = ['Available', 'Depleted', 'Destroyed', 'Shipped'];
+            $scope.concentrationUnits = ['mg/mL', 'ng/uL', 'Molar'];
 
             $scope.selectSampleType = function (sampleType) {
 
                 $scope.sample.sampleType = sampleType;
+
+            };
+
+            $scope.selectStorageContainer = function (storageContainer) {
+
+                $scope.sample.storageContainer = storageContainer;
+
+            };
+
+            $scope.selectStatus = function (status) {
+
+                $scope.sample.status = status;
+
+            };
+
+            $scope.selectConcentrationUnits = function (concentrationUnits) {
+
+                $scope.sample.concentrationUnits = concentrationUnits;
+
+            };
+
+            $scope.setDefaultConcentrationUnits = function () {
+
+                $scope.sample.concentrationUnits = $scope.concentrationUnits[0];
 
             };
 

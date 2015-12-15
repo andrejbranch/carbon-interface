@@ -18,6 +18,19 @@ angular.module('sample.sampleFactory', [])
                     return promise;
                 },
 
+                getStorageContainers: function () {
+
+                    var url = API.url + '/storage-container';
+
+                    var promise = $http.get(url).then(function (response) {
+
+                        return response.data;
+
+                    });
+
+                    return promise;
+                },
+
                 getSamples: function () {
 
                     var url = API.url + '/sample?cPerPage=10';
@@ -37,7 +50,20 @@ angular.module('sample.sampleFactory', [])
 
                     return $http.put(url, {
                         name: sample.name,
-                        description: sample.description
+                        description: sample.description,
+                        storageBuffer: sample.storageBuffer,
+                        storageContainer: sample.storageContainer,
+                        sampleType: sample.sampleType,
+                        status: sample.status,
+                        vectorName: sample.vectorName,
+                        concentration: sample.concentration,
+                        concentrationUnits: sample.concentrationUnits,
+                        dnaSequence: sample.dnaSequence,
+                        aminoAcidSequence: sample.aminoAcidSequence,
+                        aminoAcidCount: sample.aminoAcidCount,
+                        molecularWeight: sample.molecularWeight,
+                        extinctionCoefficient: sample.extinctionCoefficient,
+                        purificationTags: sample.purificationTags
                     });
 
                 }
