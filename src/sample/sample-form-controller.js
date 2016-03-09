@@ -37,7 +37,10 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.setDefaultConcentrationUnits = function () {
 
-                $scope.sample.concentrationUnits = $scope.concentrationUnits[0];
+                if ($scope.sample.concentrationUnits === undefined) {
+
+                    $scope.sample.concentrationUnits = $scope.concentrationUnits[0];
+                }
 
             };
 

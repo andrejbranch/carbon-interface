@@ -14,6 +14,7 @@ angular.module('sample.sampleIndexCtrl', [])
             };
 
             $scope.editSample = function (sample) {
+
                 $modal.open({
                     templateUrl: 'sample/views/partials/sample-form-modal-tpl.html',
                     controller: 'sampleFormCtrl',
@@ -48,6 +49,7 @@ angular.module('sample.sampleIndexCtrl', [])
                         }
 
                     }
+
                 });
             };
         }

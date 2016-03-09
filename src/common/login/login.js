@@ -1,6 +1,4 @@
-angular.module('login',
-    [
-        'login.loginCtrl',
-        'login.routes'
-    ]
-);
+angular.module('login', [
+    'login.loginCtrl',
+    'login.routes'
+]);

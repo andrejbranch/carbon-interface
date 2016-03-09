@@ -63,7 +63,10 @@ angular.module('sample.sampleFactory', [])
                         aminoAcidCount: sample.aminoAcidCount,
                         molecularWeight: sample.molecularWeight,
                         extinctionCoefficient: sample.extinctionCoefficient,
-                        purificationTags: sample.purificationTags
+                        purificationTags: sample.purificationTags,
+                        species: sample.species,
+                        cellLine: sample.cellLine,
+                        mass: sample.mass
                     });
 
                 }
