@@ -52,6 +52,7 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.submit = function (isValid) {
 
+                console.log($scope.sample);
                 $scope.submitted = true;
 
                 if (!isValid) {

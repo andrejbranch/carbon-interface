@@ -1,4 +1,5 @@
 angular.module('form', [
     'form.routes',
-    'form.icheckDirective'
+    'form.icheckDirective',
+    'form.oneToMany'
 ]);

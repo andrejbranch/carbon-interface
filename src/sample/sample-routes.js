@@ -27,7 +27,7 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     sampleResponse: function (sampleFactory) {
 
-                                        return sampleFactory.getSamples();
+                                        return sampleFactory.getSamples({});
 
                                     },
 

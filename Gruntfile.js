@@ -53,6 +53,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "<%= carbon.build %>/develop/grid.css": "<%= carbon.app %>/common/grid/grid-style.less",
+                    "<%= carbon.build %>/develop/one-to-many.css": "<%= carbon.app %>/common/form/one-to-many/one-to-many-styles.less",
                     "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
                     "<%= carbon.build %>/develop/storage.css": "<%= carbon.app %>/storage/storage-styles.less",
                     "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"

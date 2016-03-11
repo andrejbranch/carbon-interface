@@ -31,9 +31,23 @@ angular.module('sample.sampleFactory', [])
                     return promise;
                 },
 
-                getSamples: function () {
+                getSamples: function (options) {
 
-                    var url = API.url + '/sample?cPerPage=10';
+                    var perPage = options.perPage ? options.perPage : 10;
+
+                    var url = API.url + '/sample?cPerPage=' + perPage;
+
+                    if (options.search !== undefined) {
+                        url = url + '&cSearch=' + options.search;
+                    }
+
+                    if (options.filteredIds !== undefined) {
+                        var params = options.filteredIds.map(function (filteredId) {
+                            return 'cNot[id][]=' + filteredId
+                        });
+
+                        url = url + '&' + params.join('&')
+                    }
 
                     var promise = $http.get(url).then(function (response) {
 
@@ -66,7 +80,8 @@ angular.module('sample.sampleFactory', [])
                         purificationTags: sample.purificationTags,
                         species: sample.species,
                         cellLine: sample.cellLine,
-                        mass: sample.mass
+                        mass: sample.mass,
+                        linkedSamples: sample.linkedSamples
                     });
 
                 }

@@ -20,7 +20,8 @@ var carbonApp = angular.module('carbonApp', [
     'sample',
     'treeControl',
     'ui-rangeSlider',
-    'fiestah.money'
+    'fiestah.money',
+    'ui.bootstrap.typeahead'
 ]);
 
 angular.module('carbonApp').run(

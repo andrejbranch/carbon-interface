@@ -48,7 +48,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <div ng-messages="sampleForm.storageContainer.$error" ng-show="submitted">
+                        <input name="status" type="hidden" ng-model="sample.status" required>
+                        <div ng-messages="sampleForm.status.$error" ng-show="submitted">
                             <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
                     </div>
@@ -68,6 +69,7 @@
                                 </li>
                             </ul>
                         </div>
+                        <input name="storageContainer" type="hidden" ng-model="sample.storageContainer" required>
                         <div ng-messages="sampleForm.storageContainer.$error" ng-show="submitted">
                             <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
@@ -108,6 +110,13 @@
                 <div ng-if="sample.sampleType.name === 'DNA'">
 
                     <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Linked Samples</label>
+                        <div class="col-sm-10">
+                            <one-to-many one-to-many-model="sample" one-to-many-model-property="linkedSamples"></one-to-many>
+                        </div>
+                    </div>
 
                     <div class="form-group" ng-class="{ 'has-error' : sampleForm.vectorName.$invalid && submitted }">
                         <label class="col-sm-2 control-label">Vector Name</label>
