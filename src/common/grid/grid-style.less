@@ -15,24 +15,86 @@
 .grid-pagination-container {
     padding: 5px 10px 0px 10px;
 }
-.grid-pagination-top-container {
-    padding: 5px 10px 0px 10px;
-    .page-select {
-        display: inline-block;
-        width: auto;
-    }
-
-    .grid-search {
-        width: auto;
-    }
-}
 
 .grid-responsive-table {
-    overflow: auto;
     .table>thead>tr>th {
         border-bottom: 1px solid rgb(183, 183, 183);
     }
     .table-hover>tbody>tr:hover {
         background-color: #E9F3FB;
+    }
+}
+
+grid-filter {
+
+    .dropdown-toggle {
+        font-size: 12px;
+        margin-right: 5px;
+        .caret {
+            margin-left: 3px;
+        }
+    }
+
+    .dropdown-menu {
+
+        .grid-filter-item-detail {
+            margin: 0;
+        }
+
+        .grid-filter-check {
+            margin-right: 5px;
+        }
+
+        .grid-filter-search {
+            input {
+                font-size: 12px;
+                height: 30px;
+                padding: 0px 5px;
+            }
+            margin: 7px;
+            display: block;
+        }
+
+    }
+
+}
+
+.grid-pagination-top-container {
+    margin: 10px;
+}
+
+.grid-filter-container {
+   display: inline-block;
+}
+
+.grid-per-page-container {
+
+    display: inline-block;
+
+    select {
+        height: 31px;
+        font-size: 12px;
+        width: 50px;
+        margin: 0px 5px;
+    }
+
+}
+
+.grid-contains-container {
+    display: inline-block;
+    width: 250px;
+    vertical-align: bottom;
+    .grid-contains-search-input {
+        height: 31px;
+        font-size: 12px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .grid-contains-search-btn {
+        height: 31px;
+        line-height: 12px;
+        i {
+            font-size: 12px;
+        }
     }
 }

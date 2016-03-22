@@ -5,5 +5,10 @@ angular.module('grid', [
     'grid.gridHeaderDirective',
     'grid.gridRowDirective',
     'grid.gridPaginationDirective',
-    'grid.gridPaginationTopDirective'
+    'grid.gridPaginationTopDirective',
+    'grid.gridFilter',
+    'grid.gridFactory',
+    'grid.gridColumnFactory',
+    'grid.gridV2Directive',
+    'grid.gridFilterFactory'
 ]);

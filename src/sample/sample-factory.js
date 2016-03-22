@@ -42,12 +42,19 @@ angular.module('sample.sampleFactory', [])
                     }
 
                     if (options.filteredIds !== undefined) {
-                        var params = options.filteredIds.map(function (filteredId) {
+                        var filteredParams = options.filteredIds.map(function (filteredId) {
                             return 'cNot[id][]=' + filteredId
                         });
 
-                        url = url + '&' + params.join('&')
+                        url = url + '&' + filteredParams.join('&')
                     }
+
+                    var params = [];
+
+                    params.push('cOrderBy=' + 'id');
+                    params.push('cOrderByDirection=' + 'DESC');
+
+                    url = url + '&' + params.join('&')
 
                     var promise = $http.get(url).then(function (response) {
 

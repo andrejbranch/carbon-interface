@@ -267,7 +267,7 @@ module.exports = function (grunt) {
                         bundle: [
                             'bower_components/jquery/dist/jquery.min.js',
                             'bower_components/jquery-ui/jquery-ui.min.js',
-                            'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                            'bower_components/bootstrap/dist/js/bootstrap.js',
                             'bower_components/metisMenu/dist/metisMenu.min.js',
                             'bower_components/slimScroll/jquery.slimscroll.min.js',
                             'bower_components/angular/angular.js',

@@ -41,8 +41,7 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return sampleFactory.getStorageContainers();
 
-                                    },
-
+                                    }
 
                                 }
                             }
