@@ -1,7 +1,7 @@
 angular.module('sample.sampleFormCtrl', [])
-    .controller('sampleFormCtrl', ['$scope', '$modalInstance', 'sample', 'sampleFactory', 'toastr', 'callback', 'sampleTypes', 'storageContainers',
+    .controller('sampleFormCtrl', ['$scope', '$modalInstance', 'sample', 'sampleFactory', 'toastr', 'callback', 'sampleTypes', 'storageContainers', 'linkedSamplesGrid',
 
-        function ($scope, $modalInstance, sample, sampleFactory, toastr, callback, sampleTypes, storageContainers) {
+        function ($scope, $modalInstance, sample, sampleFactory, toastr, callback, sampleTypes, storageContainers, linkedSamplesGrid) {
 
             $scope.sample = sample ? angular.copy(sample) : {};
             $scope.errors = [];
@@ -52,7 +52,10 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.submit = function (isValid) {
 
+                $scope.$broadcast('form:submit');
+
                 console.log($scope.sample);
+
                 $scope.submitted = true;
 
                 if (!isValid) {
@@ -80,24 +83,10 @@ angular.module('sample.sampleFormCtrl', [])
                     );
 
                 }
-                // adminFactory.createUser($scope.user).then(
-
-                //     function (response) {
-
-                //         toastr.info('User created successfully');
-
-                //         $state.go('admin.index');
-
-                //     },
-
-                //     function (response) {
-
-                //         $scope.errors = response.data;
-
-                //     }
-                // );
 
             }
+
+            $scope.sampleOneToManyGrid = linkedSamplesGrid;
 
         }
 

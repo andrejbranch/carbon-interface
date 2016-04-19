@@ -8,6 +8,8 @@ angular.module('grid.gridFactory', [])
 
                 this.results = null;
 
+                this.data = null;
+
                 this.columns = [];
 
                 this.filters = [];
@@ -20,9 +22,26 @@ angular.module('grid.gridFactory', [])
 
                 this.sortDirection = null;
 
-                this.pagination = {};
+                this.pagination = {
+                    page: 1,
+                    perPage: 5
+                };
 
                 this.search = '';
+
+                this.showFilters = true;
+
+                this.staticFilters = [];
+
+                this.isEditable = false;
+
+                this.removingItems = [];
+
+                this.removingItemIds = [];
+
+                this.addingItems = [];
+
+                this.addingItemIds = [];
 
             };
 
@@ -44,9 +63,37 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                setData: function (data) {
+
+                    this.data = data;
+
+                    this.turnPage();
+
+                    return this;
+
+                },
+
                 setPage: function (page) {
 
                     this.pagination.page = page;
+
+                    return this;
+
+                },
+
+                turnPage: function () {
+
+                    var startIndex = ((this.pagination.page - 1) * this.pagination.perPage);
+
+                    console.log(startIndex);
+                    this.results = this.data.slice(startIndex, startIndex + this.pagination.perPage);
+
+                    this.pagination.startIndex = startIndex + 1;
+
+                    this.pagination.stopIndex = startIndex + this.results.length;
+
+                    this.pagination.paginatedTotal = this.results.length;
+                    this.pagination.unpaginatedTotal = this.data.length;
 
                     return this;
 
@@ -97,6 +144,30 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                hideFilters: function () {
+
+                    this.showFilters = false;
+
+                    return this;
+
+                },
+
+                allowEdit: function () {
+
+                    this.isEditable = true;
+
+                    return this;
+
+                },
+
+                setStaticFilters: function (staticFilters) {
+
+                    this.staticFilters = staticFilters;
+
+                    return this;
+
+                },
+
                 setActionTemplate: function (actionTemplate) {
 
                     this.actionTemplate = actionTemplate;
@@ -117,6 +188,14 @@ angular.module('grid.gridFactory', [])
 
                     this.pagination.startIndex = this.getStartIndex();
                     this.pagination.stopIndex = this.getStopIndex();
+
+                    return this;
+
+                },
+
+                setPagination: function (pagination) {
+
+                    this.pagination = pagination;
 
                     return this;
 
@@ -186,6 +265,10 @@ angular.module('grid.gridFactory', [])
                         params.push('cSearch=' + this.search);
                     }
 
+                    this.staticFilters.map(function (staticFilter) {
+                        params = params.concat(staticFilter);
+                    });
+
                     this.filters.map(function (filter) {
                         params = params.concat(filter.getParams());
                     });
@@ -194,6 +277,42 @@ angular.module('grid.gridFactory', [])
                     params.push('cPage=' + this.pagination.page);
 
                     return path + params.join('&');
+
+                },
+
+                removeItem: function (item) {
+
+                    this.removingItems.push(item);
+                    this.removingItemIds.push(item.id);
+
+                    return this;
+
+                },
+
+                restoreRemovedItem: function (item) {
+
+                    this.removingItems.splice(this.removingItems.indexOf(item), 1);
+                    this.removingItemIds.splice(this.removingItemIds.indexOf(item.id), 1);
+
+                    return this;
+
+                },
+
+                removeAddingItem: function (item) {
+
+                    this.addingItems.splice(this.addingItems.indexOf(item), 1);
+                    this.addingItemIds.splice(this.addingItemIds.indexOf(item.id), 1);
+
+                    return this;
+
+                },
+
+                addItem: function (item) {
+
+                    this.addingItems.push(item);
+                    this.addingItemIds.push(item.id);
+
+                    return this;
 
                 }
 

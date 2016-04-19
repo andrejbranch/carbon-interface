@@ -91,6 +91,12 @@ angular.module('sample.sampleFactory', [])
                         linkedSamples: sample.linkedSamples
                     });
 
+                },
+
+                getLinkedSamples: function (sample) {
+
+                   return $http.get(API.url + '/sample-linked-sample/' + sample.id);
+
                 }
 
             }

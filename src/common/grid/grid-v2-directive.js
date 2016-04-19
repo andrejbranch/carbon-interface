@@ -36,21 +36,15 @@ angular.module('grid.gridV2Directive', [])
 
                     };
 
-                    // $scope.updatePerPage = function () {
-
-                    // };
-
-                    // $scope.onPageChange = function () {
-
-                    //     // update the page
-                    //     $scope.grid.setPage($scope.model.page);
-
-                    //     // now refresh the grid
-                    //     $scope.refresh();
-
-                    // };
-
                     $scope.refresh = function () {
+
+                        if ($scope.grid.data) {
+
+                            $scope.grid.turnPage();
+
+                            return;
+
+                        }
 
                         $http.get(API.url + $scope.grid.getRequestPath()).then(function (response) {
 
@@ -63,7 +57,30 @@ angular.module('grid.gridV2Directive', [])
 
                     };
 
+                    $scope.removeItem = function (item) {
+
+                        $scope.grid.removeItem(item);
+
+                    };
+
+                    $scope.removeAddingItem = function (item) {
+
+                        $scope.grid.removeAddingItem(item);
+
+                    };
+
+                    $scope.isRemoving = function (item) {
+                        return $scope.grid.removingItemIds.indexOf(item.id) !== -1;
+                    };
+
+                    $scope.restoreRemovedItem = function (item) {
+
+                        $scope.grid.restoreRemovedItem(item);
+
+                    };
+
                 }
+
 
             };
 

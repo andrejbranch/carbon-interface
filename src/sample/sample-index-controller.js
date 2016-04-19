@@ -1,8 +1,8 @@
 angular.module('sample.sampleIndexCtrl', [])
 
-    .controller('sampleIndexCtrl', ['$scope', 'sampleResponse', '$modal', '$state', '$stateParams', 'sampleTypes', 'storageContainers', 'gridFactory', 'sampleFactory', 'gridColumnFactory',
+    .controller('sampleIndexCtrl', ['$scope', 'sampleResponse', '$modal', '$state', '$stateParams', 'sampleTypes', 'storageContainers', 'gridFactory', 'sampleFactory', 'gridColumnFactory', 'sampleGridFactory',
 
-        function ($scope, sampleResponse, $modal, $state, $stateParams, sampleTypes, storageContainers, gridFactory, sampleFactory, gridColumnFactory) {
+        function ($scope, sampleResponse, $modal, $state, $stateParams, sampleTypes, storageContainers, gridFactory, sampleFactory, gridColumnFactory, sampleGridFactory) {
 
             $scope.sampleResponse = sampleResponse;
             $scope.samples = sampleResponse.data;
@@ -40,6 +40,21 @@ angular.module('sample.sampleIndexCtrl', [])
                         storageContainers: function () {
 
                             return storageContainers.data;
+
+                        },
+
+                        linkedSamplesGrid: function () {
+
+                            return sampleFactory.getLinkedSamples(sample).then(function (response) {
+
+                                var grid = sampleGridFactory.getOneToManyGrid();
+
+                                grid.setPaginationFromResponse(response.data);
+                                grid.setResults(response.data.data);
+
+                                return grid;
+
+                            });
 
                         },
 
