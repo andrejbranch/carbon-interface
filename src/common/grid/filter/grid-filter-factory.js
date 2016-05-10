@@ -1,87 +1,50 @@
 angular.module('grid.gridFilterFactory', [])
 
-    .factory('gridFilterFactory', [
+    .factory('gridFilterFactory', ['$injector',
 
-        function () {
+        function ($injector) {
 
-            var GridFilter = function (defaults) {
+            var GridFilter = {
 
-                this.results = [];
-
-                this.selectedItems = [];
-
-                this.filterProperty = null;
-
-                this.title = null;
-
-                this.selectedItemsString = 'Any';
-
-                this.bindTo = null;
-
-                for (attr in defaults) {
-                    this[attr] = defaults[attr];
-                }
-
-            };
-
-            GridFilter.prototype = {
-
-                setResults: function (results) {
-                    this.results = results;
+                filterTypes: {
+                    'relation': {
+                        'factory': 'gridRelationFilterFactory'
+                    },
+                    'integer': {
+                        'factory': 'gridIntegerFilterFactory'
+                    }
                 },
 
-                selectItem: function (item) {
+                create: function (defaults) {
 
-                    this.selectedItems.push(item);
-
-                    this.results.splice(this.results.indexOf(item), 1);
-
-                    this.updateSelectedItemsString();
-
-                },
-
-                removeItem: function (item) {
-
-                    this.selectedItems.splice(this.selectedItems.indexOf(item), 1);
-
-                    this.updateSelectedItemsString();
-
-                },
-
-                updateSelectedItemsString: function () {
-
-                    if (this.selectedItems.length === 0) {
-
-                        this.selectedItemsString = 'Any';
-
-                        return;
+                    if (defaults.type === undefined) {
+                        throw Error('Filter type must be specified');
                     }
 
-                    var that = this;
+                    if (defaults.filterProperty === undefined) {
+                        throw Error('Filter property must be specified');
+                    }
 
-                    this.selectedItemsString = this.selectedItems.map(function(item) {
-                        return item[that.bindTo];
-                    }).join(', ');
+                    var filterType = this.filterTypes[defaults.type];
 
-                },
+                    if (filterType === undefined) {
+                        throw Error('Filter type ' + defaults.type + ' does not exist');
+                    }
 
-                getParams: function () {
+                    var factory = $injector.get(filterType.factory);
 
-                    var params = [];
+                    if (typeof factory.create !== 'function') {
+                        throw Error('Filter factory must implement create');
+                    }
 
-                    var that = this;
-                    this.selectedItems.map(function (item) {
-                        params.push(that.filterProperty + '[]=' + item[that.accessProperty]);
-                    });
+                    factory = factory.create(defaults);
 
-                    return params;
+                    if (typeof factory.getParams !== 'function') {
+                        throw Error('Filter factory must implement getParams');
+                    }
 
+                    return factory;
                 }
-
-            };
-
-            GridFilter.create = function (defaults) {
-                return new GridFilter(defaults);
             };
 
             return GridFilter;

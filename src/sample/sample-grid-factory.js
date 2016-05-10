@@ -60,6 +60,7 @@ angular.module('sample.sampleGridFactory', [])
                         // .setStaticFilters(staticFilters)
                         // .hideFilters()
                         .allowEdit()
+                        .disableToggleColumns()
                     ;
 
                     grid.perPageOptions = [3, 10, 25];

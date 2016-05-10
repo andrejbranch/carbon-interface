@@ -3,6 +3,7 @@ angular.module('grid', [
     'grid.gridColumnDirective',
     'grid.gridRenderDirective',
     'grid.gridHeaderDirective',
+    'grid.gridShowColumnsDirective',
     'grid.gridRowDirective',
     'grid.gridPaginationDirective',
     'grid.gridPaginationTopDirective',

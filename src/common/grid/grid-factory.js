@@ -43,6 +43,8 @@ angular.module('grid.gridFactory', [])
 
                 this.addingItemIds = [];
 
+                this.allowToggleColumns = true;
+
             };
 
             Grid.prototype = {
@@ -213,12 +215,26 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                disableToggleColumns: function () {
+
+                    this.allowToggleColumns = false;
+
+                    return this;
+
+                },
+
+                toggleColumn: function (column) {
+
+                    column.isVisible = column.isVisible ? false : true;
+
+                },
+
                 sortColumn: function (sortColumn, direction) {
 
                     var that = this;
                     this.columns.map(function (column) {
 
-                        if (column === sortColumn) {
+                        if (column.name === sortColumn.name) {
 
                             column.sortDirection = direction;
 

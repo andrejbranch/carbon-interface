@@ -16,6 +16,10 @@ angular.module('grid.gridColumnFactory', [])
 
                 this.sortDirection = this.sort.NONE;
 
+                this.isVisible = true;
+
+                this.isPrimary = false;
+
                 for (attr in defaults) {
                     this[attr] = defaults[attr];
                 }

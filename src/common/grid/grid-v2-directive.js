@@ -6,21 +6,15 @@ angular.module('grid.gridV2Directive', [])
 
             return {
 
+                scope: {
+                    grid: '='
+                },
+
                 restrict: 'E',
 
                 templateUrl: 'common/grid/views/grid-v2-directive-tpl.html',
 
                 link: function ($scope, element, attrs) {
-
-                    if (attrs.grid === undefined) {
-                        throw new Error('Grid Directive: grid attribute must be defined');
-                    }
-
-                    if ($scope[attrs.grid] === undefined) {
-                        throw new Error('Grid Directive: variable ' + attrs.grid + ' not found on inherited scope');
-                    }
-
-                    $scope.grid = $scope[attrs.grid];
 
                     $scope.sortColumn = function (column) {
 
@@ -78,6 +72,14 @@ angular.module('grid.gridV2Directive', [])
                         $scope.grid.restoreRemovedItem(item);
 
                     };
+
+                    $scope.$on('grid.refresh', $scope.refresh);
+
+                    $scope.$on('grid.filterToggle', function () {
+
+                        $scope.$broadcast('grid.filter.toggle');
+
+                    });
 
                 }
 

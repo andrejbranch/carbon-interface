@@ -1,80 +1,32 @@
 angular.module('grid.gridFilterDirective', [])
 
-    .directive('gridFilter', ['$http', 'API',
+    .directive('gridFilter', ['$controller',
 
-        function ($http, API) {
+        function ($controller) {
 
             return {
 
+                scope: {
+                    filter: '='
+                },
                 restrict: 'E',
-                templateUrl: 'common/grid/filter/partials/grid-filter-tpl.html',
+                template: '<div class="inline" ng-include="filter.templateUrl"></div>',
                 link: function ($scope, element, attrs, gridCtrl) {
 
-                    if (attrs.filter === undefined) {
-                        throw new Error('Filter Directive: filter attribute must be defined');
+                    if ($scope.filter.controllerName === undefined) {
+                        throw new Error('Filter property controller name must be defined');
                     }
 
-                    if ($scope[attrs.filter] === undefined) {
-                        throw new Error('Filter Directive: variable ' + attrs.filter + ' not found on inherited scope');
+                    if ($scope.filter.templateUrl === undefined) {
+                        throw new Error('Filter property templateUrl must be defined');
                     }
 
-                    $scope.filter = $scope[attrs.filter];
+                    if ($scope.filter.isVisible === undefined) {
+                        throw new Error('Filter property isVisible must be defined');
+                    }
 
-                    element.find('li').on('click', function (e) {
-                        return false;
-                    });
+                    $controller($scope.filter.controllerName, {$scope: $scope});
 
-                    var init = function () {
-
-                        var url = API.url + $scope.filter.resourceUrl + '?';
-
-                        var params = [];
-                        if ($scope.form.search !== '') {
-                           params.push('cSearch=' + $scope.form.search);
-                        }
-
-                        params.push('cPerPage=5');
-
-
-                        // if ($sc.filteredIds !== undefined) {
-                        $scope.filter.selectedItems.map(function(item) {
-
-                            params.push('cNot[id][]=' + item.id);
-
-                        });
-
-                        $http.get(url + params.join('&')).then(function (response) {
-
-                            $scope.filter.setResults(response.data.data);
-
-                        });
-
-                    };
-
-                    $scope.form = {
-                        search: ''
-                    };
-
-                    $scope.search = function () {
-
-                        init();
-
-                    };
-
-                    $scope.selectItem = function (item) {
-                        $scope.filter.selectItem(item);
-                        init();
-                        $scope.refresh();
-                    };
-
-                    $scope.removeItem = function (item) {
-                        $scope.filter.removeItem(item);
-                        init();
-                        $scope.refresh();
-                    };
-
-
-                    init();
                 }
             };
 

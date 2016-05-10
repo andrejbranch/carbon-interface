@@ -10,7 +10,7 @@
                         <ul class="staged-changes-list">
                             <li ng-repeat="addingItem in grid.addingItems">
                                <span class="label label-primary">
-                                    {{addingItem.name}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
+                                    {{addingItem.id + ' : ' + addingItem.name}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
                                 </span>
                             </li>
                         </ul>
@@ -22,7 +22,7 @@
                         <ul class="staged-changes-list">
                             <li ng-repeat="removingItem in grid.removingItems">
                                <span class="label label-danger">
-                                    {{removingItem.name}} <i class="fa fa-remove" ng-click="restoreRemovedItem(removingItem)"></i>
+                                    {{removingItem.id + ' : ' +removingItem.name}} <i class="fa fa-remove" ng-click="restoreRemovedItem(removingItem)"></i>
                                 </span>
                             </li>
                         </ul>
@@ -55,7 +55,9 @@
 
             <div class="grid-filter-container">
 
-                <grid-filter ng-repeat="filter in grid.filters" filter="filter"></grid-filter>
+                <grid-filter ng-repeat="filter in grid.filters" filter="filter" ng-show="filter.isVisible"></grid-filter>
+
+                <grid-more-filter grid="grid"></grid-more-filter>
 
                 <div class="grid-contains-container">
                     <div class="input-group">
@@ -82,7 +84,7 @@
 
     </div>
 
-    <div ng-if="!grid.isEditable || (grid.isEditable && grid.results.length > 0)">
+    <div class="grid-overflow" ng-if="!grid.isEditable || (grid.isEditable && grid.results.length > 0)" ng-class="{'no-results': grid.results.length === 0}">
         <table class="table table-striped table-hover table-selectable table-align-center dataTable">
 
             <thead>
@@ -90,21 +92,35 @@
                     <th
                         ng-click="sortColumn(column)"
                         ng-repeat="column in grid.columns"
-                        ng-class="{sorting: column.isSortable && column.sortDirection === column.sort.NONE, sorting_asc: column.sortDirection === column.sort.ASC, sorting_desc: column.sortDirection === column.sort.DESC}"
+                        ng-class="{sortable: column.isSortable, isSorting: (column.sortDirection === column.sort.ASC) || (column.sortDirection === column.sort.DESC)}"
+                        ng-show="column.isVisible"
                     >
-                        {{column.header}}
+                        <span>{{column.header}}</span>
+                        <i ng-if="column.isSortable && column.sortDirection === column.sort.NONE" class="fa fa-sort"></i>
+                        <i ng-if="column.sortDirection === column.sort.ASC" class="fa fa-sort-amount-asc"></i>
+                        <i ng-if="column.sortDirection === column.sort.DESC" class="fa fa-sort-amount-desc"></i>
                     </th>
-                    <th ng-if="grid.actionTemplate"></th>
+                    <th class="action-cell" ng-if="grid.allowToggleColumns">
+                        <grid-show-columns grid="grid"></grid-show-columns>
+                    </th>
                     <th ng-if="grid.isEditable"></th>
                 </tr>
             </thead>
             <tbody>
+                <tr ng-if="grid.results.length === 0">
+                    <td colspan="100">No results</td>
+                </tr>
                 <tr ng-repeat="result in grid.results" ng-class="{removing: isRemoving(result)}">
 
-                    <td ng-repeat="column in grid.columns" ng-bind="result.{{column.bindTo}}"></td>
+                    <td
+                        ng-repeat="column in grid.columns"
+                        ng-bind="result.{{column.bindTo}}"
+                        ng-show="column.isVisible"
+                    >
+                    </td>
 
-                    <td ng-if="grid.actionTemplate">
-                        <div ng-include="grid.actionTemplate"></div>
+                    <td ng-if="grid.actionTemplate" class="action-cell">
+                        <div ng-include="grid.actionTemplate" class="action-container"></div>
                     </td>
 
                     <td ng-if="grid.isEditable">
@@ -126,7 +142,7 @@
         </table>
     </div>
 
-    <div class="row m-t-sm" ng-if="!grid.isEditable || (grid.isEditable && grid.results.length > 0)">
+    <div class="row m-t-sm" ng-if="grid.results.length > 0">
 
         <div class="grid-pagination-container">
             <div class="col-sm-6">

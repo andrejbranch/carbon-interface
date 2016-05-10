@@ -74,7 +74,8 @@ angular.module('sample.sampleIndexCtrl', [])
                     header: 'Id',
                     bindTo: 'id',
                     isSortable: true,
-                    name: 'id'
+                    name: 'id',
+                    isPrimary: true
                 },
                 {
                     header: 'Sample Type',
@@ -114,19 +115,114 @@ angular.module('sample.sampleIndexCtrl', [])
                     header: 'Date Updated',
                     bindTo: 'updatedAt | date:\'MMM d, y\'',
                     name: 'updatedAt',
-                    isSortable: true
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Storage Buffer',
+                    bindTo: 'storageBuffer',
+                    name: 'storageBuffer',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Status',
+                    bindTo: 'status',
+                    name: 'status',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Vector',
+                    bindTo: 'vectorName',
+                    name: 'vectorName',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Concentration',
+                    bindTo: 'concentrationString',
+                    name: 'concentration',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'DNA Sequence',
+                    bindTo: 'dnaSequence',
+                    name: 'dnaSequence',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Amino Acid Sequence',
+                    bindTo: 'aminoAcidSequence',
+                    name: 'aminoAcidSequence',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Amino Acid Count',
+                    bindTo: 'aminoAcidCount',
+                    name: 'aminoAcidCount',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Molecular Weight',
+                    bindTo: 'molecularWeight',
+                    name: 'molecularWeight',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Extinction Coefficient',
+                    bindTo: 'extinctionCoefficient',
+                    name: 'extinctionCoefficient',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Purification Tags',
+                    bindTo: 'purificationTags',
+                    name: 'purificationTags',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Species',
+                    bindTo: 'species',
+                    name: 'species',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Cell Line',
+                    bindTo: 'cellLine',
+                    name: 'cellLine',
+                    isSortable: true,
+                    isVisible: false
+                },
+                {
+                    header: 'Mass (g)',
+                    bindTo: 'mass',
+                    name: 'mass',
+                    isSortable: true,
+                    isVisible: false
                 }
+
             ];
 
             var filters = [
                 {
+                    type: 'relation',
                     title: 'Sample Type',
                     accessProperty: 'id',
                     filterProperty: 'sampleTypeId',
                     resourceUrl: '/sample-type',
-                    bindTo: 'name'
+                    bindTo: 'name',
                 },
                 {
+                    type: 'relation',
                     title: 'Created By',
                     accessProperty: 'id',
                     filterProperty: 'createdById',
@@ -135,11 +231,28 @@ angular.module('sample.sampleIndexCtrl', [])
 
                 },
                 {
+                    type: 'relation',
                     title: 'Updated By',
                     accessProperty: 'id',
                     filterProperty: 'updatedById',
                     resourceUrl: '/user',
                     bindTo: 'fullName'
+                },
+                {
+                    type: 'integer',
+                    title: 'Concentration',
+                    // accessProperty: 'id',
+                    filterProperty: 'concentration',
+                    // bindTo: 'fullName'
+                    isVisible: false
+                },
+                {
+                    type: 'integer',
+                    title: 'Mass (g)',
+                    // accessProperty: 'id',
+                    filterProperty: 'mass',
+                    // bindTo: 'fullName'
+                    isVisible: false
                 }
             ];
 
@@ -152,6 +265,7 @@ angular.module('sample.sampleIndexCtrl', [])
                 .setResourceUrl('/sample')
                 .setPaginationFromResponse($scope.sampleResponse)
                 .setResults($scope.samples)
+                .sortColumn(columns[0], 'DESC')
             ;
 
             $scope.grid = grid;
