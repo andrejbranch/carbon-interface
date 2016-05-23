@@ -24,6 +24,8 @@ angular.module('grid.gridRelationFilterFactory', [])
 
                 this.isVisible = true;
 
+                this.isFiltering = false;
+
                 for (attr in defaults) {
                     this[attr] = defaults[attr];
                 }
@@ -42,6 +44,8 @@ angular.module('grid.gridRelationFilterFactory', [])
 
                     this.results.splice(this.results.indexOf(item), 1);
 
+                    this.isFiltering = true;
+
                     this.updateSelectedItemsString();
 
                 },
@@ -49,6 +53,8 @@ angular.module('grid.gridRelationFilterFactory', [])
                 removeItem: function (item) {
 
                     this.selectedItems.splice(this.selectedItems.indexOf(item), 1);
+
+                    this.isFiltering = this.selectedItems.length !== 0;
 
                     this.updateSelectedItemsString();
 
@@ -77,10 +83,18 @@ angular.module('grid.gridRelationFilterFactory', [])
 
                     var that = this;
                     this.selectedItems.map(function (item) {
-                        params.push(that.filterProperty + '[]=' + item[that.accessProperty]);
+                        params.push(that.filterProperty + '[IN][]=' + item[that.accessProperty]);
                     });
 
                     return params;
+
+                },
+
+                clear: function () {
+
+                    this.selectedItems = [];
+                    this.updateSelectedItemsString();
+                    this.isFiltering = false;
 
                 }
 

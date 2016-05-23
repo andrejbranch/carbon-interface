@@ -41,6 +41,7 @@ angular.module('grid.gridShowColumnsDirective', [])
                         ;
 
                         $scope.grid.toggleColumn(column);
+                        $scope.searchText = '';
 
                     };
 

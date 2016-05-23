@@ -27,19 +27,13 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     sampleResponse: function (sampleFactory) {
 
-                                        return sampleFactory.getSamples({});
+                                        return sampleFactory.getSamples({perPage:25});
 
                                     },
 
-                                    sampleTypes: function (sampleFactory) {
+                                    grid: function (sampleResponse, sampleGridFactory) {
 
-                                        return sampleFactory.getSampleTypes();
-
-                                    },
-
-                                    storageContainers: function (sampleFactory) {
-
-                                        return sampleFactory.getStorageContainers();
+                                        return sampleGridFactory.getIndexGrid(sampleResponse);
 
                                     }
 

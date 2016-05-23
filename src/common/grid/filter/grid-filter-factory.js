@@ -12,6 +12,9 @@ angular.module('grid.gridFilterFactory', [])
                     },
                     'integer': {
                         'factory': 'gridIntegerFilterFactory'
+                    },
+                    'enum': {
+                        'factory': 'gridEnumFilterFactory'
                     }
                 },
 
@@ -41,6 +44,10 @@ angular.module('grid.gridFilterFactory', [])
 
                     if (typeof factory.getParams !== 'function') {
                         throw Error('Filter factory must implement getParams');
+                    }
+
+                    if (factory.isFiltering === undefined) {
+                        throw Error('Filter factory must implement isFiltering property');
                     }
 
                     return factory;

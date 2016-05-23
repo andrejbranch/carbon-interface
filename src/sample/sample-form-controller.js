@@ -6,34 +6,10 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.sample = sample ? angular.copy(sample) : {};
             $scope.errors = [];
             $scope.sampleForm = {};
-            $scope.sampleTypes = sampleTypes;
-            $scope.storageContainers = storageContainers;
+            $scope.sampleTypes = sampleTypes.data;
+            $scope.storageContainers = storageContainers.data;
             $scope.statuses = ['Available', 'Depleted', 'Destroyed', 'Shipped'];
             $scope.concentrationUnits = ['mg/mL', 'ng/uL', 'Molar'];
-
-            $scope.selectSampleType = function (sampleType) {
-
-                $scope.sample.sampleType = sampleType;
-
-            };
-
-            $scope.selectStorageContainer = function (storageContainer) {
-
-                $scope.sample.storageContainer = storageContainer;
-
-            };
-
-            $scope.selectStatus = function (status) {
-
-                $scope.sample.status = status;
-
-            };
-
-            $scope.selectConcentrationUnits = function (concentrationUnits) {
-
-                $scope.sample.concentrationUnits = concentrationUnits;
-
-            };
 
             $scope.setDefaultConcentrationUnits = function () {
 
@@ -46,6 +22,11 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.close = function () {
 
+                if ($scope.sampleForm.$pristine === false) {
+                    console.log('not pristine');
+
+                }
+
                 $modalInstance.close();
 
             };
@@ -53,8 +34,6 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.submit = function (isValid) {
 
                 $scope.$broadcast('form:submit');
-
-                console.log($scope.sample);
 
                 $scope.submitted = true;
 
@@ -69,8 +48,8 @@ angular.module('sample.sampleFormCtrl', [])
                         function (response) {
 
                             toastr.info('Sample updated successfully');
-                            callback();
                             $scope.close();
+                            callback();
 
                         },
 

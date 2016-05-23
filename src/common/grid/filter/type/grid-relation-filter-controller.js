@@ -56,7 +56,10 @@ angular.module('grid.gridRelationFilterCtrl', [])
             $scope.toggleFilter = function (e) {
                 e.stopPropagation();
                 $scope.filter.isVisible = false;
+                $scope.filter.clear();
                 $scope.$emit('grid.filterToggle');
+                $scope.$emit('grid.refresh');
+                init();
             };
 
             init();

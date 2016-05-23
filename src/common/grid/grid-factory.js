@@ -45,6 +45,8 @@ angular.module('grid.gridFactory', [])
 
                 this.allowToggleColumns = true;
 
+                this.noResultString = 'No Results';
+
             };
 
             Grid.prototype = {
@@ -330,6 +332,11 @@ angular.module('grid.gridFactory', [])
 
                     return this;
 
+                },
+
+                setNoResultString: function (noResultString) {
+                    this.noResultString = noResultString;
+                    return this;
                 }
 
             }

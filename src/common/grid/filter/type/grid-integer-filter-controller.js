@@ -20,7 +20,9 @@ angular.module('grid.gridIntegerFilterCtrl', [])
             $scope.toggleFilter = function (e) {
                 e.stopPropagation();
                 $scope.filter.isVisible = false;
+                $scope.filter.refresh();
                 $scope.$emit('grid.filterToggle');
+                $scope.$emit('grid.refresh');
             };
 
         }

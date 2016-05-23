@@ -10,7 +10,7 @@ angular.module('grid.gridFilterDirective', [])
                     filter: '='
                 },
                 restrict: 'E',
-                template: '<div class="inline" ng-include="filter.templateUrl"></div>',
+                template: '<div class="grid-filter-template" ng-include="filter.templateUrl"></div>',
                 link: function ($scope, element, attrs, gridCtrl) {
 
                     if ($scope.filter.controllerName === undefined) {

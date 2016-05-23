@@ -53,6 +53,8 @@ angular.module('grid.gridV2Directive', [])
 
                     $scope.removeItem = function (item) {
 
+                        $scope.$emit('form:changed');
+
                         $scope.grid.removeItem(item);
 
                     };

@@ -46,14 +46,17 @@ angular.module('form.oneToManyV2Directive', [])
 
                         $scope.grid.addItem(item);
                         $scope.search = '';
+                        $scope.$emit('form:changed');
 
                     };
 
-
-
                 },
 
-                link: function ($scope, element, attrs, ctrls) {
+                link: function ($scope, element, attrs, formCtrl) {
+
+                    $scope.$on('form:changed', function () {
+                        formCtrl.$pristine = false;
+                    });
 
                     $scope.$on('form:submit', function () {
 

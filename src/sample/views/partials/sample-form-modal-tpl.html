@@ -14,124 +14,72 @@
                     </p>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-error' : sampleForm.name.$invalid && submitted }">
-                    <label class="col-sm-2 control-label">Name</label>
+                <cb-form-group label="Name" name="name">
                     <div class="col-sm-10">
                         <input name="name" type="text" class="form-control" ng-model="sample.name" required>
                         <div ng-messages="sampleForm.name.$error" ng-show="submitted">
                             <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
                     </div>
-                </div>
+                </cb-form-group>
 
-                <div class="form-group" ng-class="{ 'has-error' : sampleForm.description.$invalid && submitted }">
-                    <label class="col-sm-2 control-label">Description</label>
+                <cb-form-group label="Description" name="description">
                     <div class="col-sm-10">
                         <input name="description" type="text" class="form-control" ng-model="sample.description" required>
                         <div ng-messages="sampleForm.description.$error" ng-show="submitted">
                             <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
                     </div>
-                </div>
+                </cb-form-group>
 
-                <div class="form-group" ng-class="{'has-error': sampleForm.status.$invalid && submitted }">
-                    <label class="col-sm-2 control-label">Status</label>
+                <cb-form-group label="Status" name="status">
                     <div class="col-sm-10">
-                        <div class="btn-group block" dropdown>
-                            <button id="single-button" type="button" class="btn btn-white btn-block" dropdown-toggle ng-disabled="disabled">
-                                {{sample.status || "Select Status"}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
-                                <li role="menuitem" ng-repeat="status in statuses" ng-click="selectStatus(status)">
-                                    <a>{{status}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <input name="status" type="hidden" ng-model="sample.status" required>
-                        <div ng-messages="sampleForm.status.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
-                        </div>
+                        <cb-dropdown name="status" ng-model="sample.status" label="Status" items="statuses" required></cb-dropdown>
                     </div>
-                </div>
+                </cb-form-group>
 
-                <div class="form-group" ng-class="{'has-error': sampleForm.storageContainer.$invalid && submitted }">
-                    <label class="col-sm-2 control-label">Storage Container</label>
+                <cb-form-group label="Storage Container" name="storageContainer">
                     <div class="col-sm-10">
-                        <div class="btn-group block" dropdown>
-                            <button id="single-button" type="button" class="btn btn-white btn-block" dropdown-toggle ng-disabled="disabled">
-                                {{sample.storageContainer.name || "Select Storage Container"}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
-                                <li role="menuitem" ng-repeat="storageContainer in storageContainers" ng-click="selectStorageContainer(storageContainer)">
-                                    <a>{{storageContainer.name}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <input name="storageContainer" type="hidden" ng-model="sample.storageContainer" required>
-                        <div ng-messages="sampleForm.storageContainer.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
-                        </div>
+                        <cb-dropdown bind-to="name" name="storageContainer" ng-model="sample.storageContainer" label="Storage Container" items="storageContainers" required></cb-dropdown>
                     </div>
-                </div>
+                </cb-form-group>
 
-                <div class="form-group" ng-class="{'has-error': sampleForm.storageBuffer.$invalid && submitted }">
-                    <label class="col-sm-2 control-label">Storage Buffer</label>
+                <cb-form-group label="Storage Buffer" name="storageBuffer">
                     <div class="col-sm-10">
                         <input name="storageBuffer" type="text" class="form-control" ng-model="sample.storageBuffer" required>
                         <div ng-messages="sampleForm.storageBuffer.$error" ng-show="submitted">
                             <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
                     </div>
-                </div>
+                </cb-form-group>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Linked Samples</label>
+                <cb-form-group label="Linked Samples" name="linkedSamples">
                     <div class="col-sm-10">
-
                         <one-to-many-v2 grid="sampleOneToManyGrid" parent-object="sample" bind-to="linkedSamples"></one-to-many-v2>
-
                     </div>
-                </div>
+                </cb-form-group>
 
-                <div class="form-group" ng-class="{ 'has-error' : sampleForm.sampleType.$invalid && submitted }">
-                    <label class="col-sm-2 control-label">Sample Type</label>
+                <cb-form-group label="Sample Type" name="sampleType">
                     <div class="col-sm-10">
-                        <div class="btn-group block" dropdown>
-                            <button id="single-button" type="button" class="btn btn-primary btn-block" dropdown-toggle ng-disabled="disabled">
-                                {{sample.sampleType.name || "Select Sample Type"}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
-                                <li role="menuitem" ng-repeat="sampleType in sampleTypes" ng-click="selectSampleType(sampleType)">
-                                    <a>{{sampleType.name}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div ng-messages="sampleForm.sampleType.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
-                        </div>
+                        <cb-dropdown cb-dropdown-primary bind-to="name" name="sampleType" ng-model="sample.sampleType" label="Sample Type" items="sampleTypes" required></cb-dropdown>
                     </div>
-                </div>
+                </cb-form-group>
 
                 <!-- DNA -->
                 <div ng-if="sample.sampleType.name === 'DNA'">
 
                     <div class="hr-line-dashed"></div>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.vectorName.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Vector Name</label>
+                    <cb-form-group label="Vector Name" name="vectorName">
                         <div class="col-sm-10">
                             <input name="vectorName" type="text" class="form-control" ng-model="sample.vectorName" required>
                             <div ng-messages="sampleForm.vectorName.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.concentration.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Concentration</label>
+                    <cb-form-group label="Concentrations" name="concentration">
 
                         <div class="col-sm-5">
                             <input name="concentration" type="text" class="form-control" ng-model="sample.concentration" required money min="0" precision="3">
@@ -141,77 +89,64 @@
                         </div>
 
                         <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultConcentrationUnits()">
-                            <button id="single-button" type="button" class="btn btn-white btn-block" dropdown-toggle ng-disabled="disabled">
-                                {{sample.concentrationUnits}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
-                                <li role="menuitem" ng-repeat="concentrationUnit in concentrationUnits" ng-click="selectConcentrationUnits(concentrationUnit)">
-                                    <a>{{concentrationUnit}}</a>
-                                </li>
-                            </ul>
+                            <cb-dropdown name="concentrationUnits" ng-model="sample.concentrationUnits" label="Concentration Unit" items="concentrationUnits" required></cb-dropdown>
                         </div>
-                    </div>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.dnaSequence.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">DNA Sequence</label>
+                    </cb-form-group>
+
+                    <cb-form-group label="DNA Sequence" name="dnaSequence">
                         <div class="col-sm-10">
                             <input name="dnaSequence" type="text" class="form-control" ng-model="sample.dnaSequence" required>
                             <div ng-messages="sampleForm.dnaSequence.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.aminoAcidSequence.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Amino Acid Sequence</label>
+                    <cb-form-group label="Amino Acid Sequence" name="aminoAcidSequence">
                         <div class="col-sm-10">
                             <input name="aminoAcidSequence" type="text" class="form-control" ng-model="sample.aminoAcidSequence" required>
                             <div ng-messages="sampleForm.aminoAcidSequence.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.aminoAcidCount.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Total Amino Acids</label>
+                    <cb-form-group label="Total Amino Acids" name="aminoAcidCount">
                         <div class="col-sm-10">
                             <input name="aminoAcidCount" type="text" class="form-control" ng-model="sample.aminoAcidCount" required money min="0" precision="0">
                             <div ng-messages="sampleForm.aminoAcidCount.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.molecularWeight.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Molecular Weight</label>
+                    <cb-form-group label="Molecular Weight" name="molecularWeight">
                         <div class="col-sm-10">
                             <input name="molecularWeight" type="text" class="form-control" ng-model="sample.molecularWeight" required money min="0" precision="3">
                             <div ng-messages="sampleForm.molecularWeight.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.extinctionCoefficient.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Extinction Coefficient</label>
+                    <cb-form-group label="Extinction Coefficient" name="extinctionCoefficient">
                         <div class="col-sm-10">
                             <input name="extinctionCoefficient" type="text" class="form-control" ng-model="sample.extinctionCoefficient" required money min="0" precision="3">
                             <div ng-messages="sampleForm.extinctionCoefficient.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.purificationTags.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Purification Tags</label>
+                    <cb-form-group label="Purification Tags" name="purificationTags">
                         <div class="col-sm-10">
                             <input name="purificationTags" type="text" class="form-control" ng-model="sample.purificationTags" required>
                             <div ng-messages="sampleForm.purificationTags.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
                 </div>
 
@@ -223,75 +158,70 @@
                 <!-- Sera -->
                 <div ng-if="sample.sampleType.name === 'Sera'">
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.species.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Species</label>
+                    <cb-form-group label="Species" name="species">
                         <div class="col-sm-10">
                             <input name="species" type="text" class="form-control" ng-model="sample.species" required>
                             <div ng-messages="sampleForm.species.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
                 </div>
 
                 <!-- Bacterial Cells -->
                 <div ng-if="sample.sampleType.name === 'Bacterial Cells'">
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.species.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Cell Line</label>
+                    <cb-form-group label="Cell Line" name="cellLine">
                         <div class="col-sm-10">
                             <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
                             <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
                 </div>
 
                 <!-- Mammalian Cells -->
                 <div ng-if="sample.sampleType.name === 'Mammalian Cells'">
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.species.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Cell Line</label>
+                    <cb-form-group label="Cell Line" name="cellLine">
                         <div class="col-sm-10">
                             <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
                             <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
                 </div>
 
                 <!-- Yeast Cells -->
                 <div ng-if="sample.sampleType.name === 'Yeast Cells'">
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.species.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Cell Line</label>
+                    <cb-form-group label="Cell Line" name="cellLine">
                         <div class="col-sm-10">
                             <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
                             <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
                 </div>
 
                 <!-- Chemical Compound -->
                 <div ng-if="sample.sampleType.name === 'Chemical Compound'">
 
-                    <div class="form-group" ng-class="{ 'has-error' : sampleForm.species.$invalid && submitted }">
-                        <label class="col-sm-2 control-label">Mass (g)</label>
+                    <cb-form-group label="Mass (g)" name="mass">
                         <div class="col-sm-10">
                             <input name="mass" type="text" class="form-control" ng-model="sample.mass" required money min="0" precision="3">
                             <div ng-messages="sampleForm.mass.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
-                    </div>
+                    </cb-form-group>
 
                 </div>
 

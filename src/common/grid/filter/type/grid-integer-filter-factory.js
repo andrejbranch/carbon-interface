@@ -26,6 +26,8 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                 this.isVisible = true;
 
+                this.isFiltering = false;
+
                 for (attr in defaults) {
                     this[attr] = defaults[attr];
                 }
@@ -56,6 +58,7 @@ angular.module('grid.gridIntegerFilterFactory', [])
                     this.selectedOperator = this.operators[0];
                     this.betweenStart = '';
                     this.endStart = '';
+                    this.isFiltering = false;
 
                 },
 
@@ -65,6 +68,8 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                         this.selectionString = this.selectedOperator.name + ' ' + this.singleValue;
 
+                        this.isFiltering = true;
+
                         return;
 
                     }
@@ -73,9 +78,13 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                         this.selectionString = this.operators[1].name + ' ' + this.betweenStart + ' ' + this.operators[0].name + ' ' + this.endStart;
 
+                        this.isFiltering = true;
+
                         return;
 
                     }
+
+                    this.isFiltering = false;
 
                     this.selectionString = 'Any';
 

@@ -3,5 +3,6 @@ angular.module('sample', [
     'sample.sampleFactory',
     'sample.sampleGridFactory',
     'sample.routes',
-    'sample.sampleFormCtrl'
+    'sample.sampleFormCtrl',
+    'sample.sampleRowActionsCtrl'
 ]);
