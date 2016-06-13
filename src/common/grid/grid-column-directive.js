@@ -7,10 +7,11 @@ angular.module('grid.gridColumnDirective', [])
 
                 restrict: 'A',
                 scope: {
-                    name: '@'
+                    column: '=',
+                    columnSrc: '='
                 },
                 link: function ($scope, element, attrs) {
-
+                    console.log($scope.column.bindTo);
                 }
 
             };

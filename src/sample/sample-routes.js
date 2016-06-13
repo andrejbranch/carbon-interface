@@ -40,6 +40,46 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 }
                             }
                         }
+                    },
+                    {
+                        url: '/:id',
+                        name: 'detail',
+                        views: {
+                            content: {
+                                templateUrl: 'sample/views/sample-detail-tpl.html',
+                                controller: 'sampleDetailCtrl',
+                                data: {
+                                    pageTitle: 'Sample ',
+                                },
+                                resolve: {
+
+                                    sample: function (sampleFactory, $stateParams) {
+
+                                        return sampleFactory.getSample({id:$stateParams.id});
+
+                                    },
+
+                                    linkedSamplesGrid: function (sampleFactory, sampleGridFactory, sample) {
+
+                                        return sampleFactory.getLinkedSamples(sample).then(function (response) {
+
+                                            var grid = sampleGridFactory.getOneToManyGrid(sample.id);
+
+                                            grid
+                                                .setPaginationFromResponse(response.data)
+                                                .setResults(response.data.data)
+                                                .disallowEdit()
+                                            ;
+
+                                            return grid;
+
+                                        });
+
+                                    }
+
+                                }
+                            }
+                        }
                     }
                 ]
             })

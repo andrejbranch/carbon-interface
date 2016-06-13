@@ -321,11 +321,17 @@ body.page-small.show-sidebar #wrapper {
 a {
   cursor: pointer;
   color: @color-navy-blue;
+  &.soft-link {
+    color: inherit;
+  }
 }
 
 a:hover, a:focus {
   color: @color-navy-blue;
-  text-decoration: none;
+  text-decoration: underline;
+  &.soft-link {
+    color: inherit;
+  }
 }
 
 .no-padding {
@@ -637,7 +643,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 
 .normalheader {
   min-width: 320px;
-  padding: 40px 40px 0px 40px;
+  padding: 10px 40px 0px 40px;
 }
 
 @media(max-width: 768px) {

@@ -1,0 +1,175 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="sample.index">Samples</a></li>
+                <li class="active">
+                    <span>Sample {{sample.id}}</span>
+                </li>
+            </ol>
+        </div>
+        <div class="hpanel">
+            <div class="panel-body">
+                <h2 class="font-light m-b-xs">
+                  Sample {{sample.id}} - {{sample.name}}
+                </h2>
+                <small>{{sample.description}}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-info" />
+                        Details
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Id</td>
+                                <td>{{sample.id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{sample.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Sample Type</td>
+                                <td>{{sample.sampleType.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>{{sample.status}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-users"></i>
+                        People
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Created By</td>
+                                <td>{{sample.createdBy.fullName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Updated By</td>
+                                <td>{{sample.updatedBy.fullName}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-calendar"></i>
+                        Dates
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Created At</td>
+                                <td>{{sample.createdAt | date:'medium'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Updated At</td>
+                                <td>{{sample.updatedAt | date:'medium'}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-calendar"></i>
+                        Sample Type
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Cell Line</td>
+                                <td>test</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        Samples Linked to Sample {{sample.id}}
+                    </div>
+                    <div class="panel-body no-padding">
+
+                        <grid-v2 grid="linkedSamplesGrid"></grid-v2>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                     <tabset active="active">
+                        <tab index="0">
+                            <tab-heading>
+                                <i class="glyphicon glyphicon-comment"></i> Comments
+                            </tab-heading>
+                            <div class="panel-body">
+                                Comments go here
+                            </div>
+                        </tab>
+                        <tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
+                            {{tab.content}}
+                        </tab>
+                        <tab index="3" select="alertMe()">
+                            <tab-heading>
+                                <i class="glyphicon glyphicon-bell"></i> Activity
+                            </tab-heading>
+                            <div class="panel-body">
+                                I've got an HTML heading, and a select callback. Pretty cool!
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

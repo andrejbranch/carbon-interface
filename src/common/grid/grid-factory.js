@@ -164,6 +164,15 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                disallowEdit: function () {
+
+                    this.isEditable = false;
+
+                    return this;
+
+                },
+
+
                 setStaticFilters: function (staticFilters) {
 
                     this.staticFilters = staticFilters;

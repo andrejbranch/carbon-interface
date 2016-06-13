@@ -14,18 +14,20 @@ angular.module('sample.sampleGridFactory', [])
                             bindTo: 'id',
                             isSortable: true,
                             name: 'id',
-                            isPrimary: true
-                        },
-                        {
-                            header: 'Sample Type',
-                            bindTo: 'sampleType.name',
-                            name: 'sampleTypeId',
-                            isSortable: true
+                            isPrimary: true,
+                            sref: 'sample.detail({id:result.id})'
                         },
                         {
                             header: 'Name',
                             bindTo: 'name',
                             name: 'name',
+                            isSortable: true,
+                            sref: 'sample.detail({id:result.id})'
+                        },
+                        {
+                            header: 'Sample Type',
+                            bindTo: 'sampleType.name',
+                            name: 'sampleTypeId',
                             isSortable: true
                         },
                         {

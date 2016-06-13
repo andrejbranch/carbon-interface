@@ -113,9 +113,10 @@
 
                     <td
                         ng-repeat="column in grid.columns"
-                        ng-bind="result.{{column.bindTo}}"
                         ng-show="column.isVisible"
                     >
+                        <a ng-bind="result.{{column.bindTo}}" ng-if="column.sref" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
+                        <span ng-bind="result.{{column.bindTo}}" ng-if="!column.sref" class="column-text" title="{{result[column.bindTo]}}"></span>
                     </td>
 
                     <td ng-if="grid.actionTemplate" class="action-cell">

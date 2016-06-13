@@ -97,6 +97,18 @@ angular.module('sample.sampleFactory', [])
 
                    return $http.get(API.url + '/sample-linked-sample/' + sample.id);
 
+                },
+
+                getSample: function (options) {
+
+                    var url = API.url + '/sample?id[EQ]=' + options.id;
+
+                    return $http.get(url).then(function (response) {
+
+                        return response.data.data[0];
+
+                    });
+
                 }
 
             }
