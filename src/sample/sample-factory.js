@@ -93,6 +93,34 @@ angular.module('sample.sampleFactory', [])
 
                 },
 
+                createSample: function (sample) {
+
+                    var url = API.url + '/sample';
+
+                    return $http.post(url, {
+                        name: sample.name,
+                        description: sample.description,
+                        storageBuffer: sample.storageBuffer,
+                        storageContainer: sample.storageContainer,
+                        sampleType: sample.sampleType,
+                        status: sample.status,
+                        vectorName: sample.vectorName,
+                        concentration: sample.concentration,
+                        concentrationUnits: sample.concentrationUnits,
+                        dnaSequence: sample.dnaSequence,
+                        aminoAcidSequence: sample.aminoAcidSequence,
+                        aminoAcidCount: sample.aminoAcidCount,
+                        molecularWeight: sample.molecularWeight,
+                        extinctionCoefficient: sample.extinctionCoefficient,
+                        purificationTags: sample.purificationTags,
+                        species: sample.species,
+                        cellLine: sample.cellLine,
+                        mass: sample.mass,
+                        linkedSamples: sample.linkedSamples
+                    });
+
+                },
+
                 getLinkedSamples: function (sample) {
 
                    return $http.get(API.url + '/sample-linked-sample/' + sample.id);

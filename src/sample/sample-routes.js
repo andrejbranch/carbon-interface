@@ -63,11 +63,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return sampleFactory.getLinkedSamples(sample).then(function (response) {
 
-                                            var grid = sampleGridFactory.getOneToManyGrid(sample.id);
+                                            var grid = sampleGridFactory.getIndexGrid(response);
 
                                             grid
+                                                .setResourceUrl('/sample-linked-sample/' + sample.id)
                                                 .setPaginationFromResponse(response.data)
                                                 .setResults(response.data.data)
+                                                .setActionTemplate(null)
+                                                .setNoResultString('No linked samples found')
                                                 .disallowEdit()
                                             ;
 

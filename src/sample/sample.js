@@ -5,5 +5,6 @@ angular.module('sample', [
     'sample.routes',
     'sample.sampleFormCtrl',
     'sample.sampleRowActionsCtrl',
-    'sample.sampleDetailCtrl'
+    'sample.sampleDetailCtrl',
+    'sample.formFactory'
 ]);

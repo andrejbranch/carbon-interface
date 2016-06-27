@@ -11,10 +11,11 @@
         </div>
         <div class="hpanel">
             <div class="panel-body">
-                <h2 class="font-light m-b-xs">
+                <button ng-click="edit(sample)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
+                <h2 class="font-light m-b-xs inline">
                   Sample {{sample.id}} - {{sample.name}}
                 </h2>
-                <small>{{sample.description}}</small>
+                <small class="block">{{sample.description}}</small>
             </div>
         </div>
     </div>
@@ -22,8 +23,14 @@
     <div class="content">
 
         <div class="row">
+            <div class="col-sm-12">
+                <h2><span class="label label-pill label-{{labelClass}} block">{{sample.status}}</span></h2>
+            </div>
+        </div>
 
-            <div class="col-sm-3">
+        <div class="row">
+
+            <div class="col-sm-4">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
@@ -42,20 +49,12 @@
                                 <td>Name</td>
                                 <td>{{sample.name}}</td>
                             </tr>
-                            <tr>
-                                <td>Sample Type</td>
-                                <td>{{sample.sampleType.name}}</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{{sample.status}}</td>
-                            </tr>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
@@ -79,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
@@ -103,26 +102,106 @@
                 </div>
             </div>
 
-            <div class="col-sm-3">
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        <i class="fa fa-calendar"></i>
-                        Sample Type
+                        <img style="width:50px;" src="images/{{iconFile}}" />
                     </div>
                     <div class="panel-body no-padding">
                         <table class="table-detail">
+
+                            <!-- DNA -->
+
                             <tr>
-                                <td>Cell Line</td>
-                                <td>test</td>
+                                <td>Sample Type</td>
+                                <td>{{sample.sampleType.name}}</td>
+
                             </tr>
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Vector Name</td>
+                                <td>{{sample.vectorName}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Concentration</td>
+                                <td>{{sample.concentrationString}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>DNA Sequence</td>
+                                <td title="{{sample.dnaSequence}}">{{sample.dnaSequence}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Amino Acid Sequence</td>
+                                <td>{{sample.aminoAcidSequence}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Amino Acid Count</td>
+                                <td>{{sample.aminoAcidCount}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Molecular Weight</td>
+                                <td>{{sample.molecularWeight}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Extinction Coefficient</td>
+                                <td>{{sample.extinctionCoefficient}}</td>
+                            </tr>
+
+                            <tr ng-if="sample.sampleType.name === 'DNA'">
+                                <td>Purification Tags</td>
+                                <td>{{sample.purificationTags}}</td>
+                            </tr>
+
+                            <!-- Protein -->
+
+                            <!-- Sera -->
+                            <tr ng-if="sample.sampleType.name === 'Sera'">
+                                <td>Species</td>
+                                <td>{{sample.species}}</td>
+                            </tr>
+
+                            <!-- Bacterial Cells-->
+                            <tr ng-if="sample.sampleType.name === 'Bacterial Cells'">
+                                <td>Cell Line</td>
+                                <td>{{sample.cellLine}}</td>
+                            </tr>
+
+                            <!-- Mammalian Cells-->
+                            <tr ng-if="sample.sampleType.name === 'Mammalian Cells'">
+                                <td>Cell Line</td>
+                                <td>{{sample.cellLine}}</td>
+
+                            </tr>
+                            <!-- Yeast Cells-->
+                            <tr ng-if="sample.sampleType.name === 'Yeast Cells'">
+                                <td>Cell Line</td>
+                                <td>{{sample.cellLine}}</td>
+                            </tr>
+
+                            <!-- Chemical Compound -->
+                            <tr ng-if="sample.sampleType.name === 'Chemical Compound'">
+                                <td>Mass (g)</td>
+                                <td>{{sample.mass}}</td>
+                            </tr>
+
+                            <!-- Solution -->
+
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="row">

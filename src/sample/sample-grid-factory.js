@@ -202,7 +202,16 @@ angular.module('sample.sampleGridFactory', [])
                             filterProperty: 'mass',
                             // bindTo: 'fullName'
                             isVisible: false
-                        }
+                        },
+                        {
+                            type: 'enum',
+                            title: 'Species',
+                            filterProperty: 'species',
+                            bindTo: 'species',
+                            enum: ['human'],
+                            isVisible: false
+
+                        },
                     ];
 
                     var grid = gridFactory.create();

@@ -1,6 +1,7 @@
 var carbonApp = angular.module('carbonApp', [
     'ui.router',
     'ui.bootstrap',
+    'cryoblock.common.templates',
     'templates',
     'common',
     'carbonAppDirectives',

@@ -68,13 +68,13 @@ angular.module('storage.storageDivisionCtrl', [])
                 var selectedSample = $scope.division.samples[0];
             }
 
-            $timeout(function () {
-                $scope.$broadcast('storage_box.details.well_selected', {
-                    sample: selectedSample,
-                    column: selectedSample.divisionColumn,
-                    row: selectedSample.divisionRow
-                });
-            });
+            // $timeout(function () {
+            //     $scope.$broadcast('storage_box.details.well_selected', {
+            //         sample: selectedSample,
+            //         column: selectedSample.divisionColumn,
+            //         row: selectedSample.divisionRow
+            //     });
+            // });
         }
 
     ])

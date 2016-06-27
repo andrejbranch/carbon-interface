@@ -52,17 +52,20 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    "<%= carbon.build %>/develop/grid.css": "<%= carbon.app %>/common/grid/grid-style.less",
-                    "<%= carbon.build %>/develop/one-to-many.css": "<%= carbon.app %>/common/form/one-to-many/one-to-many-styles.less",
-                    "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
+                    // "<%= carbon.build %>/develop/grid.css": "<%= carbon.app %>/common/grid/grid-style.less",
+                    // "<%= carbon.build %>/develop/one-to-many.css": "<%= carbon.app %>/common/form/one-to-many/one-to-many-styles.less",
+                    // "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
                     "<%= carbon.build %>/develop/storage.css": "<%= carbon.app %>/storage/storage-styles.less",
-                    "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
+                    // "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             },
             prod: {
                 options: {
                     compress: true,
                     optimization: 2,
+                    modifyVars: {
+                        "fa-font-path": '"/fonts"',
+                    }
                 },
                 files: {
                     "<%= carbon.build %>/production/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
@@ -165,18 +168,32 @@ module.exports = function (grunt) {
                             'img/{,*/}*.*'
                         ]
                     },
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'bower_components/fontawesome',
+                    //     src: ['fonts/*.*'],
+                    //     dest: '<%= carbon.build %>/develop'
+                    // },
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'bower_components/bootstrap',
+                    //     src: ['fonts/*.*'],
+                    //     dest: '<%= carbon.build %>/develop'
+                    // },
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/fontawesome',
+                        cwd: 'bower_components/cryoblock-common/release',
                         src: ['fonts/*.*'],
                         dest: '<%= carbon.build %>/develop'
                     },
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/bootstrap',
-                        src: ['fonts/*.*'],
+                        cwd: 'bower_components/cryoblock-common/release',
+                        src: ['images/*.*'],
                         dest: '<%= carbon.build %>/develop'
                     },
                 ]
@@ -257,7 +274,8 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
-                            '<%= carbon.app %>/common/fonts/**/*.css',
+                            // '<%= carbon.app %>/common/fonts/**/*.css',
+                            'bower_components/cryoblock-common/release/cryoblock.css',
                             '<%= carbon.build %>/develop/*.css',
                         ]
                     },
@@ -265,37 +283,39 @@ module.exports = function (grunt) {
                     relative: true,
                     scripts: {
                         bundle: [
-                            'bower_components/jquery/dist/jquery.min.js',
-                            'bower_components/jquery-ui/jquery-ui.min.js',
-                            'bower_components/bootstrap/dist/js/bootstrap.js',
-                            'bower_components/metisMenu/dist/metisMenu.min.js',
-                            'bower_components/slimScroll/jquery.slimscroll.min.js',
-                            'bower_components/angular/angular.js',
-                            'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                            'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-                            'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
-                            'bower_components/ngstorage/ngStorage.min.js',
-                            'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
-                            'bower_components/ngStorage/ngStorage.min.js',
-                            'bower_components/angular-cookies/angular-cookies.min.js',
-                            'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
-                            'bower_components/blueimp-file-upload/js/vendor/*.js',
-                            'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
-                            'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
-                            'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
-                            'bower_components/iCheck/icheck.min.js',
-                            'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
-                            'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
-                            'bower_components/datatables/media/js/jquery.dataTables.js',
-                            'bower_components/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.js',
-                            'bower_components/angular-loading-bar/build/loading-bar.js',
-                            'bower_components/angular-datatables/dist/angular-datatables.js',
-                            'bower_components/angular-messages/angular-messages.js',
-                            'bower_components/datatables-responsive/js/dataTables.responsive.js',
-                            'bower_components/sweetalert/dist/sweetalert-dev.js',
-                            'bower_components/angular-tree-control/angular-tree-control.js',
-                            'bower_components/angular-rangeslider/angular.rangeSlider.js',
-                            'bower_components/angular-money-directive/dist/angular-money-directive.js',
+                            // 'bower_components/jquery/dist/jquery.min.js',
+                            // 'bower_components/jquery-ui/jquery-ui.min.js',
+                            // 'bower_components/bootstrap/dist/js/bootstrap.js',
+                            // 'bower_components/metisMenu/dist/metisMenu.min.js',
+                            // 'bower_components/slimScroll/jquery.slimscroll.min.js',
+                            // 'bower_components/angular/angular.js',
+                            // 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                            // 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+                            // 'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
+                            // 'bower_components/ngstorage/ngStorage.min.js',
+                            // 'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
+                            // 'bower_components/ngStorage/ngStorage.min.js',
+                            // 'bower_components/angular-cookies/angular-cookies.min.js',
+                            // 'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
+                            // 'bower_components/blueimp-file-upload/js/vendor/*.js',
+                            // 'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
+                            // 'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
+                            // 'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
+                            // 'bower_components/iCheck/icheck.min.js',
+                            // 'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
+                            // 'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
+                            // 'bower_components/datatables/media/js/jquery.dataTables.js',
+                            // 'bower_components/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.js',
+                            // 'bower_components/angular-loading-bar/build/loading-bar.js',
+                            // 'bower_components/angular-datatables/dist/angular-datatables.js',
+                            // 'bower_components/angular-messages/angular-messages.js',
+                            // 'bower_components/datatables-responsive/js/dataTables.responsive.js',
+                            // 'bower_components/sweetalert/dist/sweetalert-dev.js',
+                            // 'bower_components/angular-tree-control/angular-tree-control.js',
+                            // 'bower_components/angular-rangeslider/angular.rangeSlider.js',
+                            // 'bower_components/angular-money-directive/dist/angular-money-directive.js',
+                            // 'bower_components/angular-money-directive/dist/angular-money-directive.js',
+                            'bower_components/cryoblock-common/release/cryoblock.js',
                             '<%= carbon.build %>/develop/templates.js',
                             '<%= carbon.app %>/**/*.js'
                         ]

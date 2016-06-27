@@ -63,6 +63,28 @@ angular.module('sample.sampleFormCtrl', [])
 
                 }
 
+                if ($scope.sample.id === undefined) {
+
+                    sampleFactory.createSample($scope.sample).then(
+
+                        function (response) {
+
+                            toastr.info('Sample created successfully');
+                            $scope.close();
+                            callback();
+
+                        },
+
+                        function (response) {
+
+                            $scope.errors = response.data;
+
+                        }
+
+                    );
+
+                }
+
             }
 
             $scope.sampleOneToManyGrid = linkedSamplesGrid;

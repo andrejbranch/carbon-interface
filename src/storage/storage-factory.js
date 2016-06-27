@@ -9,7 +9,7 @@ angular.module('storage.storageFactory', [])
 
                     var req = {
                         method: 'GET',
-                        url: API.url + '/division?parentId=null',
+                        url: API.url + '/division?parentId[NULL]=true',
                         headers: {
                             'X-CARBON-SERIALIZATION-GROUPS': 'children'
                         }
@@ -27,7 +27,7 @@ angular.module('storage.storageFactory', [])
 
                     var req = {
                         method: 'GET',
-                        url: API.url + '/division?id=' + divisionId,
+                        url: API.url + '/division?id[EQ]=' + divisionId,
                         headers: {
                             'X-CARBON-SERIALIZATION-GROUPS': 'parent,samples'
                         }
@@ -43,7 +43,7 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionChildren: function (parentId) {
 
-                    var url = API.url + '/division?parentId=' + parentId;
+                    var url = API.url + '/division?parentId[EQ]=' + parentId;
 
                     var promise = $http.get(url).then(function (response) {
                         return response.data;
@@ -54,7 +54,7 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionSamples: function (divisionId) {
 
-                    var url = API.url + '/sample?divisionId=' + divisionId;
+                    var url = API.url + '/sample?divisionId[EQ]=' + divisionId;
 
                     var promise = $http.get(url).then(function (response) {
                         return response.data;
