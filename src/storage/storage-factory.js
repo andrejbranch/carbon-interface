@@ -41,6 +41,14 @@ angular.module('storage.storageFactory', [])
                     return promise;
                 },
 
+                updateDivision: function (division) {
+
+                    var url = API.url + '/division?id=' + division.id;
+
+                    return $http.put(url, division);
+
+                },
+
                 getDivisionChildren: function (parentId) {
 
                     var url = API.url + '/division?parentId[EQ]=' + parentId;
@@ -52,9 +60,21 @@ angular.module('storage.storageFactory', [])
                     return promise;
                 },
 
-                getDivisionSamples: function (divisionId) {
+                getDivisionSampleTypes: function (divisionId) {
 
-                    var url = API.url + '/sample?divisionId[EQ]=' + divisionId;
+                    var url = API.url + '/division-sample-type/division/' + divisionId;
+
+                    var promise = $http.get(url).then(function (response) {
+                        return response.data;
+                    });
+
+                    return promise;
+
+                },
+
+                getDivisionStorageContainers: function (divisionId) {
+
+                    var url = API.url + '/division-storage-container/division/' + divisionId;
 
                     var promise = $http.get(url).then(function (response) {
                         return response.data;
@@ -63,6 +83,7 @@ angular.module('storage.storageFactory', [])
                     return promise;
 
                 }
+
             }
 
             return storageFactory;

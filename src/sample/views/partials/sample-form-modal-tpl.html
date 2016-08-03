@@ -3,238 +3,284 @@
     <div id="sample-form-container">
         <div class="modal-header">
             <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Edit Sample {{sample.id}}</h4>
+            <h4 ng-if="currentStep === 'sampleDetails'" class="modal-title">{{ sample.id ? 'Edit Sample' : 'Create Sample' }} {{sample.id}}</h4>
+            <h4 ng-if="currentStep === 'locationSelect'" class="modal-title">{{ sample.id ? 'Update Location' : 'Select Location' }}</h4>
             <small>{{sample.name}}</small>
         </div>
-        <div class="modal-body">
 
-                <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
-                    <p ng-repeat="error in errors">
-                        <strong>{{error}}</strong>
-                    </p>
-                </div>
+        <steps name="sampleFormFlow" current-step="currentStep">
 
-                <cb-form-group label="Name" name="name">
-                    <div class="col-sm-10">
-                        <input name="name" type="text" class="form-control" ng-model="sample.name" required>
-                        <div ng-messages="sampleForm.name.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
-                        </div>
+            <step name="sampleDetails">
+
+                <div class="modal-body">
+
+                    <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
+                        <p ng-repeat="error in errors">
+                            <strong>{{error}}</strong>
+                        </p>
                     </div>
-                </cb-form-group>
 
-                <cb-form-group label="Description" name="description">
-                    <div class="col-sm-10">
-                        <input name="description" type="text" class="form-control" ng-model="sample.description" required>
-                        <div ng-messages="sampleForm.description.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
+                    <cb-form-group label="Name" name="name">
+                        <div class="col-sm-10">
+                            <input name="name" type="text" class="form-control" ng-model="sample.name" required>
+                            <div ng-messages="sampleForm.name.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
                         </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Description" name="description">
+                        <div class="col-sm-10">
+                            <input name="description" type="text" class="form-control" ng-model="sample.description" required>
+                            <div ng-messages="sampleForm.description.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Status" name="status">
+                        <div class="col-sm-10">
+                            <cb-dropdown name="status" ng-model="sample.status" label="Status" items="statuses" required></cb-dropdown>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Storage Container" name="storageContainer">
+                        <div class="col-sm-10">
+                            <cb-dropdown bind-to="name" name="storageContainer" ng-model="sample.storageContainer" label="Storage Container" items="storageContainers" required></cb-dropdown>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Storage Buffer" name="storageBuffer">
+                        <div class="col-sm-10">
+                            <input name="storageBuffer" type="text" class="form-control" ng-model="sample.storageBuffer" required>
+                            <div ng-messages="sampleForm.storageBuffer.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Linked Samples" name="linkedSamples">
+                        <div class="col-sm-10">
+                            <one-to-many-v2 grid="sampleOneToManyGrid" parent-object="sample" bind-to="linkedSamples" resource-url="/sample" placeholder="Add Sample.."></one-to-many-v2>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Sample Type" name="sampleType">
+                        <div class="col-sm-10">
+                            <cb-dropdown cb-dropdown-primary bind-to="name" name="sampleType" ng-model="sample.sampleType" label="Sample Type" items="sampleTypes" required></cb-dropdown>
+                        </div>
+                    </cb-form-group>
+
+                    <!-- DNA -->
+                    <div ng-if="sample.sampleType.name === 'DNA'">
+
+                        <div class="hr-line-dashed"></div>
+
+                        <cb-form-group label="Vector Name" name="vectorName">
+                            <div class="col-sm-10">
+                                <input name="vectorName" type="text" class="form-control" ng-model="sample.vectorName" required>
+                                <div ng-messages="sampleForm.vectorName.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
+                        <cb-form-group label="Concentration" name="concentration">
+
+                            <div class="col-sm-5">
+                                <input name="concentration" type="text" class="form-control" ng-model="sample.concentration" required money min="0" precision="3">
+                                <div ng-messages="sampleForm.concentration.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+
+                            <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultConcentrationUnits()">
+                                <cb-dropdown name="concentrationUnits" ng-model="sample.concentrationUnits" label="Concentration Unit" items="concentrationUnits" required></cb-dropdown>
+                            </div>
+
+                        </cb-form-group>
+
+                        <cb-form-group label="DNA Sequence" name="dnaSequence">
+                            <div class="col-sm-10">
+                                <input name="dnaSequence" type="text" class="form-control" ng-model="sample.dnaSequence" required>
+                                <div ng-messages="sampleForm.dnaSequence.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
+                        <cb-form-group label="Amino Acid Sequence" name="aminoAcidSequence">
+                            <div class="col-sm-10">
+                                <input name="aminoAcidSequence" type="text" class="form-control" ng-model="sample.aminoAcidSequence" required>
+                                <div ng-messages="sampleForm.aminoAcidSequence.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
+                        <cb-form-group label="Total Amino Acids" name="aminoAcidCount">
+                            <div class="col-sm-10">
+                                <input name="aminoAcidCount" type="text" class="form-control" ng-model="sample.aminoAcidCount" required money min="0" precision="0">
+                                <div ng-messages="sampleForm.aminoAcidCount.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
+                        <cb-form-group label="Molecular Weight" name="molecularWeight">
+                            <div class="col-sm-10">
+                                <input name="molecularWeight" type="text" class="form-control" ng-model="sample.molecularWeight" required money min="0" precision="3">
+                                <div ng-messages="sampleForm.molecularWeight.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
+                        <cb-form-group label="Extinction Coefficient" name="extinctionCoefficient">
+                            <div class="col-sm-10">
+                                <input name="extinctionCoefficient" type="text" class="form-control" ng-model="sample.extinctionCoefficient" required money min="0" precision="3">
+                                <div ng-messages="sampleForm.extinctionCoefficient.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
+                        <cb-form-group label="Purification Tags" name="purificationTags">
+                            <div class="col-sm-10">
+                                <input name="purificationTags" type="text" class="form-control" ng-model="sample.purificationTags" required>
+                                <div ng-messages="sampleForm.purificationTags.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
                     </div>
-                </cb-form-group>
 
-                <cb-form-group label="Status" name="status">
-                    <div class="col-sm-10">
-                        <cb-dropdown name="status" ng-model="sample.status" label="Status" items="statuses" required></cb-dropdown>
+                    <!-- Protein -->
+                    <div ng-if="sample.sampleType.name === 'Protein'">
+
                     </div>
-                </cb-form-group>
 
-                <cb-form-group label="Storage Container" name="storageContainer">
-                    <div class="col-sm-10">
-                        <cb-dropdown bind-to="name" name="storageContainer" ng-model="sample.storageContainer" label="Storage Container" items="storageContainers" required></cb-dropdown>
+                    <!-- Sera -->
+                    <div ng-if="sample.sampleType.name === 'Sera'">
+
+                        <cb-form-group label="Species" name="species">
+                            <div class="col-sm-10">
+                                <input name="species" type="text" class="form-control" ng-model="sample.species" required>
+                                <div ng-messages="sampleForm.species.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
                     </div>
-                </cb-form-group>
 
-                <cb-form-group label="Storage Buffer" name="storageBuffer">
-                    <div class="col-sm-10">
-                        <input name="storageBuffer" type="text" class="form-control" ng-model="sample.storageBuffer" required>
-                        <div ng-messages="sampleForm.storageBuffer.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
-                        </div>
+                    <!-- Bacterial Cells -->
+                    <div ng-if="sample.sampleType.name === 'Bacterial Cells'">
+
+                        <cb-form-group label="Cell Line" name="cellLine">
+                            <div class="col-sm-10">
+                                <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
+                                <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
                     </div>
-                </cb-form-group>
 
-                <cb-form-group label="Linked Samples" name="linkedSamples">
-                    <div class="col-sm-10">
-                        <one-to-many-v2 grid="sampleOneToManyGrid" parent-object="sample" bind-to="linkedSamples"></one-to-many-v2>
+                    <!-- Mammalian Cells -->
+                    <div ng-if="sample.sampleType.name === 'Mammalian Cells'">
+
+                        <cb-form-group label="Cell Line" name="cellLine">
+                            <div class="col-sm-10">
+                                <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
+                                <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
                     </div>
-                </cb-form-group>
 
-                <cb-form-group label="Sample Type" name="sampleType">
-                    <div class="col-sm-10">
-                        <cb-dropdown cb-dropdown-primary bind-to="name" name="sampleType" ng-model="sample.sampleType" label="Sample Type" items="sampleTypes" required></cb-dropdown>
+                    <!-- Yeast Cells -->
+                    <div ng-if="sample.sampleType.name === 'Yeast Cells'">
+
+                        <cb-form-group label="Cell Line" name="cellLine">
+                            <div class="col-sm-10">
+                                <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
+                                <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
+
                     </div>
-                </cb-form-group>
 
-                <!-- DNA -->
-                <div ng-if="sample.sampleType.name === 'DNA'">
+                    <!-- Chemical Compound -->
+                    <div ng-if="sample.sampleType.name === 'Chemical Compound'">
 
-                    <div class="hr-line-dashed"></div>
+                        <cb-form-group label="Mass (g)" name="mass">
+                            <div class="col-sm-10">
+                                <input name="mass" type="text" class="form-control" ng-model="sample.mass" required money min="0" precision="3">
+                                <div ng-messages="sampleForm.mass.$error" ng-show="submitted">
+                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                </div>
+                            </div>
+                        </cb-form-group>
 
-                    <cb-form-group label="Vector Name" name="vectorName">
+                    </div>
+
+                    <!-- Solution -->
+                    <div ng-if="sample.sampleType.name === 'Solution'">
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" ng-click="selectDivision(sampleForm.$valid)" class="btn btn-primary">Select Location</button>
+                    <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+                </div>
+
+            </step>
+
+            <step name="locationSelect">
+
+                <div class="modal-body">
+
+                    <cb-form-group label="Storage Division" name="division">
                         <div class="col-sm-10">
-                            <input name="vectorName" type="text" class="form-control" ng-model="sample.vectorName" required>
-                            <div ng-messages="sampleForm.vectorName.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
+                            <one-to-one grid="divisionGrid" parent-object="sample" bind-to="division" resource-url="/division" placeholder="Add Division.."></one-to-one>
                         </div>
                     </cb-form-group>
 
-                    <cb-form-group label="Concentration" name="concentration">
+                    <div ng-if="sample.division">
 
-                        <div class="col-sm-5">
-                            <input name="concentration" type="text" class="form-control" ng-model="sample.concentration" required money min="0" precision="3">
-                            <div ng-messages="sampleForm.concentration.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
+                        <cb-form-group label="Division Row" name="divisionRow">
+                            <div class="btn-group block col-sm-5">
+                                <cb-dropdown name="divisionRow" ng-model="sample.divisionRow" label="Division Row" items="rows" ></cb-dropdown>
                             </div>
-                        </div>
+                        </cb-form-group>
 
-                        <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultConcentrationUnits()">
-                            <cb-dropdown name="concentrationUnits" ng-model="sample.concentrationUnits" label="Concentration Unit" items="concentrationUnits" required></cb-dropdown>
-                        </div>
-
-                    </cb-form-group>
-
-                    <cb-form-group label="DNA Sequence" name="dnaSequence">
-                        <div class="col-sm-10">
-                            <input name="dnaSequence" type="text" class="form-control" ng-model="sample.dnaSequence" required>
-                            <div ng-messages="sampleForm.dnaSequence.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
+                        <cb-form-group label="Division Column" name="divisionColumn">
+                            <div class="btn-group block col-sm-5">
+                                <cb-dropdown name="divisionColumn" ng-model="sample.divisionColumn" label="Division Column" items="rowColumnMap[sample.divisionRow].columns" ></cb-dropdown>
                             </div>
-                        </div>
-                    </cb-form-group>
+                        </cb-form-group>
 
-                    <cb-form-group label="Amino Acid Sequence" name="aminoAcidSequence">
-                        <div class="col-sm-10">
-                            <input name="aminoAcidSequence" type="text" class="form-control" ng-model="sample.aminoAcidSequence" required>
-                            <div ng-messages="sampleForm.aminoAcidSequence.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                    <cb-form-group label="Total Amino Acids" name="aminoAcidCount">
-                        <div class="col-sm-10">
-                            <input name="aminoAcidCount" type="text" class="form-control" ng-model="sample.aminoAcidCount" required money min="0" precision="0">
-                            <div ng-messages="sampleForm.aminoAcidCount.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                    <cb-form-group label="Molecular Weight" name="molecularWeight">
-                        <div class="col-sm-10">
-                            <input name="molecularWeight" type="text" class="form-control" ng-model="sample.molecularWeight" required money min="0" precision="3">
-                            <div ng-messages="sampleForm.molecularWeight.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                    <cb-form-group label="Extinction Coefficient" name="extinctionCoefficient">
-                        <div class="col-sm-10">
-                            <input name="extinctionCoefficient" type="text" class="form-control" ng-model="sample.extinctionCoefficient" required money min="0" precision="3">
-                            <div ng-messages="sampleForm.extinctionCoefficient.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                    <cb-form-group label="Purification Tags" name="purificationTags">
-                        <div class="col-sm-10">
-                            <input name="purificationTags" type="text" class="form-control" ng-model="sample.purificationTags" required>
-                            <div ng-messages="sampleForm.purificationTags.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
+                    </div>
 
                 </div>
 
-                <!-- Protein -->
-                <div ng-if="sample.sampleType.name === 'Protein'">
-
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
                 </div>
 
-                <!-- Sera -->
-                <div ng-if="sample.sampleType.name === 'Sera'">
+            </step>
 
-                    <cb-form-group label="Species" name="species">
-                        <div class="col-sm-10">
-                            <input name="species" type="text" class="form-control" ng-model="sample.species" required>
-                            <div ng-messages="sampleForm.species.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
+        </steps>
 
-                </div>
-
-                <!-- Bacterial Cells -->
-                <div ng-if="sample.sampleType.name === 'Bacterial Cells'">
-
-                    <cb-form-group label="Cell Line" name="cellLine">
-                        <div class="col-sm-10">
-                            <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
-                            <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                </div>
-
-                <!-- Mammalian Cells -->
-                <div ng-if="sample.sampleType.name === 'Mammalian Cells'">
-
-                    <cb-form-group label="Cell Line" name="cellLine">
-                        <div class="col-sm-10">
-                            <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
-                            <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                </div>
-
-                <!-- Yeast Cells -->
-                <div ng-if="sample.sampleType.name === 'Yeast Cells'">
-
-                    <cb-form-group label="Cell Line" name="cellLine">
-                        <div class="col-sm-10">
-                            <input name="cellLine" type="text" class="form-control" ng-model="sample.cellLine" required>
-                            <div ng-messages="sampleForm.cellLine.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                </div>
-
-                <!-- Chemical Compound -->
-                <div ng-if="sample.sampleType.name === 'Chemical Compound'">
-
-                    <cb-form-group label="Mass (g)" name="mass">
-                        <div class="col-sm-10">
-                            <input name="mass" type="text" class="form-control" ng-model="sample.mass" required money min="0" precision="3">
-                            <div ng-messages="sampleForm.mass.$error" ng-show="submitted">
-                                <p ng-message="required" class="text-danger">This field is required</p>
-                            </div>
-                        </div>
-                    </cb-form-group>
-
-                </div>
-
-                <!-- Solution -->
-                <div ng-if="sample.sampleType.name === 'Solution'">
-
-                </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
-        </div>
     </div>
 
 </form>

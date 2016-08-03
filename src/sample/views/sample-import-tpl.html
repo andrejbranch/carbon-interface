@@ -4,17 +4,19 @@
         <div id="hbreadcrumb">
             <ol class="hbreadcrumb breadcrumb">
                 <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li><a ui-sref="sample.index">Samples</a></li>
                 <li class="active">
-                    <span>Samples</span>
+                    <span>Sample Import</span>
                 </li>
             </ol>
         </div>
         <div class="hpanel">
             <div class="panel-body">
                 <h2 class="font-light m-b-xs">
-                  Samples
+                    <i class="glyphicon glyphicon-import"/>
+                    {{sampleType.name}} Sample Import
                 </h2>
-                <small>Manage samples</small>
+                <small>Import {{sampleType.name}} samples from CSV</small>
             </div>
         </div>
     </div>
@@ -22,40 +24,31 @@
     <div class="content">
 
         <div class="row">
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="create()">Create Sample</button>
+            <div class="col-sm-4">
+                <button ng-click="download()" class='btn btn-info btn-block'>Download Template</button>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <cb-dropdown
-                    cb-dropdown-info
-                    bind-to="name"
-                    name="sampleType"
-                    ng-model="importSampleType"
-                    label="Import Samples"
-                    items="sampleTypes"
-                    cb-on-select="importSamples"
-                    required
-                >
-                </cb-dropdown>
+            <div class="col-sm-4">
+                <button ng-click="upload()" class='btn btn-primary btn-block'>Upload</button>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="importGrid">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        Samples
+                        Samples to be Imported
                     </div>
                     <div class="panel-body no-padding">
 
-                        <grid grid="grid"></grid>
+                        <grid grid="importGrid"></grid>
 
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

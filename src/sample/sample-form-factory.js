@@ -1,8 +1,8 @@
 angular.module('sample.formFactory', [])
 
-    .factory('sampleFormFactory', ['$modal', 'sampleFactory', 'sampleGridFactory', '$state', '$stateParams',
+    .factory('sampleFormFactory', ['$uibModal', 'sampleGridFactory', '$state', '$stateParams', '$cbResource', 'storageGridFactory',
 
-        function ($modal, sampleFactory, sampleGridFactory, $state, $stateParams) {
+        function ($modal, sampleGridFactory, $state, $stateParams, $cbResource, storageGridFactory) {
 
             var sampleFormFactory = {
 
@@ -25,34 +25,25 @@ angular.module('sample.formFactory', [])
 
                             sampleTypes: function () {
 
-                                return sampleFactory.getSampleTypes();
+                                return $cbResource.get('/sample-type');
 
                             },
 
                             storageContainers: function () {
 
-                                return sampleFactory.getStorageContainers();
+                                return $cbResource.get('/storage-container');
 
                             },
 
                             linkedSamplesGrid: function () {
 
-                                if (!sample) {
+                                return sampleGridFactory.getOneToManyGrid(sample ? sample.id : null, true);
 
-                                    return sampleGridFactory.getOneToManyGrid();
+                            },
 
-                                }
+                            divisionGrid: function () {
 
-                                return sampleFactory.getLinkedSamples(sample).then(function (response) {
-
-                                    var grid = sampleGridFactory.getOneToManyGrid(sample.id);
-
-                                    grid.setPaginationFromResponse(response.data);
-                                    grid.setResults(response.data.data);
-
-                                    return grid;
-
-                                });
+                                return storageGridFactory.getDivisionGrid();
 
                             },
 

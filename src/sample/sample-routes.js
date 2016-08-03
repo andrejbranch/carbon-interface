@@ -25,15 +25,15 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 },
                                 resolve: {
 
-                                    sampleResponse: function (sampleFactory) {
+                                    grid: function (sampleGridFactory) {
 
-                                        return sampleFactory.getSamples({perPage:25});
+                                        return sampleGridFactory.getIndexGrid();
 
                                     },
 
-                                    grid: function (sampleResponse, sampleGridFactory) {
+                                    sampleTypes: function ($cbResource) {
 
-                                        return sampleGridFactory.getIndexGrid(sampleResponse);
+                                        return $cbResource.get('/sample-type');
 
                                     }
 
@@ -53,34 +53,42 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 },
                                 resolve: {
 
-                                    sample: function (sampleFactory, $stateParams) {
+                                    sample: function ($cbResource, $stateParams) {
 
-                                        return sampleFactory.getSample({id:$stateParams.id});
+                                        return $cbResource.getOne('/sample?id[EQ]=' + $stateParams.id);
 
                                     },
 
-                                    linkedSamplesGrid: function (sampleFactory, sampleGridFactory, sample) {
+                                    linkedSamplesGrid: function (sampleGridFactory, sample) {
 
-                                        return sampleFactory.getLinkedSamples(sample).then(function (response) {
-
-                                            var grid = sampleGridFactory.getIndexGrid(response);
-
-                                            grid
-                                                .setResourceUrl('/sample-linked-sample/' + sample.id)
-                                                .setPaginationFromResponse(response.data)
-                                                .setResults(response.data.data)
-                                                .setActionTemplate(null)
-                                                .setNoResultString('No linked samples found')
-                                                .disallowEdit()
-                                            ;
-
-                                            return grid;
-
-                                        });
+                                        return sampleGridFactory.getOneToManyGrid(sample.id, false);
 
                                     }
 
                                 }
+                            }
+                        }
+                    },
+                    {
+                        url: '/import/:sampleTypeId',
+                        name: 'import',
+                        views: {
+                            content: {
+                                templateUrl: 'sample/views/sample-import-tpl.html',
+                                controller: 'sampleImportCtrl',
+                                data: {
+                                    pageTitle: 'Sample Import',
+                                },
+                                resolve: {
+
+                                    sampleType: function ($stateParams, $cbResource) {
+
+                                        return $cbResource.getOne('/sample-type', {'id[EQ]': $stateParams.sampleTypeId});
+
+                                    }
+
+                                }
+
                             }
                         }
                     }

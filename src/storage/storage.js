@@ -7,5 +7,8 @@ angular.module('storage', [
     'storage.storageBoxHeading',
     'storage.storageBoxCellDirective',
     'storage.storageDivisionDetailsCtrl',
+    'storage.storageDivisionFormCtrl',
+    'storage.storageFormFactory',
+    'storage.storageGridFactory',
     'storage.routes'
 ]);

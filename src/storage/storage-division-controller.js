@@ -1,7 +1,7 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout',
+    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory',
 
-        function ($scope, division, childrenResponse, $window, $timeout) {
+        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory) {
 
             $scope.children = childrenResponse.data;
             $scope.division = division;
@@ -67,6 +67,8 @@ angular.module('storage.storageDivisionCtrl', [])
             if ($scope.division.samples.length !== 0) {
                 var selectedSample = $scope.division.samples[0];
             }
+
+            $scope.editDivision = storageFormFactory.openDivisionFormModal;
 
             // $timeout(function () {
             //     $scope.$broadcast('storage_box.details.well_selected', {

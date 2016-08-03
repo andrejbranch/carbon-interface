@@ -31,23 +31,9 @@ angular.module('storage.storageBoxCellDirective', [])
 
                     };
 
-                    // events
-                    element.on('click', function () {
+                    var onSelect = function (event, data) {
 
-                        $scope.$emit('storage_box.well_selected', {
-                            sample: $scope.sample,
-                            row: $scope.row,
-                            column: $scope.column
-                        });
-
-                    });
-
-                    resizeCell();
-
-                    $scope.$on('storage_box.resize', resizeCell);
-
-                    $scope.$on('storage_box.details.well_selected', function (event, data) {
-
+                        console.log(2);
                         if (data.column !== $scope.column || data.row !== $scope.row) {
 
                             element.removeClass('selected');
@@ -58,9 +44,48 @@ angular.module('storage.storageBoxCellDirective', [])
 
                         }
 
+                    };
+
+                    // events
+                    element.on('click', function (e) {
+
+                        var data = {
+                            sample: $scope.sample,
+                            row: $scope.row,
+                            column: $scope.column
+                        };
+
+                        $scope.$emit('storage_box.well_selected', data);
+
+                        onSelect(e, data);
+
                     });
 
+                    resizeCell();
 
+                    $scope.$on('storage_box.resize', resizeCell);
+
+                    $scope.$on('storage_box.details.well_selected', function (event, data) {
+
+                        onSelect(event, data);
+
+                    });
+
+                    $scope.sampleTypeIconMapping = {
+                        'DNA': 'dna.png',
+                        'Chemical Compound': 'chemical_compound_2.png',
+                        'Mammalian Cells': 'mammalian_cells.png',
+                        'Protein': 'protein.png',
+                        'Sera': 'sera.png',
+                        'Solution': 'solution.png',
+                        'Yeast Cells': 'yeast_cells_2.png',
+                        'Bacterial Cells': 'bacterial_cells_2.png',
+                    };
+
+
+                    if ($scope.sample) {
+                        element.find('div.cell').css({'background-image': 'url("/images/' + $scope.sampleTypeIconMapping[$scope.sample.sampleType.name] + '")'});
+                    }
                 }
 
             };

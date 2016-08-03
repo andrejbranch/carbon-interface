@@ -98,6 +98,13 @@ module.exports = function (grunt) {
                 },
                 tasks: ['html2js:dev']
             },
+            cryoblock: {
+                files: ['bower_components/cryoblock-common/release/**/*.js'],
+                options: {
+                    livereload: true
+                },
+                tasks: ['build:dev']
+            },
             livereload: {
                 options: {
                     livereload: true
@@ -156,11 +163,12 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
+                        flatten: true,
                         dot: true,
                         cwd: '<%= carbon.app %>',
-                        dest: '<%= carbon.build %>/develop',
+                        dest: '<%= carbon.build %>/develop/images',
                         src: [
-                            '*.{ico,png,txt}',
+                            '**/*.{ico,png,txt,jpg}',
                             '.htaccess',
                             '*.html',
                             'views/{,*/}*.html',
@@ -458,7 +466,7 @@ module.exports = function (grunt) {
         'copy:dev',
         'html2js:dev',
         'htmlbuild:dev',
-        'imagemin:dev'
+        // 'imagemin:dev'
     ]);
 
     // Build version for production
