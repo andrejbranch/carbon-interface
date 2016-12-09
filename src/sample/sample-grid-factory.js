@@ -287,6 +287,29 @@ angular.module('sample.sampleGridFactory', [])
 
                     });
 
+                },
+
+                getSelectGrid: function () {
+
+                    var grid = this.create();
+
+                    grid.setResourceUrl('/sample');
+
+                    return $cbResource.get('/sample', {cPerPage:'3'}).then(function (response) {
+
+                        grid.perPageOptions = [3, 10, 25];
+
+                        return grid
+                            .setResults(response.data)
+                            .setPaginationFromResponse(response)
+                            .allowSelect()
+                            .disableHover()
+                            .setPerPage(3)
+                            .disableToggleColumns()
+                        ;
+
+                    });
+
                 }
 
             };

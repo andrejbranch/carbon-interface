@@ -1,6 +1,7 @@
 <div id="admin-container">
 
     <div class="normalheader">
+
         <div id="hbreadcrumb">
             <ol class="hbreadcrumb breadcrumb">
                 <li><a ui-sref="dashboard.main">Dashboard</a></li>
@@ -11,9 +12,20 @@
         </div>
         <div class="hpanel">
             <div class="panel-body">
+
+                <div class="panel-actions btn-group">
+                    <label class="btn btn-sm btn-default">
+                        <i class="fa fa-cog"></i>
+                    </label>
+                    <label title="Notifications" class="btn btn-sm btn-default" cb-object-notifications object-type="sample">
+                        <i class="fa fa-bell"></i>
+                    </label>
+                </div>
+
                 <h2 class="font-light m-b-xs">
                   Samples
                 </h2>
+
                 <small>Manage samples</small>
             </div>
         </div>
@@ -59,3 +71,5 @@
         </div>
     </div>
 </div>
+
+

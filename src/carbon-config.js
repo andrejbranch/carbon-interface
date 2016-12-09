@@ -25,7 +25,22 @@ angular.module('carbonConfig', ['toastr'])
 
     }])
 
-    .run(['$rootScope', function ($rootScope) {
+    // .config(['$locationProvider', function($locationProvider) {
+
+    //     $locationProvider.html5Mode({
+    //         enabled: true,
+    //         requireBase: false
+    //     });
+
+    // }])
+
+    .run(['$rootScope', '$location', function ($rootScope, $location) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
+            if (fromState.name !== "") {
+                $location.url($location.path());
+            }
+        });
 
         $rootScope.$on('$stateChangeSuccess', function() {
             document.body.scrollTop = document.documentElement.scrollTop = 0;

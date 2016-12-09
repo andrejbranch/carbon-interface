@@ -194,6 +194,13 @@ module.exports = function (grunt) {
                         expand: true,
                         dot: true,
                         cwd: 'bower_components/cryoblock-common/release',
+                        src: ['graphics/**/*'],
+                        dest: '<%= carbon.build %>/develop'
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: 'bower_components/cryoblock-common/release',
                         src: ['fonts/*.*'],
                         dest: '<%= carbon.build %>/develop'
                     },

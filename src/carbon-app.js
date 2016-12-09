@@ -4,7 +4,6 @@ var carbonApp = angular.module('carbonApp', [
     'cryoblock.common.templates',
     'templates',
     'common',
-    'carbonAppDirectives',
     'ngStorage',
     'carbonConfig',
     'toastr',
@@ -25,7 +24,8 @@ var carbonApp = angular.module('carbonApp', [
     'ui-rangeSlider',
     'fiestah.money',
     'ui.bootstrap.typeahead',
-    'ui.bootstrap.tabs'
+    'ui.bootstrap.tabs',
+    'comment'
 ]);
 
 angular.module('carbonApp').run(

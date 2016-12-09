@@ -16,13 +16,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/index',
                         name: 'index',
+                        pageTitle: 'Samples',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
                         views: {
                             content: {
                                 templateUrl: 'sample/views/sample-index-tpl.html',
                                 controller: 'sampleIndexCtrl',
-                                data: {
-                                    pageTitle: 'Samples',
-                                },
                                 resolve: {
 
                                     grid: function (sampleGridFactory) {
@@ -44,13 +45,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/:id',
                         name: 'detail',
+                        pageTitle: 'Sample {id}',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
                         views: {
                             content: {
                                 templateUrl: 'sample/views/sample-detail-tpl.html',
                                 controller: 'sampleDetailCtrl',
-                                data: {
-                                    pageTitle: 'Sample ',
-                                },
                                 resolve: {
 
                                     sample: function ($cbResource, $stateParams) {
@@ -72,13 +74,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/import/:sampleTypeId',
                         name: 'import',
+                        pageTitle: 'Sample Import',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
                         views: {
                             content: {
                                 templateUrl: 'sample/views/sample-import-tpl.html',
                                 controller: 'sampleImportCtrl',
-                                data: {
-                                    pageTitle: 'Sample Import',
-                                },
                                 resolve: {
 
                                     sampleType: function ($stateParams, $cbResource) {

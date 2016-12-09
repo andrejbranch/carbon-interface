@@ -16,17 +16,14 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/index',
                         name: 'index',
+                        pageTitle: 'Storage Divisions',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
                         views: {
                             content: {
                                 templateUrl: 'storage/views/storage-index-tpl.html',
                                 controller: 'storageIndexCtrl',
-                                data: {
-                                    pageTitle: 'Storage',
-                                    permissions: {
-                                        except: ['anonymous'],
-                                        redirectTo: 'login'
-                                    },
-                                },
                                 resolve: {
 
                                     divisionResponse: function (storageFactory) {
@@ -42,11 +39,9 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/division/:id',
                         name: 'division',
-                        data: {
-                            permissions: {
-                                except: ['anonymous'],
-                                redirectTo: 'login'
-                            }
+                        pageTitle: 'Storage Division {id}',
+                        security: {
+                            roles: ['ROLE_USER']
                         },
                         views: {
                             'content': {
@@ -55,8 +50,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 resolve: {
 
                                     division: function (storageFactory, $stateParams) {
-
-                                        this.data.pageTitle = 'Storage Division ' + $stateParams.id;
 
                                         return storageFactory.getDivision($stateParams.id).then(
 

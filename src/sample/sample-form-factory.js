@@ -41,6 +41,12 @@ angular.module('sample.formFactory', [])
 
                             },
 
+                            sampleSelectGrid: function () {
+
+                                return sampleGridFactory.getSelectGrid();
+
+                            },
+
                             divisionGrid: function () {
 
                                 return storageGridFactory.getDivisionGrid();

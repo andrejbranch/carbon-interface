@@ -1,8 +1,8 @@
 angular.module('sample.sampleFormCtrl', [])
 
-    .controller('sampleFormCtrl', ['$scope', '$uibModalInstance', 'sample', '$cbResource', 'toastr', 'callback', 'sampleTypes', 'storageContainers', 'linkedSamplesGrid', 'StepsService', 'divisionGrid', 'storageFactory',
+    .controller('sampleFormCtrl', ['$scope', '$uibModalInstance', 'sample', '$cbResource', 'toastr', 'callback', 'sampleTypes', 'storageContainers', 'linkedSamplesGrid', 'StepsService', 'divisionGrid', 'storageFactory', 'sampleSelectGrid',
 
-        function ($scope, $modalInstance, sample, $cbResource, toastr, callback, sampleTypes, storageContainers, linkedSamplesGrid, StepsService, divisionGrid, storageFactory) {
+        function ($scope, $modalInstance, sample, $cbResource, toastr, callback, sampleTypes, storageContainers, linkedSamplesGrid, StepsService, divisionGrid, storageFactory, sampleSelectGrid) {
 
             $scope.sample = sample ? angular.copy(sample) : {};
             $scope.errors = [];
@@ -14,6 +14,7 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.sampleOneToManyGrid = linkedSamplesGrid;
             $scope.currentStep = {name: 'sampleDetails'};
             $scope.divisionGrid = divisionGrid;
+            $scope.sampleSelectGrid = sampleSelectGrid;
 
             $scope.setDefaultConcentrationUnits = function () {
 
