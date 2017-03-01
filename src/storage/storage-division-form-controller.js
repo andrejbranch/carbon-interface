@@ -1,12 +1,15 @@
 angular.module('storage.storageDivisionFormCtrl', [])
 
-    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'divisionSampleTypeGrid', 'divisionStorageContainerGrid', '$uibModalInstance', '$cbResource', 'toastr', 'callback',
+    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeSelectGrid', 'storageContainerSelectGrid', 'divisionSampleTypeGrid', 'divisionStorageContainerGrid', '$uibModalInstance', '$cbResource', 'toastr', 'callback',
 
-        function ($scope, division, divisionSampleTypeGrid, divisionStorageContainerGrid, $modalInstance, $cbResource, toastr, callback) {
+        function ($scope, division, sampleTypeSelectGrid, storageContainerSelectGrid, divisionSampleTypeGrid, divisionStorageContainerGrid, $modalInstance, $cbResource, toastr, callback) {
 
             $scope.errors = [];
             $scope.divisionForm = {};
-            $scope.division = division;
+            $scope.division = division ? angular.copy(division) : {};
+
+            $scope.sampleTypeSelectGrid = sampleTypeSelectGrid;
+            $scope.storageContainerSelectGrid = storageContainerSelectGrid;
             $scope.divisionSampleTypeGrid = divisionSampleTypeGrid;
             $scope.divisionStorageContainerGrid = divisionStorageContainerGrid;
 
@@ -42,8 +45,8 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                 var method = $scope.division.id !== undefined ? 'update' : 'create';
                 var url = method === 'update'
-                    ? '/division?id[EQ]=' + $scope.division.id
-                    : '/division'
+                    ? '/storage/division?id[EQ]=' + $scope.division.id
+                    : '/storage/division'
                 ;
 
                 $cbResource[method](url, $scope.division).then(

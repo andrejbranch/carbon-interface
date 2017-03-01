@@ -9,7 +9,7 @@ angular.module('storage.storageFactory', [])
 
                     var req = {
                         method: 'GET',
-                        url: API.url + '/division?parentId[NULL]=true',
+                        url: API.url + '/storage/division?parentId[NULL]=true',
                         headers: {
                             'X-CARBON-SERIALIZATION-GROUPS': 'children'
                         }
@@ -27,7 +27,7 @@ angular.module('storage.storageFactory', [])
 
                     var req = {
                         method: 'GET',
-                        url: API.url + '/division?id[EQ]=' + divisionId,
+                        url: API.url + '/storage/division?id[EQ]=' + divisionId,
                         headers: {
                             'X-CARBON-SERIALIZATION-GROUPS': 'parent,samples'
                         }
@@ -43,7 +43,7 @@ angular.module('storage.storageFactory', [])
 
                 updateDivision: function (division) {
 
-                    var url = API.url + '/division?id=' + division.id;
+                    var url = API.url + '/storage/division?id=' + division.id;
 
                     return $http.put(url, division);
 
@@ -51,7 +51,7 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionChildren: function (parentId) {
 
-                    var url = API.url + '/division?parentId[EQ]=' + parentId;
+                    var url = API.url + '/storage/division?parentId[EQ]=' + parentId;
 
                     var promise = $http.get(url).then(function (response) {
                         return response.data;
@@ -62,7 +62,7 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionSampleTypes: function (divisionId) {
 
-                    var url = API.url + '/division-sample-type/division/' + divisionId;
+                    var url = API.url + '/storage/division-sample-type/division/' + divisionId;
 
                     var promise = $http.get(url).then(function (response) {
                         return response.data;
@@ -74,7 +74,7 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionStorageContainers: function (divisionId) {
 
-                    var url = API.url + '/division-storage-container/division/' + divisionId;
+                    var url = API.url + '/storage/division-storage-container/division/' + divisionId;
 
                     var promise = $http.get(url).then(function (response) {
                         return response.data;

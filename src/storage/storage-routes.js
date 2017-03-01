@@ -8,6 +8,9 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 url: '/storage',
                 name: 'storage',
                 views: {
+                    navbar: {
+                        templateUrl: 'navbar-tpl.html',
+                    },
                     content: {
                         templateUrl: 'common/layout/carbon-layout.html',
                     }
@@ -92,7 +95,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 }
 
                             },
-                            'navigation@storage.division': {
+                            'storage-navigation@storage.division': {
 
                                 templateUrl: 'storage/views/storage-navigation-tpl.html',
                                 controller: 'storageNavigationCtrl',

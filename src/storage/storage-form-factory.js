@@ -1,8 +1,8 @@
 angular.module('storage.storageFormFactory', [])
 
-    .factory('storageFormFactory', ['$uibModal', 'storageFactory', '$state', '$stateParams',
+    .factory('storageFormFactory', ['$uibModal', 'storageFactory', '$state', '$stateParams', '$cbGridBuilder',
 
-        function ($modal, storageFactory, $state, $stateParams) {
+        function ($modal, storageFactory, $state, $stateParams, $cbGridBuilder) {
 
             var storageFormFactory = {
 
@@ -21,15 +21,35 @@ angular.module('storage.storageFormFactory', [])
                                 return division;
                             },
 
-                            divisionSampleTypeGrid: function (storageGridFactory) {
+                            sampleTypeSelectGrid: function () {
 
-                                return storageGridFactory.getDivisionSampleTypeGrid(division.id);
+                                return $cbGridBuilder.buildSelect(
+                                    '/storage/sample-type', 'sampleTypeGridFactory', division, true
+                                )
 
                             },
 
-                            divisionStorageContainerGrid: function (storageGridFactory) {
+                            divisionSampleTypeGrid: function () {
 
-                                return storageGridFactory.getDivisionStorageContainerGrid(division.id);
+                                return $cbGridBuilder.buildOTM(
+                                    '/storage/division-sample-type/division/', 'sampleTypeGridFactory', division, true
+                                )
+
+                            },
+
+                            storageContainerSelectGrid: function () {
+
+                                return $cbGridBuilder.buildSelect(
+                                    '/storage/storage-container', 'storageContainerGridFactory', division, true
+                                )
+
+                            },
+
+                            divisionStorageContainerGrid: function () {
+
+                                return $cbGridBuilder.buildOTM(
+                                    '/storage/division-storage-container/division/', 'storageContainerGridFactory', division, true
+                                )
 
                             },
 

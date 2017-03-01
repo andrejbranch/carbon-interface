@@ -162,7 +162,7 @@ angular.module('sample.sampleGridFactory', [])
                         title: 'Sample Type',
                         accessProperty: 'id',
                         filterProperty: 'sampleTypeId',
-                        resourceUrl: '/sample-type',
+                        resourceUrl: '/storage/sample-type',
                         bindTo: 'name',
                         isVisible: true
                     },
@@ -240,14 +240,14 @@ angular.module('sample.sampleGridFactory', [])
 
                     grid
                         .setActionTemplate('sample/views/partials/sample-row-actions-tpl.html')
-                        .setResourceUrl('/sample')
+                        .setResourceUrl('/storage/sample')
                         .setBindToState(true)
                     ;
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
                     var params = angular.extend(defaultParams, $location.search());
 
-                    return $cbResource.get('/sample', params).then(function (response) {
+                    return $cbResource.get('/storage/sample', params).then(function (response) {
 
                         return grid
                             .setResults(response.data)
@@ -265,7 +265,7 @@ angular.module('sample.sampleGridFactory', [])
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
                     grid
-                        .setResourceUrl('/sample-linked-sample/' + parentSampleId)
+                        .setResourceUrl('/storage/sample-linked-sample/' + parentSampleId)
                         .setPerPage(3)
                         .disableToggleColumns()
                         .setNoResultString('No linked samples found')
@@ -278,7 +278,7 @@ angular.module('sample.sampleGridFactory', [])
                         return grid;
                     }
 
-                    return $cbResource.get('/sample-linked-sample/' + parentSampleId).then(function (response) {
+                    return $cbResource.get('/storage/sample-linked-sample/' + parentSampleId).then(function (response) {
 
                         return grid
                             .setPaginationFromResponse(response)
@@ -293,16 +293,18 @@ angular.module('sample.sampleGridFactory', [])
 
                     var grid = this.create();
 
-                    grid.setResourceUrl('/sample');
+                    grid.setResourceUrl('/storage/sample');
 
-                    return $cbResource.get('/sample', {cPerPage:'3'}).then(function (response) {
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+
+                    return $cbResource.get('/storage/sample', defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
 
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
-                            .allowSelect()
+                            .allowSelectMany()
                             .disableHover()
                             .setPerPage(3)
                             .disableToggleColumns()

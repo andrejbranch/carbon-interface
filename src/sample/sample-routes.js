@@ -5,9 +5,12 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
         stateHelperProvider
             .state({
                 abstract: true,
-                url: '/sample',
+                url: '/storage/sample',
                 name: 'sample',
                 views: {
+                    navbar: {
+                        templateUrl: 'navbar-tpl.html',
+                    },
                     content: {
                         templateUrl: 'common/layout/carbon-layout.html',
                     }
@@ -34,7 +37,7 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     sampleTypes: function ($cbResource) {
 
-                                        return $cbResource.get('/sample-type');
+                                        return $cbResource.get('/storage/sample-type');
 
                                     }
 
@@ -57,7 +60,7 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     sample: function ($cbResource, $stateParams) {
 
-                                        return $cbResource.getOne('/sample?id[EQ]=' + $stateParams.id);
+                                        return $cbResource.getOne('/storage/sample?id[EQ]=' + $stateParams.id);
 
                                     },
 
@@ -86,7 +89,7 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     sampleType: function ($stateParams, $cbResource) {
 
-                                        return $cbResource.getOne('/sample-type', {'id[EQ]': $stateParams.sampleTypeId});
+                                        return $cbResource.getOne('/storage/sample-type', {'id[EQ]': $stateParams.sampleTypeId});
 
                                     }
 

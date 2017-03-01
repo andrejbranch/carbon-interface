@@ -25,13 +25,13 @@ angular.module('sample.formFactory', [])
 
                             sampleTypes: function () {
 
-                                return $cbResource.get('/sample-type');
+                                return $cbResource.get('/storage/sample-type');
 
                             },
 
                             storageContainers: function () {
 
-                                return $cbResource.get('/storage-container');
+                                return $cbResource.get('/storage/storage-container');
 
                             },
 

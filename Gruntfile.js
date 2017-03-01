@@ -57,6 +57,7 @@ module.exports = function (grunt) {
                     // "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
                     // "<%= carbon.build %>/develop/storage.css": "<%= carbon.app %>/storage/storage-styles.less",
                     // "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
+                    "<%= carbon.build %>/develop/scripps.css": "<%= carbon.app %>/**/*styles.less"
                 },
             },
             prod: {
@@ -72,6 +73,7 @@ module.exports = function (grunt) {
                     // 'bower_components/cryoblock-common/release/cryoblock.css',
                     // "<%= carbon.build %>/production/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
                     // "<%= carbon.build %>/production/carbon.css": "<%= carbon.app %>/common/less/style.less"
+                    "<%= carbon.build %>/production/scripps.css": "<%= carbon.app %>/**/*styles.less"
                 },
             }
         },
@@ -191,6 +193,13 @@ module.exports = function (grunt) {
                         cwd: 'bower_components/cryoblock-common/release',
                         src: ['fonts/*.*'],
                         dest: '<%= carbon.build %>/develop'
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= carbon.src %>/sample/images',
+                        src: ['images/*.*'],
+                        dest: '<%= carbon.build %>/develop'
                     }
 
                 ]
@@ -232,6 +241,13 @@ module.exports = function (grunt) {
                         src: ['cryoblock.css'],
                         dest: '<%= carbon.build %>/production'
                     },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= carbon.src %>/sample/images',
+                        src: ['images/*.*'],
+                        dest: '<%= carbon.build %>/production'
+                    }
                 ]
             },
         },
@@ -293,8 +309,8 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
-                            'cryoblock.css',
-                            '<%= carbon.build %>/production/*.css'
+                            '<%= carbon.build %>/production/cryoblock*.css',
+                            '<%= carbon.build %>/production/scripps*.css'
                         ]
                     },
                     scripts: {
@@ -312,7 +328,7 @@ module.exports = function (grunt) {
                 separator: '\n',
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
             },
-            prod: {
+            scripts: {
                 src: [
                     'bower_components/cryoblock-common/release/cryoblock.js',
                     '<%= carbon.build %>/production/templates.js',
@@ -329,7 +345,7 @@ module.exports = function (grunt) {
             },
             prod: {
                 files: {
-                    '<%= concat.prod.dest %>': ['src/**/*.js']
+                    '<%= concat.scripts.dest %>': ['src/**/*.js']
                 }
             }
         },
@@ -444,7 +460,7 @@ module.exports = function (grunt) {
         'ngAnnotate:prod',
         'html2js:prod',
         'ngconstant:prod',
-        'concat:prod',
+        'concat:scripts',
         'copy:prod',
         // 'cssmin',
         'uglify:prod',

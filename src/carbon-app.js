@@ -3,6 +3,8 @@ var scrippsApp = angular.module('scrippsApp', [
     'common',
     'cb-constants',
     'storage',
+    'sampleType',
+    'storageContainer',
     'sample'
 ]);
 

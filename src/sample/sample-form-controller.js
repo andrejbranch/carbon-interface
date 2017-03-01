@@ -27,8 +27,9 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.close = function () {
 
+                // @TODO
                 if ($scope.sampleForm.$pristine === false) {
-                    console.log('not pristine');
+                    // console.log('not pristine');
 
                 }
 
@@ -43,7 +44,6 @@ angular.module('sample.sampleFormCtrl', [])
                 $scope.submitted = true;
 
                 if (!isValid) {
-                    console.log($scope.sampleForm);
                     return;
                 }
 
@@ -51,7 +51,7 @@ angular.module('sample.sampleFormCtrl', [])
 
                 if ($scope.sample.id === undefined) {
 
-                    $cbResource.get('/sample/location-match/' + $scope.sample.sampleType.id + '/' + $scope.sample.storageContainer.id).then(function (response) {
+                    $cbResource.get('/storage/sample/location-match/' + $scope.sample.sampleType.id + '/' + $scope.sample.storageContainer.id).then(function (response) {
 
                         $scope.divisionGrid.selectedItem = response.division;
                         $scope.sample.division = response.division;
@@ -145,8 +145,8 @@ angular.module('sample.sampleFormCtrl', [])
 
                 var method = $scope.sample.id !== undefined ? 'update' : 'create';
                 var url = method === 'update'
-                    ? '/sample?id[EQ]=' + $scope.sample.id
-                    : '/sample'
+                    ? '/storage/sample?id[EQ]=' + $scope.sample.id
+                    : '/storage/sample'
                 ;
 
                 $cbResource[method](url, $scope.sample).then(
