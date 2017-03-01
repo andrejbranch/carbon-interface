@@ -1,34 +1,12 @@
-var carbonApp = angular.module('carbonApp', [
-    'ui.router',
-    'ui.bootstrap',
-    'cryoblock.common.templates',
+var scrippsApp = angular.module('scrippsApp', [
     'templates',
     'common',
-    'ngStorage',
-    'carbonConfig',
-    'toastr',
-    'angular-loading-bar',
-    'ngCookies',
-    'form',
-    'button',
-    'ngImgCrop',
-    'blueimp.fileupload',
-    'datatables',
-    'ngMessages',
-    'project',
+    'cb-constants',
     'storage',
-    'sample',
-    'sampleType',
-    'storageContainer',
-    'treeControl',
-    'ui-rangeSlider',
-    'fiestah.money',
-    'ui.bootstrap.typeahead',
-    'ui.bootstrap.tabs',
-    'comment'
+    'sample'
 ]);
 
-angular.module('carbonApp').run(
+angular.module('scrippsApp').run(
     function($rootScope, $state) {
         $rootScope.$state = $state;
     }

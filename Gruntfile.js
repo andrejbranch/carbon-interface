@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                     // "<%= carbon.build %>/develop/grid.css": "<%= carbon.app %>/common/grid/grid-style.less",
                     // "<%= carbon.build %>/develop/one-to-many.css": "<%= carbon.app %>/common/form/one-to-many/one-to-many-styles.less",
                     // "<%= carbon.build %>/develop/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
-                    "<%= carbon.build %>/develop/storage.css": "<%= carbon.app %>/storage/storage-styles.less",
+                    // "<%= carbon.build %>/develop/storage.css": "<%= carbon.app %>/storage/storage-styles.less",
                     // "<%= carbon.build %>/develop/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             },
@@ -68,8 +68,10 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    "<%= carbon.build %>/production/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
-                    "<%= carbon.build %>/production/carbon.css": "<%= carbon.app %>/common/less/style.less"
+                    // 'bower_components/cryoblock-common/release/cryoblock.css',
+                    // 'bower_components/cryoblock-common/release/cryoblock.css',
+                    // "<%= carbon.build %>/production/app.css": "<%= carbon.app %>/common/profile/profile-style.less",
+                    // "<%= carbon.build %>/production/carbon.css": "<%= carbon.app %>/common/less/style.less"
                 },
             }
         },
@@ -96,7 +98,7 @@ module.exports = function (grunt) {
                 options: {
                     livereload: true
                 },
-                tasks: ['html2js:dev']
+                tasks: ['html2js:dev', 'htmlbuild:dev']
             },
             cryoblock: {
                 files: ['bower_components/cryoblock-common/release/**/*.js'],
@@ -128,7 +130,8 @@ module.exports = function (grunt) {
                 files: {
                     '<%= carbon.build %>/production/carbon.js': [
                         '<%= carbon.build %>/production/carbon.js',
-                        '<%= carbon.build %>/production/templates.js'
+                        '<%= carbon.build %>/production/templates.js',
+                        '<%= carbon.build %>/production/cb-constants.js'
                     ]
                 }
             }
@@ -163,46 +166,17 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        flatten: true,
                         dot: true,
                         cwd: '<%= carbon.app %>',
-                        dest: '<%= carbon.build %>/develop/images',
+                        dest: '<%= carbon.build %>/develop',
                         src: [
-                            '**/*.{ico,png,txt,jpg}',
+                            '*.{ico,png,txt}',
                             '.htaccess',
                             '*.html',
                             'views/{,*/}*.html',
                             'styles/style.css',
                             'img/{,*/}*.*'
                         ]
-                    },
-                    // {
-                    //     expand: true,
-                    //     dot: true,
-                    //     cwd: 'bower_components/fontawesome',
-                    //     src: ['fonts/*.*'],
-                    //     dest: '<%= carbon.build %>/develop'
-                    // },
-                    // {
-                    //     expand: true,
-                    //     dot: true,
-                    //     cwd: 'bower_components/bootstrap',
-                    //     src: ['fonts/*.*'],
-                    //     dest: '<%= carbon.build %>/develop'
-                    // },
-                    {
-                        expand: true,
-                        dot: true,
-                        cwd: 'bower_components/cryoblock-common/release',
-                        src: ['graphics/**/*'],
-                        dest: '<%= carbon.build %>/develop'
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        cwd: 'bower_components/cryoblock-common/release',
-                        src: ['fonts/*.*'],
-                        dest: '<%= carbon.build %>/develop'
                     },
                     {
                         expand: true,
@@ -211,6 +185,14 @@ module.exports = function (grunt) {
                         src: ['images/*.*'],
                         dest: '<%= carbon.build %>/develop'
                     },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: 'bower_components/cryoblock-common/release',
+                        src: ['fonts/*.*'],
+                        dest: '<%= carbon.build %>/develop'
+                    }
+
                 ]
             },
             prod: {
@@ -232,24 +214,24 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/fontawesome',
+                        cwd: 'bower_components/cryoblock-common/release',
+                        src: ['images/*.*'],
+                        dest: '<%= carbon.build %>/production'
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: 'bower_components/cryoblock-common/release',
                         src: ['fonts/*.*'],
                         dest: '<%= carbon.build %>/production'
                     },
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/bootstrap',
-                        src: ['fonts/*.*'],
-                        dest: '<%= carbon.build %>/production/bootstrap'
+                        cwd: 'bower_components/cryoblock-common/release',
+                        src: ['cryoblock.css'],
+                        dest: '<%= carbon.build %>/production'
                     },
-                    {
-                        expand: true,
-                        dot: true,
-                        cwd: '<%= carbon.app %>/scripts',
-                        src: ['*.js'],
-                        dest: '<%= carbon.build %>/production/scripts'
-                    }
                 ]
             },
         },
@@ -289,7 +271,6 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
-                            // '<%= carbon.app %>/common/fonts/**/*.css',
                             'bower_components/cryoblock-common/release/cryoblock.css',
                             '<%= carbon.build %>/develop/*.css',
                         ]
@@ -298,40 +279,9 @@ module.exports = function (grunt) {
                     relative: true,
                     scripts: {
                         bundle: [
-                            // 'bower_components/jquery/dist/jquery.min.js',
-                            // 'bower_components/jquery-ui/jquery-ui.min.js',
-                            // 'bower_components/bootstrap/dist/js/bootstrap.js',
-                            // 'bower_components/metisMenu/dist/metisMenu.min.js',
-                            // 'bower_components/slimScroll/jquery.slimscroll.min.js',
-                            // 'bower_components/angular/angular.js',
-                            // 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                            // 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-                            // 'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
-                            // 'bower_components/ngstorage/ngStorage.min.js',
-                            // 'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
-                            // 'bower_components/ngStorage/ngStorage.min.js',
-                            // 'bower_components/angular-cookies/angular-cookies.min.js',
-                            // 'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
-                            // 'bower_components/blueimp-file-upload/js/vendor/*.js',
-                            // 'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
-                            // 'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
-                            // 'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
-                            // 'bower_components/iCheck/icheck.min.js',
-                            // 'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
-                            // 'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
-                            // 'bower_components/datatables/media/js/jquery.dataTables.js',
-                            // 'bower_components/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.js',
-                            // 'bower_components/angular-loading-bar/build/loading-bar.js',
-                            // 'bower_components/angular-datatables/dist/angular-datatables.js',
-                            // 'bower_components/angular-messages/angular-messages.js',
-                            // 'bower_components/datatables-responsive/js/dataTables.responsive.js',
-                            // 'bower_components/sweetalert/dist/sweetalert-dev.js',
-                            // 'bower_components/angular-tree-control/angular-tree-control.js',
-                            // 'bower_components/angular-rangeslider/angular.rangeSlider.js',
-                            // 'bower_components/angular-money-directive/dist/angular-money-directive.js',
-                            // 'bower_components/angular-money-directive/dist/angular-money-directive.js',
                             'bower_components/cryoblock-common/release/cryoblock.js',
                             '<%= carbon.build %>/develop/templates.js',
+                            '<%= carbon.build %>/develop/cb-constants.js',
                             '<%= carbon.app %>/**/*.js'
                         ]
                     }
@@ -343,6 +293,7 @@ module.exports = function (grunt) {
                 options: {
                     styles: {
                         bundle: [
+                            'cryoblock.css',
                             '<%= carbon.build %>/production/*.css'
                         ]
                     },
@@ -363,33 +314,9 @@ module.exports = function (grunt) {
             },
             prod: {
                 src: [
-                    'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/jquery-ui/jquery-ui.min.js',
-                    'bower_components/bootstrap/dist/js/bootstrap.min.js',
-                    'bower_components/metisMenu/dist/metisMenu.min.js',
-                    'bower_components/slimScroll/jquery.slimscroll.min.js',
-                    'bower_components/angular/angular.js',
-                    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                    'bower_components/angular-ui-router.stateHelper/statehelper.min.js',
-                    'bower_components/ngstorage/ngStorage.min.js',
-                    'bower_components/angular-toastr/dist/angular-toastr.*.min.js',
-                    'bower_components/ngStorage/ngStorage.min.js',
-                    'bower_components/angular-cookies/angular-cookies.min.js',
-                    'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
-                    'bower_components/blueimp-file-upload/js/vendor/*.js',
-                    'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
-                    'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
-                    'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
-                    'bower_components/iCheck/icheck.min.js',
-                    'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
-                    'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',
-                    'bower_components/angular-loading-bar/build/loading-bar.js',
-                    'bower_components/datatables-responsive/js/dataTables.responsive.js',
-                    'bower_components/angular-tree-control/angular-tree-control.js',
-                    'bower_components/angular-rangeslider/angular.rangeSlider.js',
-                    'bower_components/angular-money-directive/dist/angular-money-directive.min.js',
-                    'vendor/**.js',
+                    'bower_components/cryoblock-common/release/cryoblock.js',
+                    '<%= carbon.build %>/production/templates.js',
+                    '<%= carbon.build %>/production/cb-constants.js',
                     '<%= carbon.build %>/production/**/*.js'
                 ],
                 dest: '<%= carbon.build %>/production/carbon.js'
@@ -440,6 +367,39 @@ module.exports = function (grunt) {
                     dest: '<%= carbon.build %>/production/images/'
                 }]
             }
+        },
+
+        ngconstant: {
+            dev: {
+                options: {
+                    dest: '<%= carbon.build %>/develop/cb-constants.js',
+                    name: 'cb-constants',
+                },
+                constants: {
+                    package: grunt.file.readJSON('package.json'),
+                    app: grunt.file.readJSON('env.js')['app'],
+                    API: grunt.file.readJSON('env.js')['API'],
+                    loginParams: grunt.file.readJSON('env.js')['loginParams']
+                }   ,
+                values: {
+                    debug: true
+                }
+            },
+            prod: {
+                options: {
+                    dest: '<%= carbon.build %>/production/cb-constants.js',
+                    name: 'cb-constants',
+                },
+                constants: {
+                    app: grunt.file.readJSON('env.js')['app'],
+                    package: grunt.file.readJSON('package.json'),
+                    API: grunt.file.readJSON('env.js')['API'],
+                    loginParams: grunt.file.readJSON('env.js')['loginParams']
+                }   ,
+                values: {
+                    debug: true
+                }
+            }
         }
 
     });
@@ -471,6 +431,7 @@ module.exports = function (grunt) {
         'clean:dev',
         'less:dev',
         'copy:dev',
+        'ngconstant:dev',
         'html2js:dev',
         'htmlbuild:dev',
         // 'imagemin:dev'
@@ -482,6 +443,7 @@ module.exports = function (grunt) {
         'less:prod',
         'ngAnnotate:prod',
         'html2js:prod',
+        'ngconstant:prod',
         'concat:prod',
         'copy:prod',
         // 'cssmin',

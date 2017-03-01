@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="carbonApp">
+<html ng-app="scrippsApp">
 
     <head>
 
@@ -11,8 +11,6 @@
 
         <!-- Page title set in pageTitle directive -->
         <title page-title></title>
-        <script src="https://highlightjs.org/static/highlight.pack.js"></script>
-
 
         <!-- build:style bundle -->
         <!-- /build -->
@@ -22,8 +20,16 @@
     <!-- Main controller -->
     <body ng-controller="commonCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy tour backdrop="true">
 
-        <!-- Main view  -->
-        <div ui-view="content"></div>
+        <div>
+
+            <!-- Navigation -->
+            <div ui-view="navbar"></div>
+
+            <!-- Main view  -->
+            <div ui-view="content"></div>
+
+        </div>
+
 
         <!-- build:script bundle -->
         <!-- /build -->
