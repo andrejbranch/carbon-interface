@@ -64,9 +64,11 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     },
 
-                                    linkedSamplesGrid: function (sampleGridFactory, sample) {
+                                    linkedSamplesGrid: function ($cbGridBuilder, sample) {
 
-                                        return sampleGridFactory.getOneToManyGrid(sample.id, false);
+                                        return $cbGridBuilder.buildOTM(
+                                            '/storage/sample-linked-sample/', 'sampleGridFactory', sample, false
+                                        );
 
                                     }
 

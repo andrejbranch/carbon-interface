@@ -6,6 +6,8 @@ angular.module('storage.storageGridFactory', [])
 
             var storageGridFactory = {
 
+                url: '/storage/division',
+
                 divisionColumns: [
                     {
                         header: 'Id',
@@ -47,29 +49,6 @@ angular.module('storage.storageGridFactory', [])
                         .addColumns(this.divisionColumns)
                         .sortColumn(this.divisionColumns[0], 'DESC')
                     ;
-                },
-
-                getDivisionGrid: function () {
-
-                    var grid = this.create();
-
-                    grid.setResourceUrl('/storage/division');
-
-                    return $cbResource.get('/storage/division', {cPerPage:'3'}).then(function (response) {
-
-                        grid.perPageOptions = [3, 10, 25];
-
-                        return grid
-                            .setResults(response.data)
-                            .setPaginationFromResponse(response)
-                            .allowSelect()
-                            .disableHover()
-                            .setPerPage(3)
-                            .disableToggleColumns()
-                        ;
-
-                    });
-
                 }
 
             };

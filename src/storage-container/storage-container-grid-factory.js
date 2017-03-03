@@ -6,6 +6,8 @@ angular.module('storageContainer.storageContainerGridFactory', [])
 
             var storageContainerGridFactory = {
 
+                url: '/storage/storage-container',
+
                 columns: [
                     {
                         header: 'Id',
@@ -29,20 +31,6 @@ angular.module('storageContainer.storageContainerGridFactory', [])
                         .addColumns(this.columns)
                         .sortColumn(this.columns[0], 'DESC')
                     ;
-
-                },
-
-                getIndexGrid: function (initResponse) {
-
-                    var grid = this.create();
-
-                    grid
-                        .setResourceUrl('/storage-container')
-                        .setResults(initResponse.data)
-                        .setPaginationFromResponse(initResponse)
-                    ;
-
-                    return grid;
 
                 }
 

@@ -103,7 +103,7 @@ module.exports = function (grunt) {
                 tasks: ['html2js:dev', 'htmlbuild:dev']
             },
             cryoblock: {
-                files: ['bower_components/cryoblock-common/release/**/*.js'],
+                files: ['bower_components/cryoblock-common/release/fonts/*'],
                 options: {
                     livereload: true
                 },

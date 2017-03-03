@@ -45,15 +45,13 @@ angular.module('sample.formFactory', [])
 
                             sampleSelectGrid: function () {
 
-                                return $cbGridBuilder.buildSelect(
-                                    '/storage/sample', 'sampleGridFactory', sample, true
-                                )
+                                return $cbGridBuilder.buildSelect('sampleGridFactory')
 
                             },
 
                             divisionGrid: function () {
 
-                                return storageGridFactory.getDivisionGrid();
+                                return $cbGridBuilder.buildSelect('storageGridFactory', true);
 
                             },
 

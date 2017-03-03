@@ -6,6 +6,8 @@ angular.module('sampleType.sampleTypeGridFactory', [])
 
             var sampleTypeGridFactory = {
 
+                url: '/storage/sample-type',
+
                 columns: [
                     {
                         header: 'Id',
