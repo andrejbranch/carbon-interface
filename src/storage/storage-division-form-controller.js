@@ -6,7 +6,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
             $scope.errors = [];
             $scope.divisionForm = {};
-            $scope.division = division ? angular.copy(division) : {};
+            $scope.division = division ? angular.copy(division) : { hasDimension: true };
 
             $scope.sampleTypeSelectGrid = sampleTypeSelectGrid;
             $scope.storageContainerSelectGrid = storageContainerSelectGrid;

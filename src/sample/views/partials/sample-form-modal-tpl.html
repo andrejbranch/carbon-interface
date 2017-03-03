@@ -67,7 +67,7 @@
 
                     <cb-form-group label="Sample Type" name="sampleType">
                         <div class="col-sm-10">
-                            <cb-dropdown cb-dropdown-primary bind-to="name" name="sampleType" ng-model="sample.sampleType" label="Sample Type" items="sampleTypes" required></cb-dropdown>
+                            <cb-dropdown cb-dropdown-primary bind-to="name" name="sampleType" ng-model="sample.sampleType" label="Sample Type" items="sampleTypes" disabled="sample.id" required></cb-dropdown>
                         </div>
                     </cb-form-group>
 

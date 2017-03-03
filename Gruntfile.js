@@ -197,7 +197,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= carbon.src %>/sample/images',
+                        cwd: '<%= carbon.app %>/sample',
                         src: ['images/*.*'],
                         dest: '<%= carbon.build %>/develop'
                     }
@@ -244,7 +244,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= carbon.src %>/sample/images',
+                        cwd: '<%= carbon.app %>/sample',
                         src: ['images/*.*'],
                         dest: '<%= carbon.build %>/production'
                     }

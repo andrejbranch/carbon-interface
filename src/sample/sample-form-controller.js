@@ -39,9 +39,9 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.selectDivision = function (isValid) {
 
+                $scope.sampleForm.$submitted = true
                 $scope.$broadcast('form:submit');
 
-                $scope.submitted = true;
 
                 if (!isValid) {
                     return;
@@ -58,7 +58,7 @@ angular.module('sample.sampleFormCtrl', [])
                         $scope.sample.divisionRow = response.divisionRow;
                         $scope.sample.divisionColumn = response.divisionColumn;
 
-                        $scope.onDivisionChange(response.division);
+                        $scope.onDivisionChange(response.division, true);
 
                     });
 
@@ -68,9 +68,15 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.previousDivisionId = $scope.sample.division ? $scope.sample.division.id : null;
 
-            $scope.onDivisionChange = function (division) {
+            $scope.onDivisionChange = function (division, auto) {
 
                 if (!division) {
+
+                    return;
+
+                }
+
+                if (auto !== undefined) {
 
                     return;
 

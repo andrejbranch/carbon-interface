@@ -1,8 +1,8 @@
 angular.module('sample.formFactory', [])
 
-    .factory('sampleFormFactory', ['$uibModal', 'sampleGridFactory', '$state', '$stateParams', '$cbResource', 'storageGridFactory',
+    .factory('sampleFormFactory', ['$uibModal', 'sampleGridFactory', '$state', '$stateParams', '$cbResource', 'storageGridFactory', '$cbGridBuilder',
 
-        function ($modal, sampleGridFactory, $state, $stateParams, $cbResource, storageGridFactory) {
+        function ($modal, sampleGridFactory, $state, $stateParams, $cbResource, storageGridFactory, $cbGridBuilder) {
 
             var sampleFormFactory = {
 
@@ -37,13 +37,17 @@ angular.module('sample.formFactory', [])
 
                             linkedSamplesGrid: function () {
 
-                                return sampleGridFactory.getOneToManyGrid(sample ? sample.id : null, true);
+                                return $cbGridBuilder.buildOTM(
+                                    '/storage/sample-linked-sample/', 'sampleGridFactory', sample, true
+                                )
 
                             },
 
                             sampleSelectGrid: function () {
 
-                                return sampleGridFactory.getSelectGrid();
+                                return $cbGridBuilder.buildSelect(
+                                    '/storage/sample', 'sampleGridFactory', sample, true
+                                )
 
                             },
 

@@ -29,9 +29,9 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'sampleIndexCtrl',
                                 resolve: {
 
-                                    grid: function (sampleGridFactory) {
+                                    grid: function ($cbGridBuilder) {
 
-                                        return sampleGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('sampleGridFactory');
 
                                     },
 

@@ -70,6 +70,12 @@ angular.module('storage.storageDivisionCtrl', [])
 
             $scope.editDivision = storageFormFactory.openDivisionFormModal;
 
+            $scope.addDivision = function () {
+
+                storageFormFactory.openDivisionFormModal({parent: {id: $scope.division.id}});
+
+            }
+
             // $timeout(function () {
             //     $scope.$broadcast('storage_box.details.well_selected', {
             //         sample: selectedSample,

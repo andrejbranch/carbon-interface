@@ -6,6 +6,10 @@ angular.module('sample.sampleGridFactory', [])
 
             var sampleGridFactory = {
 
+                url: '/storage/sample',
+
+                actionTemplate: 'sample/views/partials/sample-row-actions-tpl.html',
+
                 columns: [
                     {
                         header: 'Id',

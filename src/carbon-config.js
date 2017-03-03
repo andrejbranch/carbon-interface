@@ -21,7 +21,7 @@ angular.module('carbonConfig', ['toastr'])
 
     .config(['$urlRouterProvider', function($urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/profile/index');
 
     }])
 

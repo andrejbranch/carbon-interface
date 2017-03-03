@@ -23,29 +23,39 @@
                 </div>
             </cb-form-group>
 
-            <cb-form-group label="Height" name="height">
+            <cb-form-group label="Has Dimension" name="hasDimension" tooltip="Does this storage division have dimension, i.e. a 10 X 10 box, or is it dimensionless, i.e. a freezer. You will be unable to change this setting after creation.">
 
-                <div class="btn-group block col-sm-10" dropdown>
-                    <cb-dropdown name="height" ng-model="division.height" label="Height" items="acceptedHeights" required></cb-dropdown>
+                <div class="col-sm-10">
+                    <cb-boolean cb-boolean-primary ng-model="division.hasDimension" disabled="division.id"></cb-boolean>
                 </div>
 
             </cb-form-group>
 
-            <cb-form-group label="Width" name="width">
+            <div ng-show="division.hasDimension">
+                <cb-form-group label="Height" name="height">
 
-                <div class="btn-group block col-sm-10" dropdown>
-                    <cb-dropdown name="width" ng-model="division.width" label="Width" items="acceptedWidths" required></cb-dropdown>
-                </div>
+                    <div class="btn-group block col-sm-10" dropdown>
+                        <cb-dropdown name="height" ng-model="division.height" label="Height" items="acceptedHeights" disabled="division.id"></cb-dropdown>
+                    </div>
 
-            </cb-form-group>
+                </cb-form-group>
 
-            <cb-form-group label="Allowed Sample Types" name="sampleTypes">
+                <cb-form-group label="Width" name="width">
+
+                    <div class="btn-group block col-sm-10" dropdown>
+                        <cb-dropdown name="width" ng-model="division.width" label="Width" items="acceptedWidths" disabled="division.id"></cb-dropdown>
+                    </div>
+
+                </cb-form-group>
+            </div>
+
+            <cb-form-group label="Allowed Sample Types" name="sampleTypes" tooltip="Select the sample types that this division will allow.">
                 <div class="col-sm-10">
                     <one-to-many grid="divisionSampleTypeGrid" search-grid="sampleTypeSelectGrid" parent-object="division" bind-to="sampleTypes" placeholder="Add Sample Type ..."></one-to-many-v2>
                 </div>
             </cb-form-group>
 
-            <cb-form-group label="Allowed Storage Containers" name="storageContainers">
+            <cb-form-group label="Allowed Storage Containers" name="storageContainers" tooltip="Select the storage containers that this division will allow.">
                 <div class="col-sm-10">
                     <one-to-many grid="divisionStorageContainerGrid" search-grid="storageContainerSelectGrid" parent-object="division" bind-to="storageContainers" placeholder="Add Storage Container ..."></one-to-many-v2>
                 </div>

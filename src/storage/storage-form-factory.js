@@ -23,9 +23,7 @@ angular.module('storage.storageFormFactory', [])
 
                             sampleTypeSelectGrid: function () {
 
-                                return $cbGridBuilder.buildSelect(
-                                    '/storage/sample-type', 'sampleTypeGridFactory', division, true
-                                )
+                                return $cbGridBuilder.buildSelect('/storage/sample-type', 'sampleTypeGridFactory')
 
                             },
 
@@ -39,9 +37,7 @@ angular.module('storage.storageFormFactory', [])
 
                             storageContainerSelectGrid: function () {
 
-                                return $cbGridBuilder.buildSelect(
-                                    '/storage/storage-container', 'storageContainerGridFactory', division, true
-                                )
+                                return $cbGridBuilder.buildSelect('/storage/storage-container', 'storageContainerGridFactory')
 
                             },
 
