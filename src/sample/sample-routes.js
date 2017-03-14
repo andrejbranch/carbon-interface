@@ -70,6 +70,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                             '/storage/sample-linked-sample/', 'sampleGridFactory', sample, false
                                         );
 
+                                    },
+
+                                    projectGrid: function ($cbGridBuilder, sample) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/storage/project-sample/sample/', 'projectGridFactory', sample, false
+                                        )
+
                                     }
 
                                 }

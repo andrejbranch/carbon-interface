@@ -5,7 +5,8 @@ var scrippsApp = angular.module('scrippsApp', [
     'storage',
     'sampleType',
     'storageContainer',
-    'sample'
+    'sample',
+    'project'
 ]);
 
 angular.module('scrippsApp').run(

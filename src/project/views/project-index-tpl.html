@@ -1,19 +1,31 @@
 <div id="admin-container">
 
     <div class="normalheader">
+
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li class="active">
+                    <span>Projects</span>
+                </li>
+            </ol>
+        </div>
         <div class="hpanel">
             <div class="panel-body">
-                <div id="hbreadcrumb" class="pull-right m-t-lg">
-                    <ol class="hbreadcrumb breadcrumb">
-                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
-                        <li class="active">
-                            <span>Admin</span>
-                        </li>
-                    </ol>
+
+                <div class="panel-actions btn-group">
+                    <label class="btn btn-sm btn-default">
+                        <i class="fa fa-cog"></i>
+                    </label>
+                    <label title="Notifications" class="btn btn-sm btn-default" cb-object-notifications object-type="project">
+                        <i class="fa fa-bell"></i>
+                    </label>
                 </div>
+
                 <h2 class="font-light m-b-xs">
-                   Projects
+                  Projects
                 </h2>
+
                 <small>Manage projects</small>
             </div>
         </div>
@@ -21,7 +33,13 @@
 
     <div class="content">
 
-        <div class="row>"
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="create()">Create Project</button>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
@@ -30,56 +48,15 @@
                         </div>
                         Projects
                     </div>
-                    <div class="panel-body">
-                        <div>
-                            <grid request-url="/project" init-response="projectResponse" data="projects">
+                    <div class="panel-body no-padding">
 
-                                <grid-pagination-top></grid-pagination-top>
+                        <grid grid="grid"></grid>
 
-                                <table class="table table-striped table-bordered table-hover dataTable">
-                                    <thead>
-                                        <th grid-header name="id">Id</th>
-                                        <th grid-header name="name">Name</th>
-                                        <th grid-header name="description">Description</th>
-                                        <th grid-header name="idCreatedBy">Created By</th>
-                                        <th grid-header name="dateCreated">Date Created</th>
-                                        <th grid-header name="dateUpdated">Date Updated</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-row ng-repeat="project in projects">
-                                            <td grid-column name="id">
-                                                {{project.id}}
-                                            </td>
-                                            <td grid-column name="firstName">
-                                                {{project.name}}
-                                            </td>
-                                            <td grid-column name="lastName">
-                                                {{project.description}}
-                                            </td>
-                                            <td grid-column name="idCreatedBy">
-                                                {{project.idCreatedBy}}
-                                            </td>
-                                            <td grid-column name="dateCreated">
-                                                {{project.dateCreated}}
-                                            </td>
-                                            <td grid-column name="dateUpdated">
-                                                {{project.dateUpdated}}
-                                            </td>
-                                        </grid-row>
-                                    </tbody>
-
-                                </table>
-
-                                <div class="row m-t-sm">
-                                    <grid-pagination></grid-pagination>
-                                </div>
-
-                            </grid>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+

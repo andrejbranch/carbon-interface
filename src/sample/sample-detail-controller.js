@@ -1,12 +1,13 @@
 angular.module('sample.sampleDetailCtrl', [])
 
-    .controller('sampleDetailCtrl', ['$scope', 'sample', 'linkedSamplesGrid', 'sampleFormFactory',
+    .controller('sampleDetailCtrl', ['$scope', 'sample', 'linkedSamplesGrid', 'sampleFormFactory', 'projectGrid',
 
-        function ($scope, sample, linkedSamplesGrid, sampleFormFactory) {
+        function ($scope, sample, linkedSamplesGrid, sampleFormFactory, projectGrid) {
 
             $scope.sample = sample;
             $scope.linkedSamplesGrid = linkedSamplesGrid;
             $scope.edit = sampleFormFactory.openSampleFormModal;
+            $scope.projectGrid = projectGrid;
 
             $scope.statusLabelMapping = {
                 'Available': 'primary',

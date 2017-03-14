@@ -43,6 +43,12 @@ angular.module('sample.formFactory', [])
 
                             },
 
+                            projectGrids: function () {
+
+                                return $cbGridBuilder.buildMTMGrids('/storage/project-sample/sample/', 'projectGridFactory', sample, true)
+
+                            },
+
                             divisionGrid: function () {
 
                                 return $cbGridBuilder.buildSelectSingle('storageGridFactory', true);

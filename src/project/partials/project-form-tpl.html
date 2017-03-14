@@ -1,0 +1,56 @@
+<form name="projectForm" method="get" class="form-horizontal" ng-submit="submit(projectForm.$valid)" novalidate>
+
+    <div id="project-form-container">
+
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">{{ project.id ? 'Edit Project' : 'Create Project' }} {{project.id}}</h4>
+            <small>{{project.name}}</small>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
+                <p ng-repeat="error in errors">
+                    <strong>{{error}}</strong>
+                </p>
+            </div>
+
+            <cb-form-group label="Name" name="name">
+                <div class="col-sm-10">
+                    <input name="name" type="text" class="form-control" ng-model="project.name" required>
+                    <div ng-messages="projectForm.name.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Description" name="description">
+                <div class="col-sm-10">
+                    <input name="description" type="text" class="form-control" ng-model="project.description" required>
+                    <div ng-messages="projectForm.description.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Status" name="status">
+                <div class="col-sm-10">
+                    <cb-dropdown name="status" ng-model="project.status" label="Status" items="statuses" required></cb-dropdown>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Samples" name="samples">
+                <div class="col-sm-10">
+                    <one-to-many grid="sampleGrids[0]" search-grid="sampleGrids[1]" parent-object="project" bind-to="samples"  placeholder="Add Sample.."></one-to-many>
+                </div>
+            </cb-form-group>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+        </div>
+
+    </div>
+
+</form>

@@ -8,6 +8,9 @@ angular.module('project.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 url: '/project',
                 name: 'project',
                 views: {
+                    navbar: {
+                        templateUrl: 'navbar-tpl.html',
+                    },
                     content: {
                         templateUrl: 'common/layout/carbon-layout.html',
                     }
@@ -16,28 +19,54 @@ angular.module('project.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/index',
                         name: 'index',
+                        pageTitle: 'Projects',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
                         views: {
                             content: {
-
                                 templateUrl: 'project/views/project-index-tpl.html',
                                 controller: 'projectIndexCtrl',
-                                data: {
-                                    pageTitle: 'Projects',
-                                    permissions: {
-                                        except: ['anonymous'],
-                                        redirectTo: 'login'
-                                    },
-                                },
                                 resolve: {
 
-                                    projectResponse: function (projectFactory) {
+                                    grid: function ($cbGridBuilder) {
 
-                                        return projectFactory.getProjects();
+                                        return $cbGridBuilder.buildIndex('projectGridFactory');
+
+                                    }
+
+                                }
+                            }
+                        }
+                    },
+                    {
+                        url: '/:id',
+                        name: 'detail',
+                        pageTitle: 'Project {id}',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'project/views/project-detail-tpl.html',
+                                controller: 'projectDetailCtrl',
+                                resolve: {
+
+                                    project: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/project?id[EQ]=' + $stateParams.id);
 
                                     },
 
-                                }
+                                    sampleGrid: function ($cbGridBuilder, project) {
 
+                                        return $cbGridBuilder.buildOTM(
+                                            '/storage/project-sample/project/', 'sampleGridFactory', project, false
+                                        )
+
+                                    }
+
+                                }
                             }
                         }
                     }

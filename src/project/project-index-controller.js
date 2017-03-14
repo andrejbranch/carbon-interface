@@ -1,11 +1,11 @@
 angular.module('project.projectIndexCtrl', [])
-    .controller('projectIndexCtrl', ['$scope', 'projectResponse',
 
-        function ($scope, projectResponse) {
+    .controller('projectIndexCtrl', ['$scope', 'grid', 'projectFormFactory',
 
-            $scope.projectResponse = projectResponse;
+        function ($scope, grid, projectFormFactory) {
 
-            $scope.projects = projectResponse.data;
+            $scope.grid = grid;
+            $scope.create = projectFormFactory.openFormModal;
 
         }
 
