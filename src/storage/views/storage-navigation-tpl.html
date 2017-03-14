@@ -1,15 +1,51 @@
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content storage-tree-node">
+        <a class="btn btn-default btn-xs" ng-show="item.children && item.children.length > 0" data-nodrag="" ng-click="toggle(item)">
+            <span class="glyphicon glyphicon-chevron-down" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+        </a>
+
+        <span ng-click="" data-nodrag=""><a ui-sref="storage.division({id:item.id})">{{item.title}}</a></span>
+
+        <div data-nodrag="" class="btn-group pull-right storage-tree-node-actions" uib-dropdown is-open="status.isopen" ng-controller="sampleRowActionsCtrl">
+            <button id="single-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                <span class="fa fa-cog"></span>
+            </button>
+            <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button">
+                <li role="menuitem">
+                    <a ui-sref="storage.division({id:item.id})"><i class="fa fa-file-o m-r-xs"/>View</a>
+                </li>
+                <li class="divider"></li>
+                <li role="menuitem">
+                    <a ng-click="edit(item)"><i class="fa fa-edit m-r-xs"/>Edit</a>
+                </li>
+                 <li role="menuitem" ng-show="!item.hasDimension">
+                    <a ng-click="addDivision(item)"><i class="fa fa-plus m-r-xs"/>Add Child Division</a>
+                </li>
+                <li role="menuitem">
+                    <a href="#"><i class="fa fa-trash m-r-xs"/>Delete</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <ol ui-tree-nodes="" ng-model="item.children" ng-show="!collapsed">
+        <li ng-repeat="item in item.children" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+      </ol>
+</script>
+
 <div class="tree-container">
-  <treecontrol class="tree-light"
-     tree-model="divisions"
-     selected-node="selected"
-     on-selection="goToDivision(node)"
-     expanded-nodes="expandedDivisions"
-     options="opts"
-  >
-      <i class="fa" ng-class="{
-          'fa-th': !node.hasDimension,
-          'fa-stop': node.hasDimension
-      }"/>
-      {{node.title}}
-  </treecontrol>
+
+    <div ui-tree="treeOptions" class="angular-ui-tree">
+        <ol ui-tree-nodes="" ng-model="divisions" class="angular-ui-tree-nodes">
+            <li>
+                <button class="btn btn-info btn-block m-t-sm m-b-sm" ng-click="createParentDivision()">
+                    <i class="fa fa-plus" />
+                    Add Division
+                </button>
+            </li>
+            <li data-expand-on-hover="800" data-collapsed="true" ng-model="item" ng-repeat="item in divisions" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        </ol>
+    </div>
+
 </div>
+
+

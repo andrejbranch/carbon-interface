@@ -21,31 +21,15 @@ angular.module('storage.storageFormFactory', [])
                                 return division;
                             },
 
-                            sampleTypeSelectGrid: function () {
+                            sampleTypeGrids: function () {
 
-                                return $cbGridBuilder.buildSelect('sampleTypeGridFactory')
-
-                            },
-
-                            divisionSampleTypeGrid: function () {
-
-                                return $cbGridBuilder.buildOTM(
-                                    '/storage/division-sample-type/division/', 'sampleTypeGridFactory', division, true
-                                )
+                                return $cbGridBuilder.buildMTMGrids('/storage/division-sample-type/division/', 'sampleTypeGridFactory', division, true)
 
                             },
 
-                            storageContainerSelectGrid: function () {
+                            storageContainerGrids: function () {
 
-                                return $cbGridBuilder.buildSelect('storageContainerGridFactory')
-
-                            },
-
-                            divisionStorageContainerGrid: function () {
-
-                                return $cbGridBuilder.buildOTM(
-                                    '/storage/division-storage-container/division/', 'storageContainerGridFactory', division, true
-                                )
+                                return $cbGridBuilder.buildMTMGrids('/storage/division-storage-container/division/', 'storageContainerGridFactory', division, true)
 
                             },
 

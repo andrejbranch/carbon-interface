@@ -101,7 +101,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'storageNavigationCtrl',
                                 resolve: {
 
-                                    divisionResponse: function (storageFactory) {
+                                    divisions: function (storageFactory) {
 
                                         return storageFactory.getParentDivisions();
 

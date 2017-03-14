@@ -1,65 +1,19 @@
 <div id="storage-container">
 
-    <div class="normalheader">
-        <div id="hbreadcrumb">
-            <ol class="hbreadcrumb breadcrumb">
-                <li><a ui-sref="storage.index">Storage</a></li>
-                <li class="active">
-                    <span>Division {{division.id}}</span>
-                </li>
-            </ol>
-        </div>
-        <div class="hpanel">
-            <div class="panel-body">
-                <button ng-click="editDivision(division)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
-                <h2 class="font-light m-b-xs inline">
-                    Division {{division.id}} - {{division.title}}
-                </h2>
-            </div>
-        </div>
-    </div>
+    <div class="storage-container-table">
 
-    <div class="content">
+        <div class="storage-navigation-container">
 
-        <div class="row">
-            <div class="col-sm-12" ng-if="!division.hasDimension">
-                <button class="btn btn-primary" ng-click="addDivision()">
-                    <i class="fa fa-plus"/> Division
-                </button>
-            </div>
-        </div>
-
-        <div class="row" ng-if="division.hasDimension">
-
-            <div class="col-sm-3">
-
-                <div ui-view="storage-navigation" class="navigation"></div>
-
-            </div>
-
-            <div class="col-sm-9">
-
-                <div ui-view="division"></div>
-
-            </div>
+            <div ui-view="storage-navigation" class="navigation"></div>
 
         </div>
 
-        <div class="row" ng-if="!division.hasDimension">
+        <div class="storage-division-container">
 
-            <div class="col-sm-3">
-
-                <div ui-view="storage-navigation" class="navigation"></div>
-
-            </div>
-
-            <div class="col-sm-9">
-
-                <div ui-view="division"></div>
-
-            </div>
+            <div ui-view="division"></div>
 
         </div>
 
     </div>
+
 </div>

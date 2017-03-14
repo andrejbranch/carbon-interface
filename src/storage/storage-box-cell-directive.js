@@ -33,7 +33,6 @@ angular.module('storage.storageBoxCellDirective', [])
 
                     var onSelect = function (event, data) {
 
-                        console.log(2);
                         if (data.column !== $scope.column || data.row !== $scope.row) {
 
                             element.removeClass('selected');

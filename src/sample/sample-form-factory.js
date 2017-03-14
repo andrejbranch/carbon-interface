@@ -35,23 +35,17 @@ angular.module('sample.formFactory', [])
 
                             },
 
-                            linkedSamplesGrid: function () {
+                            linkedSampleGrids: function () {
 
-                                return $cbGridBuilder.buildOTM(
+                                return $cbGridBuilder.buildMTMGrids(
                                     '/storage/sample-linked-sample/', 'sampleGridFactory', sample, true
-                                )
-
-                            },
-
-                            sampleSelectGrid: function () {
-
-                                return $cbGridBuilder.buildSelect('sampleGridFactory')
+                                );
 
                             },
 
                             divisionGrid: function () {
 
-                                return $cbGridBuilder.buildSelect('storageGridFactory', true);
+                                return $cbGridBuilder.buildSelectSingle('storageGridFactory', true);
 
                             },
 

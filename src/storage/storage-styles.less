@@ -4,9 +4,8 @@
 @evenLight: #E1E7EC;
 
 .navigation {
-    padding: 10px;
-    background-color: white;
-    border: 1px solid #e4e5e7;
+    padding: 5px 10px;
+    padding-bottom: 50px;
 }
 
 .storage-box-tools {
@@ -43,11 +42,15 @@
     }
 }
 
+.division-table-container {
+    background: white;
+    padding: 10px;
+}
+
 #division-table {
     border-spacing: 4px;
     border-collapse: separate;
     background: white;
-    border: 1px solid #e4e5e7;
     width: 100%;
     margin: 0 auto;
     cursor: pointer;
@@ -203,3 +206,33 @@
     }
 
 }
+
+.storage-container-table {
+    display: table;
+    width: 100%;
+}
+
+.storage-navigation-container {
+    vertical-align  : top;
+    display: table-cell;
+    width: 20%;
+    border-right: 1px solid #d4d4d4;
+}
+
+.storage-division-container {
+    vertical-align: top;
+    display: table-cell;
+}
+
+.storage-tree-node {
+    border-radius: 2px;
+    .storage-tree-node-actions {
+        display: none;
+    }
+    &:hover {
+        .storage-tree-node-actions {
+            display: block;
+        }
+    }
+}
+

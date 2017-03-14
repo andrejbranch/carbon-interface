@@ -1,17 +1,14 @@
 angular.module('storage.storageDivisionFormCtrl', [])
 
-    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeSelectGrid', 'storageContainerSelectGrid', 'divisionSampleTypeGrid', 'divisionStorageContainerGrid', '$uibModalInstance', '$cbResource', 'toastr', 'callback',
+    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback',
 
-        function ($scope, division, sampleTypeSelectGrid, storageContainerSelectGrid, divisionSampleTypeGrid, divisionStorageContainerGrid, $modalInstance, $cbResource, toastr, callback) {
+        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback) {
 
             $scope.errors = [];
             $scope.divisionForm = {};
             $scope.division = division ? angular.copy(division) : { hasDimension: true };
-
-            $scope.sampleTypeSelectGrid = sampleTypeSelectGrid;
-            $scope.storageContainerSelectGrid = storageContainerSelectGrid;
-            $scope.divisionSampleTypeGrid = divisionSampleTypeGrid;
-            $scope.divisionStorageContainerGrid = divisionStorageContainerGrid;
+            $scope.sampleTypeGrids = sampleTypeGrids;
+            $scope.storageContainerGrids = storageContainerGrids;
 
             $scope.acceptedHeights = [];
             for (var i = 1; i <= 20; i++) {

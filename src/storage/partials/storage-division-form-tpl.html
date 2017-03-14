@@ -51,13 +51,13 @@
 
             <cb-form-group label="Allowed Sample Types" name="sampleTypes" tooltip="Select the sample types that this division will allow.">
                 <div class="col-sm-10">
-                    <one-to-many grid="divisionSampleTypeGrid" search-grid="sampleTypeSelectGrid" parent-object="division" bind-to="sampleTypes" placeholder="Add Sample Type ..."></one-to-many-v2>
+                    <one-to-many grid="sampleTypeGrids[0]" search-grid="sampleTypeGrids[1]" parent-object="division" bind-to="sampleTypes" placeholder="Add Sample Type ..."></one-to-many-v2>
                 </div>
             </cb-form-group>
 
             <cb-form-group label="Allowed Storage Containers" name="storageContainers" tooltip="Select the storage containers that this division will allow.">
                 <div class="col-sm-10">
-                    <one-to-many grid="divisionStorageContainerGrid" search-grid="storageContainerSelectGrid" parent-object="division" bind-to="storageContainers" placeholder="Add Storage Container ..."></one-to-many-v2>
+                    <one-to-many grid="storageContainerGrids[0]" search-grid="storageContainerGrids[1]" parent-object="division" bind-to="storageContainers" placeholder="Add Storage Container ..."></one-to-many-v2>
                 </div>
             </cb-form-group>
 

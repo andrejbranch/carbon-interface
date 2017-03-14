@@ -1,26 +1,15 @@
 angular.module('storage.storageFactory', [])
-    .factory('storageFactory', ['$http', 'API',
 
-        function ($http, API) {
+    .factory('storageFactory', ['$http', 'API', '$cbResource',
+
+        function ($http, API, $cbResource) {
 
             var storageFactory = {
 
                 getParentDivisions: function () {
 
-                    var req = {
-                        method: 'GET',
-                        url: API.url + '/storage/division?parentId[NULL]=true',
-                        headers: {
-                            'X-CARBON-SERIALIZATION-GROUPS': 'children'
-                        }
+                    return $cbResource.get('/storage/division-tree');
 
-                    };
-
-                    var promise = $http(req).then(function (response) {
-                        return response.data;
-                    });
-
-                    return promise;
                 },
 
                 getDivision: function (divisionId) {

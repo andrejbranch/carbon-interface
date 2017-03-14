@@ -1,47 +1,5 @@
-<div class="row" ng-if="!division.hasDimension">
-    <div class="col-sm-3" ng-repeat="division in children" ui-sref="storage.division({id:division.id})">
-        <div class="hpanel selectable">
-            <div class="panel-heading hbuilt">
-                <i class="fa fa-th"/>
-                {{division.title}}
-                <div class="panel-tools"></div>
-            </div>
-            <div class="panel-body">
-                {{division.title}}
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="hpanel storage-box-tools" ng-if="division.hasDimension">
-    <div class="panel-body">
-        <div class="col-sm-6">
-            <div class="btn-group">
-                <label class="btn btn-sm btn-default" ng-model="radioModel" btn-radio="'Left'">
-                    <i class="fa fa-hand-o-up" />
-                </label>
-                <label class="btn btn-sm btn-default" ng-model="radioModel" btn-radio="'Right'">
-                    <i class="fa fa-arrows-alt" />
-                </label>
-            </div>
-            <div class="btn-group m-l-md">
-                <label class="btn btn-sm btn-default">
-                    <i class="fa fa-edit" />
-                </label>
-                <label class="btn btn-sm btn-default">
-                    <i class="fa fa-save" />
-                </label>
-            </div>
-        </div>
-        <div class="col-sm-offset-3 col-sm-3">
-            <div range-slider min="50" max="100" model-max="zoom.percentage" pin-handle="min"></div>
-        </div>
-    </div>
-</div>
-
-<div class="row" ng-if="division.hasDimension">
-    <div class="col-sm-12">
-
+<div ng-if="division.hasDimension">
+    <div class="division-table-container">
         <table id="division-table" storage-box division="division">
             <thead>
                 <tr>
