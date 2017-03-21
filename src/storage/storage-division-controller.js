@@ -12,6 +12,8 @@ angular.module('storage.storageDivisionCtrl', [])
                 percentage: 100
             };
 
+            $scope.currentView = $scope.division.hasDimension ? 'grid' : 'list';
+
             $scope.radioModel = "Left";
 
             angular.forEach($scope.division.samples, function (sample) {
@@ -26,6 +28,20 @@ angular.module('storage.storageDivisionCtrl', [])
                 $scope.samples[divisionRow][divisionColumn] = sample;
 
             });
+
+            $scope.zoomIn = function () {
+                if ($scope.zoom.percentage === 150) {
+                    return;
+                }
+                $scope.zoom.percentage = $scope.zoom.percentage + 25;
+            };
+
+            $scope.zoomOut = function () {
+                if ($scope.zoom.percentage === 25) {
+                    return;
+                }
+                $scope.zoom.percentage = $scope.zoom.percentage - 25;
+            };
 
             $scope.$watch('zoom.percentage', function (v) {
 
@@ -75,6 +91,19 @@ angular.module('storage.storageDivisionCtrl', [])
                 storageFormFactory.openDivisionFormModal({parent: {id: $scope.division.id}});
 
             }
+
+            $scope.breadcrumbs = [];
+            var whileScope = $scope.division.parent;
+            while (whileScope) {
+                try {
+                    $scope.breadcrumbs.push(whileScope);
+                    whileScope = whileScope.parent;
+                } catch (err) {
+                    whileScope = false;
+                }
+            }
+            $scope.breadcrumbs.reverse();
+            $scope.breadcrumbs.splice(0, 1);
 
             // $timeout(function () {
             //     $scope.$broadcast('storage_box.details.well_selected', {

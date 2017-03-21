@@ -29,6 +29,30 @@
         </div>
 
         <div class="row">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-location-arrow"></i>
+                        Location
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <a ui-sref="storage.division({id:sample.divisionId})">{{sample.division.title}} - Row {{sample.divisionRow}} - Column {{sample.divisionColumn}}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
 
             <div class="col-sm-4">
                 <div class="hpanel">

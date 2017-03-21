@@ -1,8 +1,8 @@
 angular.module('storage.storageNavigationCtrl', [])
 
-    .controller('storageNavigationCtrl', ['$scope', 'divisions', 'division', '$state', 'storageFormFactory',
+    .controller('storageNavigationCtrl', ['$scope', 'divisions', 'division', '$state', 'storageFormFactory', '$uibModal', '$cbResource',
 
-        function ($scope, divisions, division, $state, storageFormFactory) {
+        function ($scope, divisions, division, $state, storageFormFactory, $uibModal, $cbResource) {
 
             $scope.divisions = divisions;
             $scope.selected = angular.copy(division);
@@ -23,7 +23,7 @@ angular.module('storage.storageNavigationCtrl', [])
                     var sourceDivision = sourceNodeScope.item;
 
                     if (division === undefined) {
-                        return true;
+                        return false;
                     }
 
                     if (!division) {
@@ -37,19 +37,51 @@ angular.module('storage.storageNavigationCtrl', [])
                     return false;
                 },
 
-                dropped: function (event) {
-                    var destNodesScope = event.dest.nodesScope;
-                    event.source.nodeScope.collapse();
+                beforeDrop: function (event) {
 
-                    // console.log(event)
-                    // console.log(destNodesScope.$treeScope);
+                    return $scope.handleDropEvent(event);
+
                 }
+
+            };
+
+            $scope.handleDropEvent = function (event) {
+
+                var destNodesScope = event.dest.nodesScope;
+                var sourceNodesScope = event.source.nodesScope;
+                var sourceScope = event.source.nodeScope;
+
+                // not really moving anywhere
+                if (destNodesScope.$id === sourceNodesScope.$id && event.dest.index === event.source.index) {
+                    return;
+                }
+
+                // event.source.nodeScope.collapse();
+
+                return $uibModal.open({
+                    templateUrl: 'storage/partials/division-move-confirm-tpl.html',
+                    controller: 'storageDivisionMoveConfirmCtrl',
+                    windowClass: 'inmodal',
+                    keyboard: false,
+                    backdrop: 'static',
+                    size: 'md',
+                    resolve: {
+
+                        dropEvent: function () {
+
+                            return event;
+
+                        }
+
+                    }
+
+                }).result;
 
             };
 
             $scope.goToDivision = function (division) {
                 $state.go('storage.division', {id:division.id});
-            }   ;
+            };
 
             $scope.opts = {
                 equality: function (node1, node2) {
@@ -70,6 +102,12 @@ angular.module('storage.storageNavigationCtrl', [])
             $scope.createParentDivision = function () {
 
                 storageFormFactory.openDivisionFormModal();
+
+            };
+
+            $scope.toggleItem = function (division) {
+                console.log(division);
+                $cbResource.get('/storage/divisions')
 
             };
 

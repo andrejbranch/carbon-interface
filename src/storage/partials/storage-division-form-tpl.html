@@ -23,6 +23,15 @@
                 </div>
             </cb-form-group>
 
+            <cb-form-group label="Description" name="description">
+                <div class="col-sm-10">
+                    <input name="description" type="text" class="form-control" ng-model="division.description" required>
+                    <div ng-messages="divisionForm.description.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
             <cb-form-group label="Has Dimension" name="hasDimension" tooltip="Does this storage division have dimension, i.e. a 10 X 10 box, or is it dimensionless, i.e. a freezer. You will be unable to change this setting after creation.">
 
                 <div class="col-sm-10">
@@ -51,13 +60,19 @@
 
             <cb-form-group label="Allowed Sample Types" name="sampleTypes" tooltip="Select the sample types that this division will allow.">
                 <div class="col-sm-10">
-                    <one-to-many grid="sampleTypeGrids[0]" search-grid="sampleTypeGrids[1]" parent-object="division" bind-to="sampleTypes" placeholder="Add Sample Type ..."></one-to-many-v2>
+                    <one-to-many grid="sampleTypeGrids[0]" search-grid="sampleTypeGrids[1]" parent-object="division" bind-to="sampleTypes" placeholder="Add Sample Type ..."></one-to-many>
                 </div>
             </cb-form-group>
 
             <cb-form-group label="Allowed Storage Containers" name="storageContainers" tooltip="Select the storage containers that this division will allow.">
                 <div class="col-sm-10">
-                    <one-to-many grid="storageContainerGrids[0]" search-grid="storageContainerGrids[1]" parent-object="division" bind-to="storageContainers" placeholder="Add Storage Container ..."></one-to-many-v2>
+                    <one-to-many grid="storageContainerGrids[0]" search-grid="storageContainerGrids[1]" parent-object="division" bind-to="storageContainers" placeholder="Add Storage Container ..."></one-to-many>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Allowed Editors" name="editors" tooltip="Select the storage containers that this division will allow.">
+                <div class="col-sm-10">
+                    <one-to-many grid="divisionEditorGrids[0]" search-grid="divisionEditorGrids[1]" parent-object="division" bind-to="editors" placeholder="Add Editor..."></one-to-many>
                 </div>
             </cb-form-group>
 

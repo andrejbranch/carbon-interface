@@ -1,53 +1,125 @@
 <div ng-if="division.hasDimension">
-    <div class="division-table-container">
-        <table id="division-table" storage-box division="division">
-            <thead>
-                <tr>
-                    <td></td>
-                    <td
-                        ng-class-odd="'odd'"
-                        ng-class-even="'even'"
-                        ng-repeat="number in columns"
-                    >
-                        <span class="column-heading" storage-box-heading>
-                            {{number}}
-                        </span>
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    ng-class-odd="'odd'"
-                    ng-class-even="'even'"
-                    ng-repeat="row in rows"
-                >
-                    <td
-                        class="row-head"
-                        ng-class-odd="'odd'"
-                        ng-class-even="'even'"
-                    >
-                        <span class="column-heading" storage-box-heading>
-                            {{row}}
-                        </span>
-                    </td>
-                    <td
-                        ng-class-odd="'odd'"
-                        ng-class-even="'even'"
-                        ng-repeat="column in columns"
-                        storage-box-cell
-                        sample="samples[row][column]"
-                        row="row"
-                        column="column"
-                    >
-                        <div
-                            class="cell"
-                            ng-class="{'has-sample': samples[row][column]}"
-                        >
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
+    <div class="division-table-container">
+
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li ng-repeat="breadcrumb in breadcrumbs">
+                    <a ui-sref="storage.division({id:breadcrumb.id})">{{breadcrumb.title}}</a>
+                </li>
+                <li><span>{{division.title}}</span></li>
+            </ol>
+        </div>
+
+        <div class="row m-b-none">
+            <div class="col-sm-12">
+                <h3>{{division.title}}</h3>
+                <p>{{division.description}}</p>
+            </div>
+        </div>
+
+        <div class="row division-action-bar">
+            <div class="col-sm-4">
+                <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-danger" ng-click="delete()" ng-disabled="true">
+                            <i class="fa fa-trash fa-2x" />
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-default" ng-click="add()" ng-disabled="true">
+                            <i class="fa fa-plus fa-2x" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-default" ng-click="delete()">
+                            <i class="fa fa-list fa-2x" />
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn" ng-click="delete()" ng-class="{'btn-default': currentView === 'list', 'btn-info': currentView === 'grid'}">
+                            <i class="fa fa-th fa-2x" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-default" ng-click="zoomOut()" ng-disabled="zoom.percentage === 25">
+                            <i class="fa fa-search-minus fa-2x" />
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-default" ng-click="zoomIn()" ng-disabled="zoom.percentage === 150">
+                            <i class="fa fa-search-plus fa-2x" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="division-overflow-container noselect">
+
+            <table id="division-table" storage-box division="division">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td
+                            ng-class-odd="'odd'"
+                            ng-class-even="'even'"
+                            ng-repeat="number in columns"
+                            storage-box-heading
+                            column="number"
+                        >
+                            <span class="column-heading">
+                                {{number}}
+                            </span>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        ng-class-odd="'odd'"
+                        ng-class-even="'even'"
+                        ng-repeat="row in rows"
+                    >
+                        <td
+                            class="row-head"
+                            ng-class-odd="'odd'"
+                            ng-class-even="'even'"
+                            storage-box-heading
+                            row="row"
+                        >
+                            <span class="column-heading">
+                                {{row}}
+                            </span>
+                        </td>
+                        <td
+                            ng-class-odd="'odd'"
+                            ng-class-even="'even'"
+                            ng-repeat="column in columns"
+                            storage-box-cell
+                            sample="samples[row][column]"
+                            row="row"
+                            column="column"
+                        >
+                            <div
+                                class="cell"
+                                ng-class="{'has-sample': samples[row][column]}"
+                            >
+                                <span class="sample-name" ng-if="samples[row][column]">{{samples[row][column].name}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

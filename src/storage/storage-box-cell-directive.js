@@ -15,7 +15,7 @@ angular.module('storage.storageBoxCellDirective', [])
                 link: function ($scope, element, attrs, storageBoxCtrl) {
 
                     // responsive calculations
-                    var resizeCell = function () {
+                    var resizeCell = function (event, data) {
 
                         var boxOuterWidth = storageBoxCtrl.scope.element.outerWidth() - ((storageBoxCtrl.division.width + 2) * 4);
 
@@ -28,6 +28,11 @@ angular.module('storage.storageBoxCellDirective', [])
                         element.css('width', flooredPercentage * 100 + '%');
 
                         element.css('padding-bottom', floor + 'px');
+
+
+                        if (data !== undefined) {
+                            element.css('font-size', (data.percentage / 100) * 0.7 + 'vw');
+                        }
 
                     };
 
@@ -63,6 +68,18 @@ angular.module('storage.storageBoxCellDirective', [])
                     resizeCell();
 
                     $scope.$on('storage_box.resize', resizeCell);
+
+                    $scope.$on('storage_box.select_column', function (event, data) {
+                        if ($scope.column == data) {
+                            element.toggleClass('selected');
+                        }
+                    });
+
+                    $scope.$on('storage_box.select_row', function (event, data) {
+                        if ($scope.row == data) {
+                            element.toggleClass('selected');
+                        }
+                    });
 
                     $scope.$on('storage_box.details.well_selected', function (event, data) {
 

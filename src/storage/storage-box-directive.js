@@ -9,9 +9,17 @@ angular.module('storage.storageBoxDirective', [])
                 scope: {
                     division: '='
                 },
-                controller: function ($scope) {
+                controller: function ($scope, $rootScope) {
                     this.scope = $scope;
                     this.division = $scope.division;
+
+                    this.selectColumn = function (column) {
+                        $rootScope.$broadcast('storage_box.select_column', column);
+                    }
+
+                    this.selectRow = function (row) {
+                        $rootScope.$broadcast('storage_box.select_row', row);
+                    }
                 },
                 link: function ($scope, element, attrs) {
 

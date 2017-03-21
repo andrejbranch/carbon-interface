@@ -1,14 +1,19 @@
 angular.module('storage.storageDivisionFormCtrl', [])
 
-    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback',
+    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback', 'divisionEditorGrids', '$state',
 
-        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback) {
+        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback, divisionEditorGrids, $state) {
 
             $scope.errors = [];
             $scope.divisionForm = {};
-            $scope.division = division ? angular.copy(division) : { hasDimension: true };
+            $scope.division = division ? angular.copy(division) : { hasDimension: true, parent:{id:1}};
             $scope.sampleTypeGrids = sampleTypeGrids;
             $scope.storageContainerGrids = storageContainerGrids;
+            $scope.divisionEditorGrids = divisionEditorGrids;
+
+            if ($scope.division.parentId) {
+                $scope.division.parent = {id: $scope.division.parentId};
+            }
 
             $scope.acceptedHeights = [];
             for (var i = 1; i <= 20; i++) {
@@ -52,7 +57,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                         toastr.info('Division ' + method + 'd successfully');
                         $scope.close();
-                        callback();
+                        $state.go('storage.division', {id: response.data.id});
 
                     },
 

@@ -10,5 +10,7 @@ angular.module('storage', [
     'storage.storageDivisionFormCtrl',
     'storage.storageFormFactory',
     'storage.storageGridFactory',
+    'storage.storageDivisionMoveConfirmCtrl',
+    'storage.storageTreeNodeDirective',
     'storage.routes'
 ]);

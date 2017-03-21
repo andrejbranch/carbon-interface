@@ -6,7 +6,12 @@ angular.module('storage.storageBoxHeading', [])
             return {
 
                 restrict: 'A',
-                link: function ($scope, element, attrs) {
+                require: '^storageBox',
+                scope: {
+                    row: '=',
+                    column: '='
+                },
+                link: function ($scope, element, attrs, storageBoxCtrl) {
 
                     $scope.$on('storage_box.resize', function (event, data) {
 
@@ -14,6 +19,15 @@ angular.module('storage.storageBoxHeading', [])
 
                         element.css('font-size', (data.percentage / 100) * 0.7 + 'vw');
 
+                    });
+
+                    element.on('click', function () {
+                        if ($scope.column != undefined) {
+                            storageBoxCtrl.selectColumn($scope.column);
+                        }
+                        if ($scope.row != undefined) {
+                            storageBoxCtrl.selectRow($scope.row);
+                        }
                     });
 
                 }

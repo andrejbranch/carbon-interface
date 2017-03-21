@@ -47,6 +47,10 @@
     padding: 10px;
 }
 
+.division-overflow-container {
+    overflow: auto;
+}
+
 #division-table {
     border-spacing: 4px;
     border-collapse: separate;
@@ -72,6 +76,8 @@
             left: 0;
             right: 0;
             margin: 0 auto;
+            margin-top: 3px;
+
         }
     }
     tbody {
@@ -144,9 +150,18 @@
             background-image: url("images/default-sample-type.png");
             background-repeat: no-repeat;
             background-color: white;
-            background-size: 75%;
-            background-position: 55% 36%;
+            background-size: 30%;
+            background-position: 50% 11%;
 
+            .sample-name {
+                font-weight: bold;
+                margin-top: 49%;
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                padding: 0px 10px;
+            }
         }
     }
 }
@@ -199,6 +214,11 @@
         }
     }
 }
+.division-action-bar {
+    .btn-group-justified {
+        width: auto;
+    }
+}
 
 .sample-details-table {
     td {
@@ -230,6 +250,7 @@
         display: none;
     }
     &:hover {
+        cursor: move;
         .storage-tree-node-actions {
             display: block;
         }
