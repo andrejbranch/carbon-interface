@@ -6,6 +6,10 @@
 .navigation {
     padding: 5px 10px;
     padding-bottom: 50px;
+    height: 100vh;
+    width: 100%;
+    float: left;
+    overflow: scroll;
 }
 
 .storage-box-tools {
@@ -71,7 +75,6 @@
             background: @evenDark;
         }
         .column-heading {
-            font-size: 0.7vw;
             position:absolute;
             left: 0;
             right: 0;
@@ -83,7 +86,6 @@
     tbody {
 
         .column-heading {
-            font-size: 0.7vw;
             position: relative;
             margin-top: 48%;
             left: 0;
@@ -242,6 +244,10 @@
 .storage-division-container {
     vertical-align: top;
     display: table-cell;
+    height: 100vh;
+    width: 100%;
+    float: right;
+    overflow: scroll;
 }
 
 .storage-tree-node {
@@ -255,5 +261,80 @@
             display: block;
         }
     }
+    .dimension {
+        color: gray;
+        font-style: italic;
+        margin-left: 10px;
+        margin-right: 5px;
+        font-size: 0.8em;
+    }
+    .space-used {
+        color: gray;
+        font-style: italic;
+        margin-left: 0px;
+        font-size: 0.8em;
+    }
+    &.active {
+        .dimension, .space-used {
+            color: white;
+        }
+    }
+}
+
+.storage-division-list {
+    padding-left: 0;
+
+    display: table;
+    width: 100%;
+
+    li {
+        cursor: pointer;
+        margin: 10px 0px;
+        list-style: none;
+        background: #f3f3f3;
+        .row-column-container {
+            vertical-align: middle;
+            font-size: 1.5em;
+            display: inline-block;
+            border-right: 5px solid #ffffff;
+            padding: 15px;
+            display: table-cell;
+        }
+        .cell-list-view {
+            display: inline-block;
+            padding: 15px;
+            .empty {
+                color: darkgrey;
+            }
+            display: table-cell;
+            width: 100%;
+        }
+        &.selected {
+            .row-column-container {
+                background-color: #417cae;
+                color: white;
+            }
+        }
+        &.add-division {
+            background: none;
+            button {
+                width: 64px;
+            }
+        }
+    }
+    .division-detail-table {
+        td {
+            padding-right: 20px;
+            &:first-child {
+                font-weight: 500;
+            }
+        }
+
+    }
+}
+
+.storage-division-body {
+    height: 100vh; /* percent relative to viewport height */
+    overflow: hidden;
 }
 

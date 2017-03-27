@@ -1,8 +1,8 @@
 angular.module('storage.storageFactory', [])
 
-    .factory('storageFactory', ['$http', 'API', '$cbResource',
+    .factory('storageFactory', ['$http', 'API', '$cbResource', '$q',
 
-        function ($http, API, $cbResource) {
+        function ($http, API, $cbResource, $q) {
 
             var storageFactory = {
 
@@ -18,7 +18,7 @@ angular.module('storage.storageFactory', [])
                         method: 'GET',
                         url: API.url + '/storage/division?id[EQ]=' + divisionId,
                         headers: {
-                            'X-CARBON-SERIALIZATION-GROUPS': 'parent,samples'
+                            'X-CARBON-SERIALIZATION-GROUPS': 'parent,children,samples'
                         }
 
                     };
@@ -70,6 +70,22 @@ angular.module('storage.storageFactory', [])
                     });
 
                     return promise;
+
+                },
+
+                removeStorageSamples: function (samples, newStatus) {
+
+                    var sampleIds = [];
+                    angular.forEach(samples, function (sample) {
+                        sampleIds.push(sample.id);
+                    });
+
+                    var data = {
+                        sampleIds: sampleIds,
+                        status: newStatus
+                    };
+
+                    return $cbResource.create('/storage/sample/storage-remove', data);
 
                 }
 

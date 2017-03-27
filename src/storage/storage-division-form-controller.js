@@ -57,7 +57,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                         toastr.info('Division ' + method + 'd successfully');
                         $scope.close();
-                        $state.go('storage.division', {id: response.data.id});
+                        callback();
 
                     },
 

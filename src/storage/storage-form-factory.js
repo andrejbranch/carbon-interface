@@ -39,7 +39,37 @@ angular.module('storage.storageFormFactory', [])
 
                             },
 
-                            callback: function ($state) {
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                };
+
+                            }
+
+                        }
+                    });
+
+                },
+
+                openSampleStorageRemoveModal: function (samplesToRemove) {
+
+                    $modal.open({
+                        templateUrl: 'storage/partials/storage-sample-remove-tpl.html',
+                        controller: 'storageSampleRemoveCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'md',
+                        resolve: {
+
+                            samplesToRemove: function () {
+                                return samplesToRemove;
+                            },
+
+                            callback: function () {
 
                                 return function () {
 

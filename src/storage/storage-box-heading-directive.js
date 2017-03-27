@@ -1,7 +1,7 @@
 angular.module('storage.storageBoxHeading', [])
-    .directive('storageBoxHeading', ['$window',
+    .directive('storageBoxHeading', ['$window', 'storageDivisionManager',
 
-        function ($window) {
+        function ($window, storageDivisionManager) {
 
             return {
 
@@ -13,21 +13,22 @@ angular.module('storage.storageBoxHeading', [])
                 },
                 link: function ($scope, element, attrs, storageBoxCtrl) {
 
-                    $scope.$on('storage_box.resize', function (event, data) {
+                    element.css('font-size', (100 / 100) * 0.7 + 'vw');
 
-                        var fontSize;
+                    $scope.$on('storage_box.resize', function (event, data) {
 
                         element.css('font-size', (data.percentage / 100) * 0.7 + 'vw');
 
                     });
 
-                    element.on('click', function () {
+                    element.on('click', function (e) {
                         if ($scope.column != undefined) {
-                            storageBoxCtrl.selectColumn($scope.column);
+                            storageDivisionManager.selectColumn($scope.column, e.shiftKey);
                         }
                         if ($scope.row != undefined) {
-                            storageBoxCtrl.selectRow($scope.row);
+                            storageDivisionManager.selectRow($scope.row, e.shiftKey);
                         }
+                        $scope.$apply();
                     });
 
                 }

@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionMoveConfirmCtrl', [])
 
-    .controller('storageDivisionMoveConfirmCtrl', ['$scope', 'dropEvent', '$cbResource', 'toastr',
+    .controller('storageDivisionMoveConfirmCtrl', ['$scope', 'dropEvent', '$cbResource', 'toastr', '$state',
 
-        function ($scope, dropEvent, $cbResource, toastr) {
+        function ($scope, dropEvent, $cbResource, toastr, $state) {
 
             $scope.dropEvent = dropEvent;
 
@@ -51,6 +51,7 @@ angular.module('storage.storageDivisionMoveConfirmCtrl', [])
                     function (response) {
                         toastr.info('Division moved successfully');
                         $scope.$close();
+                        $state.go($state.current, $state.params, {reload: true});
                     },
                     function (response) {
                         $scope.$dismiss();

@@ -1,18 +1,22 @@
 angular.module('storage.storageBoxCellDirective', [])
-    .directive('storageBoxCell', [
+    .directive('storageBoxCell', ['storageDivisionManager',
 
-        function () {
+        function (storageDivisionManager) {
 
             return {
 
                 restrict: 'A',
                 require: '^storageBox',
-                scope: {
-                    sample: '=',
-                    column: '=',
-                    row: '='
-                },
                 link: function ($scope, element, attrs, storageBoxCtrl) {
+
+                    if ($scope.samples[$scope.row]) {
+                        $scope.sample = $scope.samples[$scope.row][$scope.column];
+                    }
+                    $scope.sdm = storageDivisionManager;
+
+                    // $scope.isSelected = function (row, column) {
+                    //     console.log(row, column)
+                    // };
 
                     // responsive calculations
                     var resizeCell = function (event, data) {
@@ -30,38 +34,40 @@ angular.module('storage.storageBoxCellDirective', [])
                         element.css('padding-bottom', floor + 'px');
 
 
-                        if (data !== undefined) {
-                            element.css('font-size', (data.percentage / 100) * 0.7 + 'vw');
-                        }
+                        var percentage = data == undefined ? 100 : data.percentage;
+                        element.css('font-size', (percentage / 100) * 0.7 + 'vw');
 
                     };
 
-                    var onSelect = function (event, data) {
+                    var onSelect = function (event) {
 
-                        if (data.column !== $scope.column || data.row !== $scope.row) {
+                        $scope.sdm.toggleCell($scope.row, $scope.column, event.shiftKey);
+                        $scope.$apply();
 
-                            element.removeClass('selected');
+                        // if (data.column !== $scope.column || data.row !== $scope.row) {
 
-                        } else {
+                        //     element.removeClass('selected');
 
-                            element.addClass('selected');
+                        // } else {
 
-                        }
+                        //     element.addClass('selected');
+
+                        // }
 
                     };
 
                     // events
                     element.on('click', function (e) {
 
-                        var data = {
-                            sample: $scope.sample,
-                            row: $scope.row,
-                            column: $scope.column
-                        };
+                        // var data = {
+                        //     sample: $scope.sample,
+                        //     row: $scope.row,
+                        //     column: $scope.column
+                        // };
 
-                        $scope.$emit('storage_box.well_selected', data);
+                        // $scope.$emit('storage_box.well_selected', data);
 
-                        onSelect(e, data);
+                        onSelect(e);
 
                     });
 
@@ -102,6 +108,8 @@ angular.module('storage.storageBoxCellDirective', [])
                     if ($scope.sample) {
                         element.find('div.cell').css({'background-image': 'url("/images/' + $scope.sampleTypeIconMapping[$scope.sample.sampleType.name] + '")'});
                     }
+
+                    storageDivisionManager.addCell($scope);
                 }
 
             };

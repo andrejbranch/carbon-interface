@@ -106,7 +106,6 @@ angular.module('storage.storageNavigationCtrl', [])
             };
 
             $scope.toggleItem = function (division) {
-                console.log(division);
                 $cbResource.get('/storage/divisions')
 
             };

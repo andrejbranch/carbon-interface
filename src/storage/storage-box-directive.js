@@ -1,7 +1,7 @@
 angular.module('storage.storageBoxDirective', [])
-    .directive('storageBox', ['$window',
+    .directive('storageBox', ['$window', 'storageDivisionManager',
 
-        function ($window) {
+        function ($window, storageDivisionManager) {
 
             return {
 
@@ -12,6 +12,8 @@ angular.module('storage.storageBoxDirective', [])
                 controller: function ($scope, $rootScope) {
                     this.scope = $scope;
                     this.division = $scope.division;
+
+                    $scope.sdm = storageDivisionManager;
 
                     this.selectColumn = function (column) {
                         $rootScope.$broadcast('storage_box.select_column', column);

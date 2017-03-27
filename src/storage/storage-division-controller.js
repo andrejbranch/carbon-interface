@@ -1,18 +1,25 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory',
+    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager',
 
-        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory) {
+        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager) {
 
             $scope.children = childrenResponse.data;
             $scope.division = division;
 
             $scope.samples = {};
+            $scope.sdm = storageDivisionManager;
+            $scope.sdm.initialize();
+            $scope.sdm.division = $scope.division;
+            $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
             $scope.zoom = {
                 percentage: 100
             };
 
             $scope.currentView = $scope.division.hasDimension ? 'grid' : 'list';
+            $scope.changeView = function (view) {
+                $scope.currentView = view;
+            };
 
             $scope.radioModel = "Left";
 
@@ -103,7 +110,8 @@ angular.module('storage.storageDivisionCtrl', [])
                 }
             }
             $scope.breadcrumbs.reverse();
-            $scope.breadcrumbs.splice(0, 1);
+
+            // $scope.breadcrumbs.splice(0, 1);
 
             // $timeout(function () {
             //     $scope.$broadcast('storage_box.details.well_selected', {

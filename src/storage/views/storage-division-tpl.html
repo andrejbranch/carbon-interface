@@ -1,4 +1,4 @@
-<div ng-if="division.hasDimension">
+<div>
 
     <div class="division-table-container">
 
@@ -13,22 +13,30 @@
 
         <div class="row m-b-none">
             <div class="col-sm-12">
-                <h3>{{division.title}}</h3>
+                <h3>
+                    <i class="fa fa-2x m-r-sm" ng-class="{'fa-linode':!division.hasDimension, 'fa-th': division.hasDimension}" />
+                    {{division.title}}
+                </h3>
                 <p>{{division.description}}</p>
             </div>
         </div>
 
-        <div class="row division-action-bar">
+        <div class="row division-action-bar m-b-none" ng-if="division.hasDimension">
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-danger" ng-click="delete()" ng-disabled="true">
-                            <i class="fa fa-trash fa-2x" />
+                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="sdm.selectedSampleCount != 1">
+                            <i class="fa fa-edit" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="add()" ng-disabled="true">
-                            <i class="fa fa-plus fa-2x" />
+                        <button role="button" type="button" class="btn btn-default" ng-click="add()" ng-disabled="sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1">
+                            <i class="fa fa-plus" />
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-danger" ng-click="sdm.delete()" ng-disabled="sdm.selectedSampleCount < 1">
+                            <i class="fa fa-trash" />
                         </button>
                     </div>
                 </div>
@@ -37,13 +45,13 @@
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="delete()">
-                            <i class="fa fa-list fa-2x" />
+                        <button role="button" type="button" class="btn btn-default" ng-click="changeView('list')" ng-class="{'btn-default': currentView === 'grid', 'btn-info': currentView === 'list'}">
+                            <i class="fa fa-list" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn" ng-click="delete()" ng-class="{'btn-default': currentView === 'list', 'btn-info': currentView === 'grid'}">
-                            <i class="fa fa-th fa-2x" />
+                        <button role="button" type="button" class="btn" ng-click="changeView('grid')" ng-class="{'btn-default': currentView === 'list', 'btn-info': currentView === 'grid'}" ng-disabled="!division.hasDimension">
+                            <i class="fa fa-th" />
                         </button>
                     </div>
                 </div>
@@ -52,20 +60,20 @@
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="zoomOut()" ng-disabled="zoom.percentage === 25">
-                            <i class="fa fa-search-minus fa-2x" />
+                        <button role="button" type="button" class="btn btn-default" ng-click="zoomOut()" ng-disabled="currentView == 'list' || zoom.percentage === 25">
+                            <i class="fa fa-search-minus" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="zoomIn()" ng-disabled="zoom.percentage === 150">
-                            <i class="fa fa-search-plus fa-2x" />
+                        <button role="button" type="button" class="btn btn-default" ng-click="zoomIn()" ng-disabled="currentView == 'list' || zoom.percentage === 150">
+                            <i class="fa fa-search-plus" />
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="division-overflow-container noselect">
+        <div class="division-overflow-container noselect" ng-show="division.hasDimension && currentView === 'grid'">
 
             <table id="division-table" storage-box division="division">
                 <thead>
@@ -109,6 +117,7 @@
                             sample="samples[row][column]"
                             row="row"
                             column="column"
+                            ng-class="{selected: sdm.selectedCells[row][column]}"
                         >
                             <div
                                 class="cell"
@@ -121,5 +130,68 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="division-overflow-container" ng-show="division.hasDimension && currentView === 'list'">
+
+                <ul class="storage-division-list">
+                    <div ng-repeat="row in rows">
+                        <div ng-repeat="column in columns">
+                            <li ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
+                                <div class="row-column-container">{{row}}{{column}}</div>
+                                <div class="cell-list-view ">
+                                    <span class="empty" ng-if="!samples[row][column]">Empty Well</span>
+                                    <div ng-if="samples[row][column]">
+                                        <p>{{samples[row][column].sampleType.name}}</p>
+                                        <p>{{samples[row][column].name}}</p>
+                                        <p>{{samples[row][column].description}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+
+        </div>
+
+        <div ng-show="!division.hasDimension && currentView === 'list'">
+
+            <p class="m-t-md"><strong>Child Divisions</strong></p>
+            <ul class="storage-division-list">
+                <li class="p-md" ng-if="!division.children.length">No child divisions</li>
+                <li class="add-division">
+                    <button class="btn btn-primary btn-square add-division-button" ng-click="addDivision()"><i class="fa fa-plus fa-2x" /></button>
+                </li>
+                <div ng-repeat="division in division.children | orderBy:'lft' ">
+                    <li>
+                        <div class="row-column-container">
+                            <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
+                            <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
+                        </div>
+                        <div class="cell-list-view">
+                            <div>
+                                <h3><a ui-sref="storage.division({id:division.id})">{{division.title}}</a></h3>
+                                <table class="division-detail-table">
+                                    <tr ng-if="division.hasDimension">
+                                        <td>Dimension</td>
+                                        <td>{{division.width}} x {{division.height}}</td>
+                                    </tr>
+                                    <tr ng-if="division.hasDimension">
+                                        <td>Percent Full</td>
+                                        <td>{{division.percentFull | number:2}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>{{division.description}}</td>
+                                    </tr>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+
+        </div>
+
+
     </div>
 </div>

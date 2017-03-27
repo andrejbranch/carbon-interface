@@ -43,6 +43,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         url: '/division/:id',
                         name: 'division',
                         pageTitle: 'Storage Division {id}',
+                        data: { specialClass: 'storage-division-body' },
                         security: {
                             roles: ['ROLE_USER']
                         },

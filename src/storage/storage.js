@@ -12,5 +12,7 @@ angular.module('storage', [
     'storage.storageGridFactory',
     'storage.storageDivisionMoveConfirmCtrl',
     'storage.storageTreeNodeDirective',
+    'storage.storageDivisionManager',
+    'storage.storageSampleRemoveCtrl',
     'storage.routes'
 ]);
