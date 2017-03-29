@@ -87,6 +87,20 @@ angular.module('storage.storageFactory', [])
 
                     return $cbResource.create('/storage/sample/storage-remove', data);
 
+                },
+
+                moveSamples: function (sampleMoveMap) {
+
+                    var data = sampleMoveMap.map(function (map) {
+                        return {
+                            sampleId: map.sample.id,
+                            row: map.row,
+                            column: map.column
+                        }
+                    });
+
+                    return $cbResource.create('/storage/sample/storage-move', data);
+
                 }
 
             }

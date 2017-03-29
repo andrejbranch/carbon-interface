@@ -33,6 +33,21 @@ angular.module('storage.storageBoxDirective', [])
 
                     });
 
+                    bodyEl = angular.element('body');
+
+                    bodyEl.on('mousemove touchmove', function (event) {
+                        $scope.sdm.drag(event);
+                    });
+
+                    // bodyEl.on('touchmove', function (event) {
+                    //     $scope.sdm.drag(event);
+                    // });
+
+                    bodyEl.on('mouseup touchend', function (e) {
+                        $scope.sdm.onMouseUp(e);
+                    });
+
+
                 }
 
             };

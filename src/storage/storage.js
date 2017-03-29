@@ -14,5 +14,6 @@ angular.module('storage', [
     'storage.storageTreeNodeDirective',
     'storage.storageDivisionManager',
     'storage.storageSampleRemoveCtrl',
+    'storage.storageSampleMoveCtrl',
     'storage.routes'
 ]);

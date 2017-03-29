@@ -93,6 +93,10 @@
             margin-left: 1%;
         }
 
+        td.hovering {
+            background: green !important;
+        }
+
         td.row-head {
             text-align: center;
             position: relative;
@@ -110,11 +114,45 @@
             width: 8%;
             padding-bottom: 8%;
             text-align: center;
-            &.selected {
-                background: #417CAE !important;
-                // .cell {
-                //     background-color: #EF5656;
-                // }
+
+            &:not(.hovering) {
+
+                &.tmp-hide {
+                    background: #ef8585 !important;
+                    .cell {
+                        background-image:none !important;
+                    }
+                    .sample-name {
+                        display: none;
+                    }
+                }
+
+            }
+
+            .move {
+                display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+                color:white;
+            }
+
+            &.has-sample {
+
+                &:hover {
+                    &.selected {
+                        .move {
+                            display: table;
+                            cursor: move;
+                        }
+                    }
+                }
+            }
+
+            &:not(.tmp-hide) {
+                &.selected {
+                    background: #417CAE !important;
+                }
             }
         }
 
@@ -135,6 +173,8 @@
                 background: @oddLight;
             }
         }
+
+
 
     }
     .cell {
@@ -336,5 +376,34 @@
 .storage-division-body {
     height: 100vh; /* percent relative to viewport height */
     overflow: hidden;
+}
+
+.storage-ghost {
+    position: absolute;
+    background: #a5d2a7;
+    .cell {
+        border: 1px solid #ABABAB;
+        border-radius: 100%;
+        width: 80%;
+        height: 80%;
+        margin-top: 10%;
+        background-color: white;
+        margin-left: 10%;
+        position: relative;
+        background-repeat: no-repeat;
+        background-color: white;
+        background-size: 30%;
+        background-position: 50% 11%;
+    }
+    .sample-name {
+        font-weight: bold;
+        margin-top: 49%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        padding: 0px 10px;
+        text-align: center;
+    }
 }
 

@@ -114,16 +114,17 @@
                             ng-class-even="'even'"
                             ng-repeat="column in columns"
                             storage-box-cell
-                            sample="samples[row][column]"
+                            sample="sdm.sampleMap[row][column]"
                             row="row"
                             column="column"
-                            ng-class="{selected: sdm.selectedCells[row][column]}"
+                            ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
                         >
+                            <div class="move"><i class="fa fa-arrows"/></div>
                             <div
                                 class="cell"
-                                ng-class="{'has-sample': samples[row][column]}"
+                                ng-class="{'has-sample': sdm.sampleMap[row][column]}"
                             >
-                                <span class="sample-name" ng-if="samples[row][column]">{{samples[row][column].name}}</span>
+                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].name}}</span>
                             </div>
                         </td>
                     </tr>
@@ -139,11 +140,11 @@
                             <li ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
                                 <div class="row-column-container">{{row}}{{column}}</div>
                                 <div class="cell-list-view ">
-                                    <span class="empty" ng-if="!samples[row][column]">Empty Well</span>
-                                    <div ng-if="samples[row][column]">
-                                        <p>{{samples[row][column].sampleType.name}}</p>
-                                        <p>{{samples[row][column].name}}</p>
-                                        <p>{{samples[row][column].description}}</p>
+                                    <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
+                                    <div ng-if="sdm.sampleMap[row][column]">
+                                        <p>{{sdm.sampleMap[row][column].sampleType.name}}</p>
+                                        <p>{{sdm.sampleMap[row][column].name}}</p>
+                                        <p>{{sdm.sampleMap[row][column].description}}</p>
                                     </div>
                                 </div>
                             </li>

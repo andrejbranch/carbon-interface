@@ -82,6 +82,36 @@ angular.module('storage.storageFormFactory', [])
                         }
                     });
 
+                },
+
+                openStorageSampleMove: function (sampleMoveMap) {
+
+                    return $modal.open({
+                        templateUrl: 'storage/partials/storage-sample-move-tpl.html',
+                        controller: 'storageSampleMoveCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'md',
+                        resolve: {
+
+                            sampleMoveMap: function () {
+                                return sampleMoveMap;
+                            },
+
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                };
+
+                            }
+
+                        }
+                    }).result;
+
                 }
 
             };

@@ -6,10 +6,8 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.children = childrenResponse.data;
             $scope.division = division;
 
-            $scope.samples = {};
             $scope.sdm = storageDivisionManager;
-            $scope.sdm.initialize();
-            $scope.sdm.division = $scope.division;
+            $scope.sdm.initialize($scope.division);
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
             $scope.zoom = {
@@ -23,18 +21,6 @@ angular.module('storage.storageDivisionCtrl', [])
 
             $scope.radioModel = "Left";
 
-            angular.forEach($scope.division.samples, function (sample) {
-
-                var divisionRow = sample.divisionRow;
-                var divisionColumn = sample.divisionColumn;
-
-                if ($scope.samples[divisionRow] === undefined) {
-                    $scope.samples[divisionRow] = {};
-                }
-
-                $scope.samples[divisionRow][divisionColumn] = sample;
-
-            });
 
             $scope.zoomIn = function () {
                 if ($scope.zoom.percentage === 150) {
