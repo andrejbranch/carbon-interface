@@ -1,24 +1,63 @@
 angular.module('sample.sampleImportCtrl', [])
 
-    .controller('sampleImportCtrl', ['$scope', 'sampleType', '$cbResource', 'API', '$localStorage', 'gridFactory',
+    .controller('sampleImportCtrl', ['$scope', 'sampleTypes', '$cbResource', 'API', '$localStorage', 'gridFactory', 'StepsService', 'toastr', 'sampleTypeHelpGrid', 'sampleGridFactory', 'sampleImportManager',
 
-        function ($scope, sampleType, $cbResource, API, $localStorage, gridFactory) {
+        function ($scope, sampleTypes, $cbResource, API, $localStorage, gridFactory, StepsService, toastr, sampleTypeHelpGrid, sampleGridFactory, sampleImportManager) {
 
             var fileInput;
 
-            $scope.sampleType = sampleType;
+            $scope.sampleTypes = sampleTypes.data;
+            $scope.sampleTypeHelpGrid = sampleTypeHelpGrid;
+            $scope.isUploading = false;
+            $scope.sampleImportManager = sampleImportManager;
+
+            $scope.selectSampleType = function (sampleType) {
+                $scope.sampleType = sampleType;
+                StepsService.steps('sampleImportFlow').next();
+            }
+
+            $scope.parentScope = $scope;
+
+            $scope.steps = [
+                {
+                    name: 'step_1',
+                    title: 'Step 1',
+                    description: 'Select your sample type'
+                },
+                {
+                    name: 'step_2',
+                    title: 'Step 2',
+                    description: 'Upload CSV'
+                },
+                {
+                    name: 'step_3',
+                    title: 'Step 3',
+                    description: 'Validate CSV'
+                },
+                {
+                    name: 'step_4',
+                    title: 'Step 4',
+                    description: 'Storage Location'
+                },
+                {
+                    name: 'step_5',
+                    title: 'Step 5',
+                    description: 'Confirmation'
+                }
+            ];
+
+            $scope.currentStep = 'step_1'
 
             $scope.download = function () {
 
-                $cbResource.get('/sample-import/1').then(function (response) {
+                $cbResource.get('/storage/sample-import/' + $scope.sampleType.id).then(function (response) {
 
-                    // var type = response.headers('Content-Type');
-                    var blob = new Blob([response.data], {type:'octet/stream'});
+                    var blob = new Blob([response], {type:'octet/stream'});
 
                     var windowUrl = window.URL || window.webkitURL;
                     var url = windowUrl.createObjectURL(blob);
 
-                    var filename = response.headers()['content-disposition'].match(/filename="(.*)"/)[1];
+                    var filename = $scope.sampleType.name + ' Import Template.csv';
 
                     var a = document.createElement('a');
 
@@ -38,11 +77,10 @@ angular.module('sample.sampleImportCtrl', [])
             $scope.resetFileInput = function () {
 
                 if (fileInput) {
-                    console.log(1);
                     fileInput.remove();
                 }
 
-                fileInput = angular.element('<input type="file" id="test-file-uploader"></input>');
+                fileInput = angular.element('<input style="display:none" type="file" id="test-file-uploader"></input>');
 
                 angular.element(document).find('body').append(fileInput);
 
@@ -54,96 +92,87 @@ angular.module('sample.sampleImportCtrl', [])
 
             $scope.handleUpload = function () {
 
+                $scope.isUploading = true;
+                $scope.$apply();
+
                 var file = angular.element('#test-file-uploader')[0].files[0];
 
                 var xhr = new XMLHttpRequest();
 
-                xhr.upload.addEventListener('progress', function (e) {
-                    console.log('progress');
-                    console.log(e);
-                });
+                $scope.isUploading = true;
 
-                xhr.upload.addEventListener('load', function (e) {
-                    console.log('load');
-                    console.log(e);
-                });
+                xhr.open('POST', API.url + '/storage/sample-import/' + $scope.sampleType.id, true);
 
-                xhr.upload.addEventListener('error', function (e) {
-                    console.log('error');
-                    console.log(e);
-                });
-
-                xhr.open('POST', API.url + '/sample-import/' + $scope.sampleType.id, true);
-
+                $scope.errorCount = 0
                 xhr.onreadystatechange = function () {
 
                     if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText) {
 
-                        $scope.importData = JSON.parse(xhr.responseText);
-                        $scope.importItems = $scope.importData.items;
-                        $scope.importGrid = gridFactory.create();
+                        var importData = JSON.parse(xhr.responseText)
 
-                        var responseColumns = $scope.importData.columns;
-                        var columns = [];
+                        $scope.hasErrors = importData.hasErrors;
+                        $scope.importGrid = sampleGridFactory.getImportGrid(importData);
+                        $scope.sampleImportManager.setImportData($scope.importGrid.data);
 
-                        var count = 0;
-
-                        angular.forEach(responseColumns, function (responseColumn) {
-                            columns.push({
-                                header: responseColumn.header,
-                                bindTo: responseColumn.bindTo,
-                                ngClass: "{\'background-error\': result.errors." + responseColumn.bindTo + ".length}"
-                            });
-                        });
-                        // for (k in $scope.importItems[0]) {
-                        //     if (k !== 'errors') {
-                        //         console.log(k)
-                        //         console.log($scope.headers[count-1]);
-                        //         columns.push({
-                        //             header: $scope.headers[count],
-                        //             bindTo: k,
-                        //             ngClass: "{\'background-error\': result.errors." + k + ".length}"
-                        //         });
-                        //         count++;
-                        //     }
-                        // }
-
-                        columns.unshift({
-                            header: "",
-                            templateUrl: 'sample/partials/sample-import-error-column-tpl.html'
-                        });
-
-                        $scope.importGrid
-                            .addColumns(columns)
-                            .setPerPage(100)
-                            .setData($scope.importItems)
-                            .hideFilters()
-                            .disableToggleColumns()
-                            .disableHover()
-                        ;
+                        $scope.importStorageGrid = sampleGridFactory.getStorageImportGrid(importData);
 
                         $scope.$apply();
 
-                        console.log($scope.importGrid);
+                        StepsService.steps('sampleImportFlow').goTo(2);
+
+                        $scope.isUploading = false;
 
                         $scope.resetFileInput()
+
+                    } else if (xhr.readyState == 4) {
+
+                        toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
+                        $scope.errorCount++;
+                        $scope.isUploading = false;
 
                     }
 
                 };
 
-                xhr.setRequestHeader('X_FILENAME', file.name)
+                xhr.setRequestHeader('X_FILENAME', file.name);
                 xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
 
                 xhr.send(file)
 
             }
 
+            $scope.import = function () {
+
+                $scope.isUploading = true;
+
+                bulkSamples = []
+                angular.forEach($scope.importGrid.data, function (sample) {
+
+                    var sampleToSave = sample;
+
+                    // if (sampleToSave.storageRecommended !== undefined) {
+                    //     sampleToSave.division = sampleToSave.recommendedDivision;
+                    //     sampleToSave.divisionColumn = sampleToSave.recommendedDivisionColumn;
+                    //     sampleToSave.divisionRow = sampleToSave.recommendedDivisionRow;
+                    // }
+
+                    bulkSamples.push(sampleToSave);
+
+                });
+
+                $cbResource.create('/storage/sample-import/save', bulkSamples).then(function (response) {
+                    $scope.isUploading = false;
+                    StepsService.steps('sampleImportFlow').goTo(4);
+                })
+
+            };
+
             $scope.$on('$destroy', function () {
                 if (fileInput) {
                     fileInput.remove();
                 }
             });
+
             $scope.resetFileInput()
 
         }

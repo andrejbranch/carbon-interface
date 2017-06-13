@@ -295,6 +295,21 @@ angular.module('storage.storageDivisionManager', [])
 
                 handleDrop: function () {
 
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            // confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
                     var left, top, centerX, centerY, dropScope, sampleMoveMap = [];
                     angular.forEach(this.ghosts, function (ghost) {
 

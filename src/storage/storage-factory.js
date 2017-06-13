@@ -18,7 +18,7 @@ angular.module('storage.storageFactory', [])
                         method: 'GET',
                         url: API.url + '/storage/division?id[EQ]=' + divisionId,
                         headers: {
-                            'X-CARBON-SERIALIZATION-GROUPS': 'parent,children,samples'
+                            'X-CARBON-SERIALIZATION-GROUPS': 'default,parent,children,samples'
                         }
 
                     };

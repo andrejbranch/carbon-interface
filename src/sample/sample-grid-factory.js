@@ -20,6 +20,13 @@ angular.module('sample.sampleGridFactory', [])
                         sref: 'sample.detail({id:result.id})'
                     },
                     {
+                        header: 'Status',
+                        bindTo: 'status',
+                        name: 'status',
+                        isSortable: true,
+                        templateUrl: 'sample/partials/sample-status-column-tpl.html'
+                    },
+                    {
                         header: 'Name',
                         bindTo: 'name',
                         name: 'name',
@@ -39,10 +46,10 @@ angular.module('sample.sampleGridFactory', [])
                         isSortable: true
                     },
                     {
-                        header: 'Division',
-                        bindTo: 'division.title',
+                        header: 'Storage Location',
+                        bindTo: 'division.path',
                         name: 'division',
-                        isSortable: true
+                        isSortable: false
                     },
                     {
                         header: 'Created By',
@@ -235,6 +242,105 @@ angular.module('sample.sampleGridFactory', [])
                         .addFilters(this.filters)
                         .sortColumn(this.columns[0], 'DESC')
                     ;
+
+                },
+
+                getImportGrid: function (importData) {
+
+                    var importGrid = gridFactory.create(),
+                        importItems = importData.items,
+                        responseColumns = importData.columns,
+                        columns = []
+                    ;
+
+                    angular.forEach(responseColumns, function (responseColumn) {
+
+                        var ngClass = '{';
+                        angular.forEach(responseColumn.errorProp, function (prop) {
+                            ngClass = ngClass + "\'background-error\': result.errors." + prop + ".length,"
+                        })
+                        ngClass = ngClass + '}'
+
+                        var column = {
+                            header: responseColumn.header,
+                            bindTo: responseColumn.bindTo,
+                            ngClass: ngClass
+                        };
+
+                        if (responseColumn.header === 'Division') {
+                            column.templateUrl = 'sample/partials/sample-storage-import-division-column-1-tpl.html';
+                        }
+
+                        if (responseColumn.header === 'Division Row') {
+                            column.templateUrl = 'sample/partials/sample-storage-import-division-row-column-tpl.html';
+                        }
+
+                        if (responseColumn.header === 'Division Column') {
+                            column.templateUrl = 'sample/partials/sample-storage-import-division-column-column-tpl.html';
+                        }
+
+                        columns.push(column);
+
+                    });
+
+                    columns.unshift({
+                        header: "",
+                        templateUrl: 'sample/partials/sample-import-error-column-tpl.html'
+                    });
+
+                    importGrid
+                        .addColumns(columns)
+                        .setPerPage(100)
+                        .setData(importItems)
+                        .hideFilters()
+                        .disableToggleColumns()
+                        .disableHover()
+                    ;
+
+                    return importGrid;
+
+                },
+
+                getStorageImportGrid: function (importData) {
+
+                    var importStorageGrid = gridFactory.create(),
+                        importItems = importData.items
+                    ;
+
+                    var columns = [
+                        {
+                            header: 'Name',
+                            bindTo: 'name',
+                            name: 'name'
+                        },
+                        {
+                            header: 'Sample Type',
+                            bindTo: 'sampleType.name',
+                            name: 'sampleType'
+                        },
+                        {
+                            header: 'Description',
+                            bindTo: 'description',
+                            name: 'description'
+                        },
+                        {
+                            header: 'Storage Location',
+                            name: 'storageLocation',
+                            templateUrl: 'sample/partials/sample-storage-import-division-column-tpl.html'
+                        },
+                    ];
+
+                   importStorageGrid
+                        .setActionTemplate('sample/partials/sample-storage-import-row-actions-tpl.html')
+                        .addColumns(columns)
+                        .setPerPage(100)
+                        .setData(importItems)
+                        .hideFilters()
+                        .disableToggleColumns()
+                        .disableHover()
+                    ;
+
+                    return importStorageGrid;
 
                 }
 

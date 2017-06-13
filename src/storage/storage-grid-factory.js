@@ -8,7 +8,7 @@ angular.module('storage.storageGridFactory', [])
 
                 url: '/storage/division',
 
-                divisionColumns: [
+                columns: [
                     {
                         header: 'Id',
                         bindTo: 'id',
@@ -18,11 +18,10 @@ angular.module('storage.storageGridFactory', [])
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
-                        header: 'Title',
-                        bindTo: 'title',
-                        name: 'title',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        header: 'Path',
+                        bindTo: 'path',
+                        name: 'path',
+                        isSortable: false
                     },
                     {
                         header: 'Dimension',
@@ -36,19 +35,55 @@ angular.module('storage.storageGridFactory', [])
                         name: 'percentFull',
                         isSortable: true
                     },
+                ],
+
+                filters: [
                     {
-                        header: 'Path',
-                        bindTo: 'path',
-                        name: 'path',
-                        isSortable: true
+                        type: 'boolean',
+                        title: 'Has Dimension',
+                        filterProperty: 'hasDimension',
+                        isVisible: false
                     }
                 ],
 
                 create: function () {
                     return gridFactory.create()
-                        .addColumns(this.divisionColumns)
-                        .sortColumn(this.divisionColumns[0], 'DESC')
+                        .addColumns(this.columns)
+                        .addFilters(this.filters)
+                        .sortColumn(this.columns[0], 'DESC')
                     ;
+                },
+
+                getDivisionMatchGrid: function (sampleTypeId, storageContainerId) {
+
+                    var grid = this.create();
+                    var url = '/storage/division/match/' + sampleTypeId + '/' + storageContainerId;
+                    var defaultParams = { cPerPage:3 };
+
+                    grid.setResourceUrl(url);
+                    grid.hideAllFilters();
+                    grid.allowSelect()
+                    grid.perPageOptions = [3, 10, 25];
+
+                    if (!sampleTypeId && ! storageContainerId) {
+                        return grid;
+                    }
+
+                    return $cbResource.get(url, {}).then(function (response) {
+
+                        grid.columns[0].sortDirection = 'None';
+
+                        return grid
+                            .setResults(response.data)
+                            .setPaginationFromResponse(response)
+                            .disableHyperlinks()
+                            .disableHover()
+                            .setPerPage(3)
+                            .disableToggleColumns()
+                            .setInitResultCount(response.unpaginatedTotal)
+                        ;
+
+                    });
                 }
 
             };

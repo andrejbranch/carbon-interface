@@ -1,0 +1,17 @@
+<div>
+    <h2>Select Sample Type</h2>
+    <span>Select your sample type: </span>
+    <div class="inline">
+        <cb-dropdown
+            cb-dropdown-info
+            bind-to="name"
+            name="sampleType"
+            ng-model="importSampleType"
+            label="Sample Type"
+            items="sampleTypes"
+            cb-on-select="selectSampleType"
+            required
+        >
+        </cb-dropdown>
+    </div>
+</div>

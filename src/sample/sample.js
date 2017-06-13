@@ -6,5 +6,8 @@ angular.module('sample', [
     'sample.sampleRowActionsCtrl',
     'sample.sampleDetailCtrl',
     'sample.formFactory',
-    'sample.sampleImportCtrl'
+    'sample.sampleImportCtrl',
+    'sample.sampleImportChangeLocationCtrl',
+    'sample.sampleImportRowActionsCtrl',
+    'sample.sampleImportManager'
 ]);

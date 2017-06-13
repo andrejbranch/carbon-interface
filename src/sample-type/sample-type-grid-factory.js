@@ -49,6 +49,69 @@ angular.module('sampleType.sampleTypeGridFactory', [])
 
                     return grid;
 
+                },
+
+                getHelpGrid: function () {
+
+                    var grid = gridFactory.create();
+                    var columns = [
+                        {
+                            header: 'Property',
+                            bindTo: 'prop',
+                            name: 'prop',
+                            isSortable: false
+                        },
+                        {
+                            header: 'Allowed Value',
+                            bindTo: 'allowed',
+                            name: 'allowed',
+                            isSortable: false
+                        }
+                    ];
+
+                    var data = [
+                        {
+                            prop: 'Name',
+                            allowed: 'String (300)'
+                        },
+                        {
+                            prop: 'Description',
+                            allowed: 'String'
+                        },
+                        {
+                            prop: 'Status',
+                            allowed: 'Available, Depleted, Destroyed, Shipped'
+                        },
+                        {
+                            prop: 'Storage Container',
+                            allowed: ' 1.5-2.0 mL Eppendorf Tube, 15 mL Falcon, 50 mL Falcon, Vial, PCR tube, PCR strip, 96 well plate, Bag, Box'
+                        },
+                        {
+                            prop: 'Storage Buffer',
+                            allowed: 'String'
+                        },
+                        {
+                            prop: 'Linked Samples',
+                            allowed: 'Comma separated list of sample ids'
+                        },
+                        {
+                            prop: 'Vector Name',
+                            allowed: 'String (150)'
+                        }
+                    ];
+
+                    grid
+                        .addColumns(columns)
+                        .setPerPage(100)
+                        .setData(data)
+                        .disableToggleColumns()
+                        .disablePagination()
+                        .disableHover()
+                        .hideFilters()
+                    ;
+
+                    return grid;
+
                 }
 
             };

@@ -51,7 +51,52 @@ angular.module('sample.formFactory', [])
 
                             divisionGrid: function () {
 
-                                return $cbGridBuilder.buildSelectSingle('storageGridFactory', true);
+                                var sampleTypeId = sample ? sample.sampleTypeId : null;
+                                var storageContainerId = sample ? sample.storageContainer.id : null;
+
+                                return storageGridFactory.getDivisionMatchGrid(sampleTypeId, storageContainerId);
+
+                            },
+
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                };
+
+                            }
+
+                        }
+
+                    });
+
+                },
+
+                openSampleChangeLocationFormModal: function (sample) {
+
+                    $modal.open({
+                        templateUrl: 'sample/partials/sample-import-change-location-tpl.html',
+                        controller: 'sampleImportChangeLocationCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            sample: function () {
+
+                                return sample;
+
+                            },
+
+                            divisionGrid: function () {
+
+                                var sampleTypeId = sample ? sample.sampleType.id : null;
+                                var storageContainerId = sample ? sample.storageContainer.id : null;
+
+                                return storageGridFactory.getDivisionMatchGrid(sampleTypeId, storageContainerId);
 
                             },
 

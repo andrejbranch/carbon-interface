@@ -1,8 +1,8 @@
 angular.module('storage.storageFormFactory', [])
 
-    .factory('storageFormFactory', ['$uibModal', 'storageFactory', '$state', '$stateParams', '$cbGridBuilder',
+    .factory('storageFormFactory', ['$uibModal', 'storageFactory', '$state', '$stateParams', '$cbGridBuilder', '$cbResource',
 
-        function ($modal, storageFactory, $state, $stateParams, $cbGridBuilder) {
+        function ($modal, storageFactory, $state, $stateParams, $cbGridBuilder, $cbResource) {
 
             var storageFormFactory = {
 
@@ -18,7 +18,13 @@ angular.module('storage.storageFormFactory', [])
                         resolve: {
 
                             division: function () {
-                                return division;
+
+                                if (!division) {
+                                    return null;
+                                }
+
+                                return $cbResource.getOne('/storage/division', {'id[EQ]': division.id});
+
                             },
 
                             sampleTypeGrids: function () {
@@ -33,9 +39,33 @@ angular.module('storage.storageFormFactory', [])
 
                             },
 
+                            divisionViewerGrids: function () {
+
+                                return $cbGridBuilder.buildMTMGrids('/storage/division-viewer/division/', 'userGridFactory', division, true);
+
+                            },
+
+                            divisionGroupViewerGrids: function () {
+
+                                return $cbGridBuilder.buildMTMGrids('/storage/division-group-viewer/division/', 'groupGridFactory', division, true);
+
+                            },
+
                             divisionEditorGrids: function () {
 
                                 return $cbGridBuilder.buildMTMGrids('/storage/division-editor/division/', 'userGridFactory', division, true);
+
+                            },
+
+                            divisionGroupEditorGrids: function () {
+
+                                return $cbGridBuilder.buildMTMGrids('/storage/division-group-editor/division/', 'groupGridFactory', division, true);
+
+                            },
+
+                            ownerGrid: function () {
+
+                                return $cbGridBuilder.buildSelectSingle('userGridFactory', true);
 
                             },
 

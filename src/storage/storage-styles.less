@@ -56,10 +56,11 @@
 }
 
 #division-table {
+    padding-bottom: 100px;
     border-spacing: 4px;
     border-collapse: separate;
     background: white;
-    width: 100%;
+    width: 75%;
     margin: 0 auto;
     cursor: pointer;
     thead {
@@ -288,9 +289,13 @@
     width: 100%;
     float: right;
     overflow: scroll;
+    background: white;
 }
 
 .storage-tree-node {
+    &:not(.canEdit) {
+        cursor: default !important;
+    }
     border-radius: 2px;
     .storage-tree-node-actions {
         display: none;

@@ -1,5 +1,5 @@
 <script type="text/ng-template" id="nodes_renderer.html">
-    <div ui-tree-handle class="tree-node tree-node-content storage-tree-node" ng-if="item.id != 1" ng-class="{active:active}">
+    <div ui-tree-handle class="tree-node tree-node-content storage-tree-node" ng-if="item.id != 1" ng-class="{active:active, canEdit:item.canEdit}">
         <a class="btn btn-default btn-xs" ng-show="item.__children.length" data-nodrag="" ng-click="toggle(item)" >
             <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
         </a>
@@ -13,9 +13,12 @@
         </span>
 
         <span class="dimension" ng-if="item.hasDimension">{{item.height}} X {{item.width}}</span>
-        <span class="space-used" ng-if="item.hasDimension">{{item.percentFull | number:0}}%</span>
+        <span class="space-used" ng-if="item.hasDimension && item.canView">{{item.percentFull | number:0}}%</span>
 
-        <div data-nodrag="" class="btn-group pull-right storage-tree-node-actions" uib-dropdown is-open="status.isopen" ng-controller="sampleRowActionsCtrl">
+        <i ng-if="item.canEdit" class="fa fa-pencil m-l-xs"/>
+        <i ng-if="!item.canEdit && !item.canView" class="text-danger fa fa-lock m-l-xs"/>
+
+        <div data-nodrag="" class="btn-group pull-right storage-tree-node-actions" uib-dropdown is-open="status.isopen" ng-controller="sampleRowActionsCtrl" ng-if="item.canEdit">
             <button id="single-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
                 <span class="fa fa-cog"></span>
             </button>
@@ -45,7 +48,7 @@
 
     <div ui-tree="treeOptions" class="angular-ui-tree">
         <ol ui-tree-nodes="" ng-model="divisions" class="angular-ui-tree-nodes">
-            <li>
+            <li ng-if="isInventoryAdmin">
                 <button class="btn btn-info btn-block m-t-sm m-b-sm" ng-click="createParentDivision()">
                     <i class="fa fa-plus" />
                     Add Division

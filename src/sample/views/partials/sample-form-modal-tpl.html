@@ -20,6 +20,12 @@
                         </p>
                     </div>
 
+                    <cb-form-group label="Attachments" name="attachments">
+                        <div class="col-sm-10">
+                            <cb-form-attachments parent-object="sample"></cb-form-attachments>
+                        </div>
+                    </cb-form-group>
+
                     <cb-form-group label="Name" name="name">
                         <div class="col-sm-10">
                             <input name="name" type="text" class="form-control" ng-model="sample.name" required>
@@ -252,11 +258,11 @@
 
             <step name="locationSelect">
 
-                <div class="modal-body">
+                <div class="modal-body" ng-if="showLocation">
 
                     <cb-form-group label="Storage Division" name="division">
                         <div class="col-sm-10">
-                            <one-to-one grid="divisionGrid" parent-object="sample" bind-to="division" resource-url="/division" placeholder="Add Division.."></one-to-one>
+                            <one-to-one name="division" grid="divisionGrid" ng-model="sample.division" parent-object="sample" bind-to="division" resource-url="/division" placeholder="Add Division.." required></one-to-one>
                         </div>
                     </cb-form-group>
 

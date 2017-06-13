@@ -1,8 +1,8 @@
 angular.module('storage.storageNavigationCtrl', [])
 
-    .controller('storageNavigationCtrl', ['$scope', 'divisions', 'division', '$state', 'storageFormFactory', '$uibModal', '$cbResource',
+    .controller('storageNavigationCtrl', ['$scope', 'divisions', 'division', '$state', 'storageFormFactory', '$uibModal', '$cbResource', 'sessionFactory', '$q',
 
-        function ($scope, divisions, division, $state, storageFormFactory, $uibModal, $cbResource) {
+        function ($scope, divisions, division, $state, storageFormFactory, $uibModal, $cbResource, sessionFactory, $q) {
 
             $scope.divisions = divisions;
             $scope.selected = angular.copy(division);
@@ -41,6 +41,12 @@ angular.module('storage.storageNavigationCtrl', [])
 
                     return $scope.handleDropEvent(event);
 
+                },
+
+                beforeDrag: function (event) {
+
+                    return event.$modelValue.canEdit;
+
                 }
 
             };
@@ -56,7 +62,21 @@ angular.module('storage.storageNavigationCtrl', [])
                     return;
                 }
 
-                // event.source.nodeScope.collapse();
+                if (!event.dest.nodesScope.$parent.$modelValue.canEdit) {
+
+                    swal({
+                        title: "Sorry,",
+                        text: "You do not have permission to edit " + event.dest.nodesScope.$parent.$modelValue.title,
+                        type: "warning",
+                        showCancelButton: false,
+                        // confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    }, function() {});
+
+                    return $q.reject();
+
+                }
 
                 return $uibModal.open({
                     templateUrl: 'storage/partials/division-move-confirm-tpl.html',
@@ -110,6 +130,7 @@ angular.module('storage.storageNavigationCtrl', [])
 
             };
 
+            $scope.isInventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');
         }
 
     ])

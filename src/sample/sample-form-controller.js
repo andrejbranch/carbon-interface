@@ -15,6 +15,7 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.currentStep = {name: 'sampleDetails'};
             $scope.divisionGrid = divisionGrid;
             $scope.projectGrids = projectGrids;
+            $scope.showLocation = false;
 
             $scope.setDefaultConcentrationUnits = function () {
 
@@ -39,115 +40,99 @@ angular.module('sample.sampleFormCtrl', [])
 
             $scope.selectDivision = function (isValid) {
 
-                $scope.sampleForm.$submitted = true
+                $scope.sampleForm.$submitted = true;
                 $scope.$broadcast('form:submit');
-
 
                 if (!isValid) {
                     return;
                 }
 
-                StepsService.steps('sampleFormFlow').goTo(1);
+                $scope.sampleForm.$submitted = false;
 
-                if ($scope.sample.id === undefined) {
+                var url = '/storage/division/match/' + $scope.sample.sampleType.id + '/' + $scope.sample.storageContainer.id;
+                $scope.divisionGrid.setResourceUrl(url)
 
-                    $cbResource.get('/storage/sample/location-match/' + $scope.sample.sampleType.id + '/' + $scope.sample.storageContainer.id).then(function (response) {
+                $scope.showLocation = true;
 
-                        $scope.divisionGrid.selectedItem = response.division;
-                        $scope.sample.division = response.division;
-                        $scope.sample.divisionRow = response.divisionRow;
-                        $scope.sample.divisionColumn = response.divisionColumn;
+                $cbResource.get(url, {}).then(function (response) {
 
-                        $scope.onDivisionChange(response.division, true);
+                    $scope.divisionGrid.columns[0].sortDirection = 'None';
 
-                    });
+                    $scope.divisionGrid
+                        .setResults(response.data)
+                        .setPaginationFromResponse(response)
+                        .disableHyperlinks()
+                        .disableHover()
+                        .setPerPage(3)
+                        .disableToggleColumns()
+                        .setInitResultCount(response.unpaginatedTotal)
+                        .setSelectItemCallback($scope.onDivisionChange)
+                    ;
 
-                }
+                    StepsService.steps('sampleFormFlow').goTo(1);
 
-            };
-
-            $scope.previousDivisionId = $scope.sample.division ? $scope.sample.division.id : null;
-
-            $scope.onDivisionChange = function (division, auto) {
-
-                if (!division) {
-
-                    return;
-
-                }
-
-                if (auto !== undefined) {
-
-                    return;
-
-                }
-
-                storageFactory.getDivision(division.id).then(function (response) {
-
-                    $scope.selectedDivision = response.data[0];
-
-                    if ($scope.previousDivisionId !== $scope.selectedDivision.id) {
-
-                        $scope.previousDivisionId = $scope.selectedDivision.id;
-                        $scope.sample.divisionRow = null;
-                        $scope.sample.divisionColumn = null;
-
-                    }
-
-                    if (!$scope.selectedDivision.hasDimension) {
-
+                    if (response.unpaginatedTotal === 0) {
+                        // alert here?
+                        alert('no matched divisions');
                         return;
-
                     }
 
-                    $scope.rows = [];
-                    $scope.columns = [];
-                    $scope.rowColumnMap = {};
 
-                    var sampleMap = {};
-
-                    angular.forEach($scope.selectedDivision.samples, function (sample) {
-
-                        var divisionRow = sample.divisionRow;
-                        var divisionColumn = sample.divisionColumn;
-
-                        if (sampleMap[divisionRow] === undefined) {
-                            sampleMap[divisionRow] = {};
-                        }
-
-                        sampleMap[divisionRow][divisionColumn] = sample;
-
-                    });
-
-                    for (var rowKey = 65; rowKey < $scope.selectedDivision.height + 65; rowKey++) {
-
-                        var rowKeyString = String.fromCharCode(rowKey);
-                        var columns = [];
-
-                        for (var columnKey = 1; columnKey <= $scope.selectedDivision.width; columnKey++) {
-                            if (sampleMap[rowKeyString] === undefined || sampleMap[rowKeyString][columnKey] === undefined) {
-                                columns.push(columnKey);
-                            }
-                        }
-
-                        if (columns.length > 0) {
-
-                            $scope.rows.push(rowKeyString);
-
-                            $scope.rowColumnMap[rowKeyString] = {columns: columns};
-
-                        }
-
-                    }
-
+                    $scope.onDivisionChange(response.data[0], true)
 
                 });
 
             };
 
-            $scope.divisionGrid.setSelectItemCallback($scope.onDivisionChange);
+            $scope.onDivisionChange = function (division, isInit) {
+
+                $scope.divisionGrid.selectedItem = division;
+                $scope.sample.division = $scope.divisionGrid.selectedItem;
+
+                $cbResource.get('/storage/division/' + division.id + '/available-cells' ).then(function (response) {
+                    var rowIndex = 0, columnIndex = 0;
+                    $scope.rowColumnMap = {};
+                    $scope.rows = [];
+
+                    angular.forEach(response, function (rowValue, rowKey) {
+
+                        $scope.rows.push(rowKey);
+                        $scope.rowColumnMap[rowKey] = {'columns': []};
+
+                        if ($scope.sample.divisionRow === undefined && rowIndex === 0) {
+                            $scope.sample.divisionRow = rowKey;
+                        }
+
+                        angular.forEach(rowValue, function (cellValue, cellKey) {
+
+                            $scope.rowColumnMap[rowKey].columns.push(cellKey);
+
+                            if ($scope.sample.divisionColumn === undefined && columnIndex === 0) {
+                                $scope.sample.divisionColumn = cellKey;
+                            }
+
+                            columnIndex++;
+
+                        });
+
+                        rowIndex++;
+
+                    });
+
+                    if (isInit === undefined) {
+                        $scope.sample.divisionRow = null;
+                        $scope.sample.divisionColumn = null;
+                    }
+
+                });
+
+            };
 
             $scope.submit = function (isValid) {
+
+                if (!isValid) {
+                    return;
+                }
 
                 var method = $scope.sample.id !== undefined ? 'update' : 'create';
                 var url = method === 'update'
@@ -160,6 +145,7 @@ angular.module('sample.sampleFormCtrl', [])
                     function (response) {
 
                         toastr.info('Sample ' + method + 'd successfully');
+                        $scope.$broadcast('form:saved');
                         $scope.close();
                         callback();
 

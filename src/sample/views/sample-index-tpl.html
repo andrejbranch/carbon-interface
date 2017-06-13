@@ -38,17 +38,7 @@
                 <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="create()">Create Sample</button>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <cb-dropdown
-                    cb-dropdown-info
-                    bind-to="name"
-                    name="sampleType"
-                    ng-model="importSampleType"
-                    label="Import Samples"
-                    items="sampleTypes"
-                    cb-on-select="importSamples"
-                    required
-                >
-                </cb-dropdown>
+                <button ui-sref="sample.import()" class="btn btn-info btn-block btn-mobile-stack">Import Samples</button>
             </div>
         </div>
 

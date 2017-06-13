@@ -46,6 +46,36 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         }
                     },
                     {
+                        url: '/import',
+                        name: 'import',
+                        pageTitle: 'Sample Import',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'sample/views/sample-import-tpl.html',
+                                controller: 'sampleImportCtrl',
+                                resolve: {
+
+                                    sampleTypes: function ($stateParams, $cbResource) {
+
+                                        return $cbResource.get('/storage/sample-type', {cPerPage:1000});
+
+                                    },
+
+                                    sampleTypeHelpGrid: function (sampleTypeGridFactory) {
+
+                                        return sampleTypeGridFactory.getHelpGrid();
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    },
+                    {
                         url: '/:id',
                         name: 'detail',
                         pageTitle: 'Sample {id}',
@@ -84,30 +114,6 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
                             }
                         }
                     },
-                    {
-                        url: '/import/:sampleTypeId',
-                        name: 'import',
-                        pageTitle: 'Sample Import',
-                        security: {
-                            roles: ['ROLE_USER']
-                        },
-                        views: {
-                            content: {
-                                templateUrl: 'sample/views/sample-import-tpl.html',
-                                controller: 'sampleImportCtrl',
-                                resolve: {
-
-                                    sampleType: function ($stateParams, $cbResource) {
-
-                                        return $cbResource.getOne('/storage/sample-type', {'id[EQ]': $stateParams.sampleTypeId});
-
-                                    }
-
-                                }
-
-                            }
-                        }
-                    }
                 ]
             })
         ;

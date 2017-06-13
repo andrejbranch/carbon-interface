@@ -29,7 +29,7 @@ angular.module('storage.storageBoxCellDirective', [])
                         element.css('padding-bottom', floor + 'px');
 
 
-                        var percentage = data == undefined ? 100 : data.percentage;
+                        var percentage = data == undefined ? 75 : data.percentage;
                         element.css('font-size', (percentage / 100) * 0.7 + 'vw');
 
                     };

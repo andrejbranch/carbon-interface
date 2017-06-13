@@ -22,10 +22,6 @@ angular.module('storage.storageDivisionMoveConfirmCtrl', [])
                     $scope.sourceDivision.parent = {id: $scope.toDivision.id}
                 }
 
-                // if ($scope.toDivision.id === $scope.fromDivision.id && $scope.fromIndex !== $scope.toIndex) {
-
-
-                // }
                 replaceDivision = $scope.dropEvent.dest.nodesScope.$modelValue[$scope.toIndex];
 
                 if (replaceDivision) {
@@ -39,8 +35,11 @@ angular.module('storage.storageDivisionMoveConfirmCtrl', [])
 
                 }
                 else {
-                    sibling = $scope.dropEvent.dest.nodesScope.$modelValue[$scope.toIndex - 1];
-                    if (sibling) {
+                    var sibling = $scope.dropEvent.dest.nodesScope.$modelValue[$scope.toIndex - 1];
+                    var destLength = $scope.dropEvent.dest.nodesScope.$modelValue.length
+                    if (sibling && $scope.toIndex == destLength) {
+                        data = {'lastChildOf': $scope.toDivision.id};
+                    } else if (sibling) {
                         data = {'nextSiblingOf': sibling.id};
                     } else {
                         data = {'firstChildOf': $scope.toDivision.id};

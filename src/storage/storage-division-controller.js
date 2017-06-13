@@ -11,7 +11,7 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
             $scope.zoom = {
-                percentage: 100
+                percentage: 75
             };
 
             $scope.currentView = $scope.division.hasDimension ? 'grid' : 'list';
@@ -97,15 +97,6 @@ angular.module('storage.storageDivisionCtrl', [])
             }
             $scope.breadcrumbs.reverse();
 
-            // $scope.breadcrumbs.splice(0, 1);
-
-            // $timeout(function () {
-            //     $scope.$broadcast('storage_box.details.well_selected', {
-            //         sample: selectedSample,
-            //         column: selectedSample.divisionColumn,
-            //         row: selectedSample.divisionRow
-            //     });
-            // });
         }
 
     ])

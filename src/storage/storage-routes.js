@@ -74,28 +74,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                 }
                             },
-                            'division-details@storage.division': {
-
-                                templateUrl: 'storage/views/storage-division-details-tpl.html',
-                                controller: 'storageDivisionDetailsCtrl',
-                                resolve: {
-
-                                    division: function (storageFactory, $stateParams) {
-
-                                        return storageFactory.getDivision($stateParams.id).then(
-
-                                            function(response) {
-
-                                                return response.data[0];
-                                            }
-
-                                        );
-
-                                    }
-
-                                }
-
-                            },
                             'storage-navigation@storage.division': {
 
                                 templateUrl: 'storage/views/storage-navigation-tpl.html',
