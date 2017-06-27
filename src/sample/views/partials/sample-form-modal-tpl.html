@@ -1,12 +1,13 @@
-<form name="sampleForm" method="get" class="form-horizontal" ng-submit="submit(sampleForm.$valid)" novalidate>
+<form name="sampleForm" method="get" class="form-horizontal" ng-submit="save(sampleForm)" novalidate>
 
-    <div id="sample-form-container">
-        <div class="modal-header">
-            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
-            <h4 ng-if="currentStep === 'sampleDetails'" class="modal-title">{{ sample.id ? 'Edit Sample' : 'Create Sample' }} {{sample.id}}</h4>
-            <h4 ng-if="currentStep === 'locationSelect'" class="modal-title">{{ sample.id ? 'Update Location' : 'Select Location' }}</h4>
-            <small>{{sample.name}}</small>
-        </div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+        <h4 ng-if="currentStep.name === 'sampleDetails'" class="modal-title">{{ sample.id ? 'Edit Sample' : 'Create Sample' }} {{sample.id}}</h4>
+        <h4 ng-if="currentStep.name === 'locationSelect'" class="modal-title">{{ sample.id ? 'Update Location' : 'Select Location' }}</h4>
+        <small>{{sample.name}}</small>
+    </div>
+
+    <cb-form form="cbForm">
 
         <steps name="sampleFormFlow" current-step="currentStep">
 
@@ -14,7 +15,7 @@
 
                 <div class="modal-body">
 
-                    <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
+                    <div class="col-sm-12 alert alert-danger m-b-md" ng-show="cbForm.errors.length !== 0">
                         <p ng-repeat="error in errors">
                             <strong>{{error}}</strong>
                         </p>
@@ -22,7 +23,7 @@
 
                     <cb-form-group label="Attachments" name="attachments">
                         <div class="col-sm-10">
-                            <cb-form-attachments parent-object="sample"></cb-form-attachments>
+                            <cb-form-attachments form="cbForm" files="files" parent-object="sample"></cb-form-attachments>
                         </div>
                     </cb-form-group>
 
@@ -285,14 +286,14 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="cbForm.isSaving || cbForm.isUploading">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="close()" ng-disabled="cbForm.isSaving || cbForm.isUploading">Cancel</button>
                 </div>
 
             </step>
 
         </steps>
 
-    </div>
+    </cb-form>
 
 </form>

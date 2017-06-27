@@ -1,11 +1,10 @@
 angular.module('sample.sampleFormCtrl', [])
 
-    .controller('sampleFormCtrl', ['$scope', '$uibModalInstance', 'sample', '$cbResource', 'toastr', 'callback', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'storageFactory', 'projectGrids',
+    .controller('sampleFormCtrl', ['$scope', 'sample', '$cbResource', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'projectGrids', '$cbForm',
 
-        function ($scope, $modalInstance, sample, $cbResource, toastr, callback, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, storageFactory, projectGrids) {
+        function ($scope, sample, $cbResource, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, projectGrids, $cbForm) {
 
             $scope.sample = sample ? angular.copy(sample) : {};
-            $scope.errors = [];
             $scope.sampleForm = {};
             $scope.sampleTypes = sampleTypes.data;
             $scope.storageContainers = storageContainers.data;
@@ -17,6 +16,13 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.projectGrids = projectGrids;
             $scope.showLocation = false;
 
+            $scope.cbForm = $cbForm.create()
+                .setType('Sample')
+                .setObject($scope.sample)
+                .setUrl('/storage/sample')
+                .setObjectClass('Carbon\\ApiBundle\\Entity\\Sample')
+            ;
+
             $scope.setDefaultConcentrationUnits = function () {
 
                 if ($scope.sample.concentrationUnits === undefined) {
@@ -26,17 +32,6 @@ angular.module('sample.sampleFormCtrl', [])
 
             };
 
-            $scope.close = function () {
-
-                // @TODO
-                if ($scope.sampleForm.$pristine === false) {
-                    // console.log('not pristine');
-
-                }
-
-                $modalInstance.close();
-
-            };
 
             $scope.selectDivision = function (isValid) {
 
@@ -128,38 +123,15 @@ angular.module('sample.sampleFormCtrl', [])
 
             };
 
-            $scope.submit = function (isValid) {
+            $scope.close = function () {
+                $scope.cbForm.close($scope.sampleForm, $scope);
+            };
 
-                if (!isValid) {
-                    return;
-                }
+            $scope.save = function () {
 
-                var method = $scope.sample.id !== undefined ? 'update' : 'create';
-                var url = method === 'update'
-                    ? '/storage/sample?id[EQ]=' + $scope.sample.id
-                    : '/storage/sample'
-                ;
+                $scope.cbForm.save($scope.sampleForm, $scope);
 
-                $cbResource[method](url, $scope.sample).then(
-
-                    function (response) {
-
-                        toastr.info('Sample ' + method + 'd successfully');
-                        $scope.$broadcast('form:saved');
-                        $scope.close();
-                        callback();
-
-                    },
-
-                    function (response) {
-
-                        $scope.errors = response.data;
-
-                    }
-
-                );
-
-            }
+            };
 
         }
 
