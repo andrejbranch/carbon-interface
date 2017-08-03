@@ -2,11 +2,12 @@ var scrippsApp = angular.module('scrippsApp', [
     'templates',
     'common',
     'cb-constants',
-    'storage',
     'sampleType',
     'storageContainer',
     'sample',
-    'project'
+    'project',
+    'production',
+    'protocol'
 ]);
 
 angular.module('scrippsApp').run(

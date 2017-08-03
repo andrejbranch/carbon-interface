@@ -20,7 +20,7 @@ angular.module('sample.sampleFormCtrl', [])
                 .setType('Sample')
                 .setObject($scope.sample)
                 .setUrl('/storage/sample')
-                .setObjectClass('Carbon\\ApiBundle\\Entity\\Sample')
+                .setObjectClass('AppBundle\\Entity\\Storage\\Sample')
             ;
 
             $scope.setDefaultConcentrationUnits = function () {
