@@ -38,6 +38,35 @@ angular.module('production.dna.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 }
                             }
                         }
+                    },
+                    {
+                        url: '/:id/complete',
+                        name: 'complete',
+                        pageTitle: 'DNA Production {id} Complete',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'production/dna/views/dna-production-complete-tpl.html',
+                                controller: 'dnaProductionCompleteCtrl',
+                                resolve: {
+
+                                    dnaRequest: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/production/dna?id[EQ]=' + $stateParams.id);
+
+                                    },
+
+                                    dnaSampleType: function ($cbResource) {
+
+                                        return $cbResource.getOne('/storage/sample-type?id[EQ]=1');
+
+                                    }
+
+                                }
+                            }
+                        }
                     }
                 ]
             })
