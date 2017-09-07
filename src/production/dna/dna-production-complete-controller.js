@@ -40,7 +40,7 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
             ];
 
             $scope.selectTotalSamples = function (totalSamples) {
-                console.log(totalSamples);
+                $scope.totalSamples = totalSamples;
                 StepsService.steps('dnaProductionComplete').next();
             }
 
@@ -49,7 +49,7 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
 
             $scope.download = function () {
 
-                $cbResource.get('/production/dna/' + $scope.dnaRequest.id + '/download').then(function (response) {
+                $cbResource.get('/production/dna/' + $scope.dnaRequest.id + '/download-output-template/' + $scope.totalSamples).then(function (response) {
 
                     var blob = new Blob([response], {type:'octet/stream'});
 
@@ -147,6 +147,8 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
                 bulkSamples = []
                 angular.forEach($scope.importGrid.data, function (sample) {
 
+                    sample.lot = $scope.dnaRequest.alias;
+
                     var sampleToSave = sample;
 
                     bulkSamples.push(sampleToSave);
@@ -159,6 +161,10 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
                     StepsService.steps('dnaProductionComplete').goTo(4);
 
                     $scope.sampleIds = response.data;
+
+                    $cbResource.create('/production/dna/' + $scope.dnaRequest.id + '/complete', $scope.sampleIds).then(function (response) {
+                        console.log(response);
+                    });
 
                 })
 

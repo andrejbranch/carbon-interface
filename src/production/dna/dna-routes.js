@@ -40,6 +40,53 @@ angular.module('production.dna.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         }
                     },
                     {
+                        url: '/:id',
+                        name: 'detail',
+                        pageTitle: 'DNA Production Request {id}',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'production/dna/views/dna-production-detail-tpl.html',
+                                controller: 'dnaProductionDetailCtrl',
+                                resolve: {
+
+                                    dnaRequest: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/production/dna?id[EQ]=' + $stateParams.id);
+
+                                    },
+
+                                    projectGrid: function ($cbGridBuilder, dnaRequest) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/production/dna-request-project/dna-request/', 'projectGridFactory', dnaRequest, false
+                                        );
+
+                                    },
+
+                                    inputSampleGrid: function ($cbGridBuilder, dnaRequest) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/production/dna-request-sample/dna-request/', 'sampleGridFactory', dnaRequest, false
+                                        );
+
+                                    },
+
+                                    outputSampleGrid: function ($cbGridBuilder, dnaRequest) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/production/dna-output-sample/dna-request/', 'sampleGridFactory', dnaRequest, false
+                                        );
+
+                                    }
+
+                                }
+                            }
+                        }
+                    },
+                    {
                         url: '/:id/complete',
                         name: 'complete',
                         pageTitle: 'DNA Production {id} Complete',

@@ -5,5 +5,6 @@ angular.module('production.dna', [
     'production.dna.dnaProductionFormFactory',
     'production.dna.dnaProductionFormCtrl',
     'production.dna.dnaProductionRowActionsCtrl',
-    'production.dna.dnaProductionCompleteCtrl'
+    'production.dna.dnaProductionCompleteCtrl',
+    'production.dna.dnaProductionDetailCtrl'
 ]);

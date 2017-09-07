@@ -46,6 +46,12 @@ angular.module('sample.sampleGridFactory', [])
                         isSortable: true
                     },
                     {
+                        header: 'Lot',
+                        bindTo: 'lot',
+                        name: 'lot',
+                        isSortable: true
+                    },
+                    {
                         header: 'Storage Location',
                         bindTo: 'division.path',
                         name: 'division',
@@ -232,6 +238,12 @@ angular.module('sample.sampleGridFactory', [])
                         title: 'Name',
                         filterProperty: 'name',
                         isVisible: false
+                    },
+                    {
+                        type: 'string',
+                        title: 'Lot',
+                        filterProperty: 'lot',
+                        isVisible: false
                     }
                 ],
 
@@ -341,6 +353,33 @@ angular.module('sample.sampleGridFactory', [])
                     ;
 
                     return importStorageGrid;
+
+                },
+
+                getCatalogGrid: function (catalogName, sampleTypeId) {
+
+                    var grid = this.create();
+                    var resourceUrl = '/storage/sample?name[EQ]=' + catalogName + '&sampleTypeId[EQ]=' + sampleTypeId;
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
+
+                    grid.setResourceUrl(resourceUrl);
+                    angular.forEach(grid.filters, function (filter) {
+                        if (filter.filterProperty == 'sampleTypeId' || filter.filterProperty == 'name') {
+                            grid.filters.splice(grid.filters.indexOf(filter), 1);
+                        }
+                    });
+
+                    return $cbResource.get(resourceUrl, defaultParams).then(function (response) {
+
+                        grid
+                            .setPaginationFromResponse(response)
+                            .setResults(response.data)
+                        ;
+
+                        return grid;
+
+                    });
+
 
                 }
 
