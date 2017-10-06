@@ -1,0 +1,22 @@
+<div class="pipeline-form-container">
+    <ul class="pipeline-step-list">
+        <li ng-repeat="step in steps" class="request-step">
+            <div class="header">Step {{$index + 1}}</div>
+            <div class="step-content">
+                <pipeline-request ng-repeat="request in step.requests" request="request"></pipeline-request>
+
+                <div uib-dropdown>
+                    <div class="add" uib-dropdown-toggle>
+                        <i class="fa fa-plus"/> Add Request
+                    </div>
+                    <ul uib-dropdown-menu class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" ng-repeat="request in requests" ng-click="addRequest(request, $parent.$index)">
+                            <a>{{request.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </li>
+    <ul>
+</div>

@@ -1,0 +1,93 @@
+.pipeline-form-container {
+
+    button {
+        outline: none !important;
+    }
+
+    path {
+        stroke-width: 1px;
+        stroke: gray;
+    }
+    circle {
+        // fill: red;
+        cursor:pointer;
+    }
+
+    .pipeline-step-list {
+        padding: 0;
+        position: absolute;
+        margin: 10px;
+        li.request-step {
+            .request-name {
+                background: whitesmoke;
+            }
+            vertical-align: top;
+            position: relative;
+            margin-right: 50px;
+            .header {
+                border-bottom: 1px solid #b3b3b3;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .add {
+                border: 1px dashed #b3b3b3;
+                padding: 5px;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            .request {
+                // border: 1px solid #b3b3b3;
+                // background: #e8e8e8;
+                // padding: 5px;
+                // border-radius: 3px;
+                max-width: 200px;
+                cursor: pointer;
+                margin-bottom: 10px;
+                .move {
+                    float: right;
+                }
+                .clear {
+                    float: right;
+
+                }
+                &.isLinking {
+                    .request-name {
+                        border-color: #5083e0;
+                        background: #bbdcff;
+                    }
+                }
+
+            }
+            // .request-container {
+            //     margin-top: 10px;
+            //     margin-bottom: 10px;
+            //     padding: 0px 10px;
+            //     button {
+            //         margin-bottom: 10px;
+            //     }
+            // }
+            list-style: none;
+            // background: #f7f7f7;
+            display: inline-block;
+            // border-radius: 3px;
+            min-width: 200px;
+            text-align: center;
+            // border: 1px solid #c5c5c5;
+            // &:not(:first-child):before {
+            //         content: '\f0da';
+            //         font-family: FontAwesome;
+            //         font-weight: normal;
+            //         font-style: normal;
+            //         margin: 0 0 0 10px;
+            //         position: absolute;
+            //         left: -30px;
+            //         font-size: 28px;
+            // }
+        }
+    }
+}
+
+
+pipeline-request {
+    display: block;
+}

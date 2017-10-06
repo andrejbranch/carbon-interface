@@ -16,7 +16,7 @@
                 </p>
             </div>
 
-            <cb-form-group label="Attachments" name="attachments">
+            <cb-form-group label="Attachments" name="attachments" ng-hide="isPipeline">
                 <div class="col-sm-10">
                     <cb-form-attachments form="cbForm" files="files" parent-object="dnaProduction"></cb-form-attachments>
                 </div>
@@ -52,7 +52,7 @@
                 </div>
             </cb-form-group>
 
-            <cb-form-group label="Samples" name="samples" tooltip="Select the samples needed for this request.">
+            <cb-form-group label="Samples" name="samples" tooltip="Select the samples needed for this request." ng-hide="isPipeline && pipelineStepIndex > 0">
                 <div class="col-sm-10">
                     <one-to-many grid="sampleGrids[0]" search-grid="sampleGrids[1]" parent-object="dnaProduction" bind-to="samples" placeholder="Add Samples..."></one-to-many>
                 </div>

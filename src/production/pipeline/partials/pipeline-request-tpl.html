@@ -1,0 +1,24 @@
+<div ng-class="{isLinking: request.isLinking}" class="request input-group" role="group" aria-label="Basic example">
+    <span class="request-name input-group-addon full-width">{{request.name}}</span>
+    <span class="input-group-btn" uib-dropdown>
+        <button type="button" class="btn btn-secondary btn-default btn-sm" ng-click="link()">
+            <i class="fa fa-external-link" />
+        </button>
+         <button type="button" class="btn btn-secondary btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-caret-down" />
+        </button>
+        <ul uib-dropdown-menu role="menu" class="dropdown-menu">
+            <li role="menuitem" ng-click="clear()">
+                <a href="">
+                    <i class="fa fa-refresh" /> Clear Path Links
+                </a>
+            </li>
+            <li role="menuitem" ng-click="delete()">
+                <a href="">
+                    <i class="fa fa-trash" /> Remove Request
+                </a>
+            </li>
+        </div>
+      </div>
+    </span>
+</div>

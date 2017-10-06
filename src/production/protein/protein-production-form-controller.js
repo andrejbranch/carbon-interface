@@ -1,8 +1,8 @@
 angular.module('production.protein.proteinProductionFormCtrl', [])
 
-    .controller('proteinProductionFormCtrl', ['$scope', 'proteinProduction', '$cbForm', 'sampleGrids', 'projectGrids', 'protocolGrid',
+    .controller('proteinProductionFormCtrl', ['$scope', 'proteinProduction', '$cbForm', 'sampleGrids', 'projectGrids', 'protocolGrid', 'isPipeline', '$uibModalInstance', 'pipelineStepIndex',
 
-        function ($scope, proteinProduction, $cbForm, sampleGrids, projectGrids, protocolGrid) {
+        function ($scope, proteinProduction, $cbForm, sampleGrids, projectGrids, protocolGrid, isPipeline, $uibModalInstance, pipelineStepIndex) {
 
             $scope.proteinProduction = proteinProduction ? angular.copy(proteinProduction) : {status:'Pending', concentrationUnits: 'mg/mL', volumeUnits: 'mL'};
             $scope.proteinProductionForm = {};
@@ -10,6 +10,8 @@ angular.module('production.protein.proteinProductionFormCtrl', [])
             $scope.sampleGrids = sampleGrids;
             $scope.projectGrids = projectGrids;
             $scope.protocolGrid = protocolGrid;
+            $scope.isPipeline = isPipeline;
+            $scope.pipelineStepIndex = pipelineStepIndex;
 
             $scope.concentrationUnits = ['mg/mL', 'ng/uL', 'Molar'];
             $scope.volumeUnits = ['uL', 'mL'];
@@ -27,6 +29,12 @@ angular.module('production.protein.proteinProductionFormCtrl', [])
             };
 
             $scope.save = function () {
+
+                if (isPipeline && $scope.proteinProductionForm.$valid) {
+                    $scope.$broadcast('form:submit');
+                    $uibModalInstance.close($scope.proteinProduction);
+                    return;
+                }
 
                 $scope.cbForm.save($scope.proteinProductionForm, $scope);
 

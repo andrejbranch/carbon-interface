@@ -6,9 +6,9 @@ angular.module('production.dna.dnaProductionFormFactory', [])
 
             var dnaProductionFormFactory = {
 
-                openFormModal: function (dnaProduction) {
+                openFormModal: function (dnaProduction, isPipeline, pipelineStepIndex) {
 
-                    $modal.open({
+                    return $modal.open({
                         templateUrl: 'production/dna/partials/dna-production-form-modal-tpl.html',
                         controller: 'dnaProductionFormCtrl',
                         windowClass: 'inmodal',
@@ -40,6 +40,18 @@ angular.module('production.dna.dnaProductionFormFactory', [])
                                 return $cbGridBuilder.buildSelectSingle('protocolGridFactory');
 
                             },
+
+                            isPipeline: function () {
+
+                                return isPipeline ? true: false;
+
+                            },
+
+                            pipelineStepIndex: function () {
+
+                                return pipelineStepIndex;
+
+                            }
                         }
 
                     });

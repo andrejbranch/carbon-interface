@@ -6,9 +6,9 @@ angular.module('production.protein.proteinProductionFormFactory', [])
 
             var proteinProductionFormFactory = {
 
-                openFormModal: function (proteinProduction) {
+                openFormModal: function (proteinProduction, isPipeline, pipelineStepIndex) {
 
-                    $modal.open({
+                    return $modal.open({
                         templateUrl: 'production/protein/partials/protein-production-form-modal-tpl.html',
                         controller: 'proteinProductionFormCtrl',
                         windowClass: 'inmodal',
@@ -40,6 +40,18 @@ angular.module('production.protein.proteinProductionFormFactory', [])
                                 return $cbGridBuilder.buildSelectSingle('protocolGridFactory');
 
                             },
+
+                            isPipeline: function () {
+
+                                return isPipeline ? true: false;
+
+                            },
+
+                            pipelineStepIndex: function () {
+
+                                return pipelineStepIndex;
+
+                            }
                         }
 
                     });

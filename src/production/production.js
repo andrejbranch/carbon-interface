@@ -1,5 +1,6 @@
 angular.module('production', [
     'production.dna',
     'production.protein',
-    'production.purification'
+    'production.purification',
+    'production.pipeline'
 ]);
