@@ -6,6 +6,8 @@ angular.module('production.pipeline.pipelineRequestFactory', [])
 
             var PipelineRequest = function () {
 
+                this.hashId = this.generateHashId();
+
                 this.name = null;
 
                 this.type = null;
@@ -20,9 +22,29 @@ angular.module('production.pipeline.pipelineRequestFactory', [])
 
                 this.request = null;
 
+                this.inputRequests = [];
+
             };
 
             PipelineRequest.prototype = {
+
+                generateHashId: function () {
+
+                    function guid() {
+
+                        function s4() {
+                            return Math.floor((1 + Math.random()) * 0x10000)
+                                .toString(16)
+                                .substring(1)
+                            ;
+                        }
+
+                        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+                    };
+
+                    return guid();
+
+                },
 
                 setName: function (name) {
 
@@ -73,17 +95,27 @@ angular.module('production.pipeline.pipelineRequestFactory', [])
                     return this;
                 },
 
-                addPathLink: function (pathLink) {
+                addPathLink: function (pathLink, toRequest) {
 
-                    this.pathLinks.push(pathLink);
+                    var link = {
+                        svgEl: pathLink,
+                        toRequest: toRequest
+                    };
+
+                    this.pathLinks.push(link);
+
+                    toRequest.inputRequests.push(this.hashId);
 
                     return this;
                 },
 
                 clearPaths: function () {
 
+                    var that = this;
+
                     angular.forEach(this.pathLinks, function (pathLink) {
-                        pathLink.remove();
+                        pathLink.svgEl.remove();
+                        pathLink.toRequest.inputRequests.splice(pathLink.toRequest.inputRequests.indexOf(that.request.hashId), 1);
                     });
 
                     this.pathLinks = [];

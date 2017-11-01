@@ -1,8 +1,12 @@
 angular.module('production.pipeline.pipelineCreateCtrl', [])
 
-    .controller('pipelineCreateCtrl', ['$scope',
+    .controller('pipelineCreateCtrl', ['$scope', 'requests', '$cbForm',
 
-        function ($scope) {
+        function ($scope, requests, $cbForm) {
+
+            $scope.requests = requests.data;
+            $scope.pipeline = {};
+            $scope.pipelineForm = {};
 
             $scope.steps = [
                 {
@@ -10,27 +14,19 @@ angular.module('production.pipeline.pipelineCreateCtrl', [])
                 }
             ];
 
-            // $scope.requests = [
-            //     {name:'DNA'},
-            //     {name:'Protein'},
-            //     {name:'Purification'},
-            //     {name:'Analysis'},
-            // ];
+            $scope.cbForm = $cbForm.create()
+                .setType('Production Pipeline')
+                .setObject($scope.pipeline)
+                .setUrl('/production/pipeline')
+                .setObjectClass('AppBundle\\Entity\\Production\\Pipeline')
+            ;
 
-            // $scope.form = {
-            //     request: null
-            // };
+            $scope.save = function () {
 
-            // $scope.selectRequest = function (request, stepIndex) {
-            //     if ($scope.steps[stepIndex].requests[0]) {
-            //         if ($scope.steps[stepIndex].requests.length == 1) {
-            //             $scope.steps.push({requests:[null]});
-            //         }
-            //         if (stepIndex !== 0) {
-            //             $scope.steps[stepIndex].requests.push(null);
-            //         }
-            //     }
-            // };
+                console.log($scope.pipeline);
+
+                $scope.cbForm.save($scope.pipelineForm, $scope);
+            }
 
         }
 

@@ -69,7 +69,7 @@ angular.module('production.dna.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                     inputSampleGrid: function ($cbGridBuilder, dnaRequest) {
 
                                         return $cbGridBuilder.buildOTM(
-                                            '/production/dna-request-sample/dna-request/', 'sampleGridFactory', dnaRequest, false
+                                            '/production/dna-request-input-sample/dna-request/', 'sampleGridFactory', dnaRequest, false
                                         );
 
                                     },
@@ -77,7 +77,7 @@ angular.module('production.dna.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                     outputSampleGrid: function ($cbGridBuilder, dnaRequest) {
 
                                         return $cbGridBuilder.buildOTM(
-                                            '/production/dna-output-sample/dna-request/', 'sampleGridFactory', dnaRequest, false
+                                            '/production/dna-request-output-sample/dna-request/', 'sampleGridFactory', dnaRequest, false
                                         );
 
                                     }

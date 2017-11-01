@@ -1,15 +1,15 @@
-angular.module('production.protein.proteinProductionGridFactory', [])
+angular.module('production.analysis.analysisProductionGridFactory', [])
 
-    .factory('proteinProductionGridFactory', ['gridFactory', '$cbResource', '$location',
+    .factory('analysisProductionGridFactory', ['gridFactory', '$cbResource', '$location',
 
         function (gridFactory, $cbResource, $location) {
 
-            var proteinProductionGridFactory = {
+            var analysisProductionGridFactory = {
 
-                url: '/production/protein-request',
-                // url: '/production/protein-request?status[NE][]=Pending-Pipeline',
+                url: '/production/analysis-request',
+                // url: '/production/analysis-request?status[NE][]=Pending-Pipeline',
 
-                actionTemplate: 'production/protein/partials/protein-production-row-actions-tpl.html',
+                actionTemplate: 'production/analysis/partials/analysis-production-row-actions-tpl.html',
 
                 columns: [
                     {
@@ -18,7 +18,7 @@ angular.module('production.protein.proteinProductionGridFactory', [])
                         isSortable: true,
                         name: 'alias',
                         isPrimary: true,
-                        sref: 'production_protein.detail({id:result.id})'
+                        sref: 'production_analysis.detail({id:result.id})'
                     },
                     {
                         header: 'Description',
@@ -31,7 +31,7 @@ angular.module('production.protein.proteinProductionGridFactory', [])
                         bindTo: 'status',
                         name: 'status',
                         isSortable: true,
-                        templateUrl: 'production/protein/partials/protein-production-status-column-tpl.html'
+                        templateUrl: 'production/analysis/partials/analysis-production-status-column-tpl.html'
                     },
                     {
                         header: 'Created By',
@@ -73,7 +73,7 @@ angular.module('production.protein.proteinProductionGridFactory', [])
 
             };
 
-            return proteinProductionGridFactory;
+            return analysisProductionGridFactory;
 
         }
 

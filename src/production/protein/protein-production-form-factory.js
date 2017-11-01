@@ -25,7 +25,7 @@ angular.module('production.protein.proteinProductionFormFactory', [])
 
                             sampleGrids: function () {
 
-                                return $cbGridBuilder.buildMTMGrids('/production/protein-request-sample/protein-request/', 'sampleGridFactory', proteinProduction, true);
+                                return $cbGridBuilder.buildMTMGrids('/production/protein-request-input-sample/protein-request/', 'sampleGridFactory', proteinProduction, true);
 
                             },
 

@@ -6,6 +6,12 @@ angular.module('production.pipeline.pipelineRequestFormMapping', [])
         },
         'Protein': {
             'formFactory': 'proteinProductionFormFactory'
+        },
+        'Purification': {
+            'formFactory': 'purificationProductionFormFactory'
+        },
+        'Analysis': {
+            'formFactory': 'analysisProductionFormFactory'
         }
     })
 ;

@@ -29,6 +29,12 @@ angular.module('production.pipeline.routes', [ 'ui.router', 'ui.router.stateHelp
                                 controller: 'pipelineIndexCtrl',
                                 resolve: {
 
+                                    grid: function ($cbGridBuilder) {
+
+                                        return $cbGridBuilder.buildIndex('pipelineGridFactory');
+
+                                    }
+
                                 }
                             }
                         }
@@ -45,6 +51,35 @@ angular.module('production.pipeline.routes', [ 'ui.router', 'ui.router.stateHelp
                                 templateUrl: 'production/pipeline/views/production-pipeline-create-tpl.html',
                                 controller: 'pipelineCreateCtrl',
                                 resolve: {
+
+                                    requests: function ($cbResource) {
+
+                                        return $cbResource.get('/production/pipeline-request');
+
+                                    }
+
+                                }
+                            }
+                        }
+                    },
+                    {
+                        url: '/:id',
+                        name: 'detail',
+                        pageTitle: 'Pipeline {id}',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'production/pipeline/views/pipeline-detail-tpl.html',
+                                controller: 'pipelineDetailCtrl',
+                                resolve: {
+
+                                    pipeline: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/production/pipeline?id[EQ]=' + $stateParams.id);
+
+                                    }
 
                                 }
                             }

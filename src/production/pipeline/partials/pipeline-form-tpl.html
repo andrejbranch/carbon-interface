@@ -7,7 +7,7 @@
 
                 <div uib-dropdown>
                     <div class="add" uib-dropdown-toggle>
-                        <i class="fa fa-plus"/> Add Request
+                        <i class="fa fa-plus"/> Add Request <i class="fa fa-caret-down"/>
                     </div>
                     <ul uib-dropdown-menu class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
                         <li role="menuitem" ng-repeat="request in requests" ng-click="addRequest(request, $parent.$index)">
@@ -20,3 +20,4 @@
         </li>
     <ul>
 </div>
+

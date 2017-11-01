@@ -1,37 +1,37 @@
-angular.module('production.purification.purificationProductionFormFactory', [])
+angular.module('production.analysis.analysisProductionFormFactory', [])
 
-    .factory('purificationProductionFormFactory', ['$uibModal', '$cbGridBuilder',
+    .factory('analysisProductionFormFactory', ['$uibModal', '$cbGridBuilder',
 
         function ($modal, $cbGridBuilder) {
 
-            var purificationProductionFormFactory = {
+            var analysisProductionFormFactory = {
 
-                openFormModal: function (purificationProduction, isPipeline, pipelineStepIndex) {
+                openFormModal: function (analysisProduction, isPipeline, pipelineStepIndex) {
 
                     return $modal.open({
-                        templateUrl: 'production/purification/partials/purification-production-form-modal-tpl.html',
-                        controller: 'purificationProductionFormCtrl',
+                        templateUrl: 'production/analysis/partials/analysis-production-form-modal-tpl.html',
+                        controller: 'analysisProductionFormCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
                         backdrop: 'static',
                         size: 'lg',
                         resolve: {
 
-                            purificationProduction: function () {
+                            analysisProduction: function () {
 
-                                return purificationProduction;
+                                return analysisProduction;
 
                             },
 
                             sampleGrids: function () {
 
-                                return $cbGridBuilder.buildMTMGrids('/production/purification-request-input-sample/purification-request/', 'sampleGridFactory', purificationProduction, true);
+                                return $cbGridBuilder.buildMTMGrids('/production/analysis-request-input-sample/analysis-request/', 'sampleGridFactory', analysisProduction, true);
 
                             },
 
                             projectGrids: function () {
 
-                                return $cbGridBuilder.buildMTMGrids('/production/purification-request-project/purification-request/', 'projectGridFactory', purificationProduction, true);
+                                return $cbGridBuilder.buildMTMGrids('/production/analysis-request-project/analysis-request/', 'projectGridFactory', analysisProduction, true);
 
                             },
 
@@ -60,7 +60,7 @@ angular.module('production.purification.purificationProductionFormFactory', [])
 
             };
 
-            return purificationProductionFormFactory;
+            return analysisProductionFormFactory;
         }
 
     ])

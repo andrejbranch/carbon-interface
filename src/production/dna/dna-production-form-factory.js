@@ -25,7 +25,7 @@ angular.module('production.dna.dnaProductionFormFactory', [])
 
                             sampleGrids: function () {
 
-                                return $cbGridBuilder.buildMTMGrids('/production/dna-request-sample/dna-request/', 'sampleGridFactory', dnaProduction, true);
+                                return $cbGridBuilder.buildMTMGrids('/production/dna-request-input-sample/dna-request/', 'sampleGridFactory', dnaProduction, true);
 
                             },
 

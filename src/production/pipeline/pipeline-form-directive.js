@@ -7,22 +7,17 @@ angular.module('production.pipeline.pipelineFormDirective', [])
             return {
                 restrict: 'E',
                 templateUrl: 'production/pipeline/partials/pipeline-form-tpl.html',
-                scope: {},
+                scope: {
+                    pipeline: '=',
+                    requests: '='
+                },
                 controller: function ($scope) {
 
                     this.scope = $scope;
 
                     $scope.steps = [{requests:[]}];
+                    $scope.pipeline.steps = $scope.steps;
                     $scope.requestCount = 0;
-
-                    $scope.requests = [
-                        {
-                            name: 'DNA'
-                        },
-                        {
-                            name: 'Protein'
-                        },
-                    ];
 
                     this.initiateLink = function (fromRequest) {
 
@@ -30,7 +25,7 @@ angular.module('production.pipeline.pipelineFormDirective', [])
                         $scope.linkingRequest = fromRequest;
 
                         angular.element('body').on('click', $scope.onClickCallback);
-                    }
+                    };
 
                     $scope.onClickCallback = function (e) {
 
@@ -43,14 +38,14 @@ angular.module('production.pipeline.pipelineFormDirective', [])
                             $scope.$apply();
                         }
 
-                    }
+                    };
 
                     this.removeRequest = function (request) {
                         request.clearPaths();
                         $scope.steps[request.stepIndex].requests.splice(
                             $scope.steps[request.stepIndex].requests.indexOf(request), 1
                         );
-                    }
+                    };
 
 
                 },
@@ -96,24 +91,6 @@ angular.module('production.pipeline.pipelineFormDirective', [])
 
 
                     };
-                    // $scope.addRequest = function (stepIndex) {
-
-                    //     var request = pipelineRequestFactory.create()
-                    //         .setName('r' + $scope.requestCount)
-                    //         .setType('acceptAll')
-                    //         .setStepIndex(stepIndex)
-                    //     ;
-
-                    //     $scope.steps[stepIndex].requests.push(request);
-                    //     $scope.requestCount++;
-
-                    //     if ($scope.steps[stepIndex].requests[0]) {
-                    //         if ($scope.steps[stepIndex].requests.length == 1) {
-                    //             $scope.steps.push({requests:[]});
-                    //         }
-                    //     }
-
-                    // };
 
                     var svg = d3.select('.pipeline-form-container')
                         .append("svg")
@@ -143,7 +120,7 @@ angular.module('production.pipeline.pipelineFormDirective', [])
                             .attr('d', lineFunction(data))
                         ;
 
-                        fromRequest.addPathLink(path);
+                        fromRequest.addPathLink(path, toRequest);
 
                     };
 

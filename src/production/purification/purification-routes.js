@@ -38,7 +38,7 @@ angular.module('production.purification.routes', [ 'ui.router', 'ui.router.state
                                 }
                             }
                         }
-                    }
+                    },
                     // {
                     //     url: '/:id',
                     //     name: 'detail',
@@ -86,35 +86,37 @@ angular.module('production.purification.routes', [ 'ui.router', 'ui.router.state
                     //         }
                     //     }
                     // },
-                    // {
-                    //     url: '/:id/complete',
-                    //     name: 'complete',
-                    //     pageTitle: 'DNA Production {id} Complete',
-                    //     security: {
-                    //         roles: ['ROLE_USER']
-                    //     },
-                    //     views: {
-                    //         content: {
-                    //             templateUrl: 'production/dna/views/dna-production-complete-tpl.html',
-                    //             controller: 'dnaProductionCompleteCtrl',
-                    //             resolve: {
+                    {
+                        url: '/:id/complete',
+                        name: 'complete',
+                        pageTitle: 'Purification Production {id} Complete',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'production/purification/views/purification-production-complete-tpl.html',
+                                controller: 'purificationProductionCompleteCtrl',
+                                resolve: {
 
-                    //                 dnaRequest: function ($cbResource, $stateParams) {
+                                    purificationRequest: function ($cbResource, $stateParams) {
 
-                    //                     return $cbResource.getOne('/production/dna?id[EQ]=' + $stateParams.id);
+                                        return $cbResource.getOne('/production/purification-request?id[EQ]=' + $stateParams.id);
 
-                    //                 },
+                                    },
 
-                    //                 dnaSampleType: function ($cbResource) {
+                                    purificationSampleType: function ($cbResource, purificationRequest) {
 
-                    //                     return $cbResource.getOne('/storage/sample-type?id[EQ]=1');
+                                        return $cbResource.get('/production/purification-request-input-sample/purification-request/' + purificationRequest.id).then(function (response) {
+                                            return response.data[0].sampleType;
+                                        });
 
-                    //                 }
+                                    }
 
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                                }
+                            }
+                        }
+                    }
                 ]
             })
         ;

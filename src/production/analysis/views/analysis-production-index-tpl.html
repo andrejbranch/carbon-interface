@@ -6,7 +6,7 @@
             <ol class="hbreadcrumb breadcrumb">
                 <li><a ui-sref="dashboard.main">Dashboard</a></li>
                 <li class="active">
-                    <span>Production Pipeline Creation</span>
+                    <span>Analysis Production Requests</span>
                 </li>
             </ol>
         </div>
@@ -14,15 +14,24 @@
             <div class="panel-body">
 
                 <h2 class="font-light m-b-xs">
-                   Production Pipeline Create
+                  Analysis Production Requests
                 </h2>
 
-                <small>Create Production Pipelines</small>
+                <small>Manage Analysis Production Requests</small>
             </div>
         </div>
     </div>
 
     <div class="content">
+
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="create()">Create Request</button>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                <button ui-sref="sample.import()" class="btn btn-info btn-block btn-mobile-stack">Import Requests</button>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-sm-12">
@@ -31,23 +40,16 @@
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        Create
+                        Requests
                     </div>
                     <div class="panel-body no-padding">
 
-                        <form name="pipelineForm" method="get" class="form-horizontal" ng-submit="save(pipelineForm)" novalidate>
-
-                            <pipeline-form requests="requests" pipeline="pipeline"></pipeline-form>
-
-                            <button class="btn btn-primary">Save</button>
-
-                        </form>
+                        <grid grid="analysisProductionGrid"></grid>
 
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

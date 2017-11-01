@@ -5,5 +5,6 @@ angular.module('production.pipeline', [
     'production.pipeline.pipelineFormDirective',
     'production.pipeline.pipelineRequestFactory',
     'production.pipeline.pipelineRequestDirective',
-    'production.pipeline.pipelineRequestFormMapping'
+    'production.pipeline.pipelineRequestFormMapping',
+    'production.pipeline.pipelineGridFactory'
 ]);

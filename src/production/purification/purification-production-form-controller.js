@@ -1,8 +1,8 @@
 angular.module('production.purification.purificationProductionFormCtrl', [])
 
-    .controller('purificationProductionFormCtrl', ['$scope', 'purificationProduction', '$cbForm', 'sampleGrids', 'projectGrids', 'protocolGrid',
+    .controller('purificationProductionFormCtrl', ['$scope', 'purificationProduction', '$cbForm', 'sampleGrids', 'projectGrids', 'protocolGrid', 'isPipeline', '$uibModalInstance', 'pipelineStepIndex',
 
-        function ($scope, purificationProduction, $cbForm, sampleGrids, projectGrids, protocolGrid) {
+        function ($scope, purificationProduction, $cbForm, sampleGrids, projectGrids, protocolGrid, isPipeline, $uibModalInstance, pipelineStepIndex) {
 
             $scope.purificationProduction = purificationProduction ? angular.copy(purificationProduction) : {status:'Pending', concentrationUnits: 'mg/mL', volumeUnits: 'mL'};
             $scope.purificationProductionForm = {};
@@ -27,6 +27,12 @@ angular.module('production.purification.purificationProductionFormCtrl', [])
             };
 
             $scope.save = function () {
+
+                if (isPipeline && $scope.purificationProductionForm.$valid) {
+                    $scope.$broadcast('form:submit');
+                    $uibModalInstance.close($scope.purificationProduction);
+                    return;
+                }
 
                 $scope.cbForm.save($scope.purificationProductionForm, $scope);
 

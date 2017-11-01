@@ -1,8 +1,10 @@
 angular.module('production.pipeline.pipelineIndexCtrl', [])
 
-    .controller('pipelineIndexCtrl', ['$scope',
+    .controller('pipelineIndexCtrl', ['$scope', 'grid',
 
-        function ($scope) {
+        function ($scope, grid) {
+
+            $scope.pipelineGrid = grid;
 
         }
 
