@@ -395,7 +395,8 @@ module.exports = function (grunt) {
                     package: grunt.file.readJSON('package.json'),
                     app: grunt.file.readJSON('env.js')['app'],
                     API: grunt.file.readJSON('env.js')['API'],
-                    loginParams: grunt.file.readJSON('env.js')['loginParams']
+                    loginParams: grunt.file.readJSON('env.js')['loginParams'],
+                    storageParams: grunt.file.readJSON('env.js')['storageParams']
                 }   ,
                 values: {
                     debug: true
@@ -410,7 +411,8 @@ module.exports = function (grunt) {
                     app: grunt.file.readJSON('env.js')['app'],
                     package: grunt.file.readJSON('package.json'),
                     API: grunt.file.readJSON('env.js')['API'],
-                    loginParams: grunt.file.readJSON('env.js')['loginParams']
+                    loginParams: grunt.file.readJSON('env.js')['loginParams'],
+                    storageParams: grunt.file.readJSON('env.js')['storageParams']
                 }   ,
                 values: {
                     debug: true

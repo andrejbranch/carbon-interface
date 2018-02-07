@@ -244,6 +244,24 @@ angular.module('sample.sampleGridFactory', [])
                         title: 'Lot',
                         filterProperty: 'lot',
                         isVisible: false
+                    },
+                    {
+                        type: 'date',
+                        title: 'Created At',
+                        filterProperty: 'createdAt',
+                        isVisible: false
+                    },
+                    {
+                        type: 'date',
+                        title: 'Updated At',
+                        filterProperty: 'updatedAt',
+                        isVisible: false
+                    },
+                    {
+                        type: 'deleted',
+                        title: 'Show Deleted',
+                        filterProperty: 'cShowDeleted',
+                        isVisible: false
                     }
                 ],
 

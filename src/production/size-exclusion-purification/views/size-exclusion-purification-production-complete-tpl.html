@@ -1,0 +1,198 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li class="active">
+                    <span>Purification Production Requests</span>
+                </li>
+            </ol>
+        </div>
+        <div class="hpanel">
+            <div class="panel-body">
+
+                <h2 class="font-light m-b-xs">
+                  Complete Purification Production Request {{purificationRequest.id}}
+                </h2>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        Purification Production Request Completion
+                    </div>
+                    <div class="panel-body no-padding">
+
+                        <steps name="purificationProductionComplete" current-step="currentStep">
+
+                            <div class="p-sm">
+                                <cb-steps name="purificationProductionComplete" steps-data="steps" current-step="currentStep"></cb-steps>
+                            </div>
+
+                            <step name="{{steps[0].name}}" class="animated fadeIn">
+
+                                <div class="container p-md" ng-show="isUploading">
+                                    <p class="text-center">
+                                        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+                                    </p>
+                                </div>
+
+                                <div class="container p-md" ng-hide="isUploading">
+
+                                    <h2 class="text-center font-bold m-b-lg">Specify Output</h2>
+
+                                    <p class="fa-1-2x">
+                                        Select how many samples, download your CSV template, then upload your completed CSV
+                                    </p>
+
+                                    <cb-dropdown cb-dropdown-info cb-on-select="selectTotalSamples"name="sampleCount" ng-model="importForm.sampleCount" label="Total samples" items="acceptedSampleCount"></cb-dropdown>
+
+                                </div>
+
+                            </step>
+
+                            <step name="{{steps[1].name}}" class="animated fadeIn">
+
+                                <div class="container p-md" ng-show="isUploading">
+                                    <p class="text-center">
+                                        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+                                    </p>
+                                </div>
+
+                                <div class="container p-md" ng-hide="isUploading">
+
+                                    <h2 class="text-center font-bold m-b-lg">Upload CSV</h2>
+
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <button step-previous class='btn btn-default btn-block'>
+                                                <i class="fa fa-arrow-left" />
+                                                Back
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button ng-click="download()" class='btn btn-info btn-block'>
+                                                <i class="fa fa-download" />
+                                                Download Template
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button ng-click="upload()" class='btn btn-primary btn-block'>
+                                                <i class="fa fa-upload" />
+                                                Upload
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </step>
+
+                            <step name="{{steps[2].name}}" class="animated fadeIn">
+
+                                <div class="container p-md" ng-show="isUploading">
+                                    <p class="text-center">
+                                        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+                                    </p>
+                                </div>
+
+                                <div class="container">
+
+                                    <div ng-if="!hasErrors">
+                                        <p class="text-center"><i class="fa fa-check fa-3x text-success"/></p>
+                                        <p class="text-center fa-1-2x">Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.</p>
+                                    </div>
+
+                                    <div ng-if="hasErrors">
+                                        <p class="text-center"><i class="fa fa-exclamation-triangle fa-3x text-danger"/></p>
+                                        <p class="text-center fa-1-2x">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</p>
+                                    </div>
+
+                                    <div class="row" ng-if="!hasErrors">
+                                        <div class="col-xs-6">
+                                            <button step-previous class='btn btn-default btn-block'>
+                                                <i class="fa fa-arrow-left" />
+                                                Back
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button step-next class='btn btn-primary btn-block'>
+                                                <i class="fa fa-arrow-right" />
+                                                Next
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" ng-if="hasErrors">
+                                        <div class="col-xs-6 col-xs-offset-3">
+                                            <button ng-click="upload()" class='btn btn-primary btn-block'>
+                                                <i class="fa fa-upload" />
+                                                Reupload
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div ng-hide="isUploading">
+                                    <grid ng-if="importGrid" grid="importGrid"></grid>
+                                </div>
+
+                            </step>
+
+                            <step name="{{steps[3].name}}" class="animated fadeIn">
+
+                                <div class="container" ng-hide="isUploading">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <button step-previous class='btn btn-default btn-block'>
+                                                <i class="fa fa-arrow-left" />
+                                                Back
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button ng-click="import()" class='btn btn-primary btn-block'>
+                                                <i class="fa fa-upload" />
+                                                Import
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <grid ng-if="importStorageGrid" grid="importStorageGrid" ng-hide="isUploading"></grid>
+
+                            </step>
+
+                            <step name="{{steps[4].name}}" class="animated fadeIn">
+
+                                <div class="container">
+                                    <p class="text-center fa-1-2x"><i class="fa fa-3x text-success fa-check" /></p>
+                                    <p class="text-center fa-1-2x">Your samples were imported successfully.</p>
+                                    <p class="text-center">
+                                        <a>Print sample put list</a>
+                                    </p>
+                                </div>
+
+                            </step>
+
+                        </steps>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

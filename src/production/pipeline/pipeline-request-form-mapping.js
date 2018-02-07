@@ -7,11 +7,26 @@ angular.module('production.pipeline.pipelineRequestFormMapping', [])
         'Protein': {
             'formFactory': 'proteinProductionFormFactory'
         },
-        'Purification': {
-            'formFactory': 'purificationProductionFormFactory'
+        'Affinity Purification': {
+            'formFactory': 'affinityPurificationProductionFormFactory'
         },
-        'Analysis': {
-            'formFactory': 'analysisProductionFormFactory'
+        'Size Exclusion Purification': {
+            'formFactory': 'sizeExclusionPurificationProductionFormFactory'
+        },
+        'Native Gel': {
+            'formFactory': 'nativeGelProductionFormFactory'
+        },
+        'Western Gel': {
+            'formFactory': 'westernGelProductionFormFactory'
+        },
+        'SDS Page': {
+            'formFactory': 'sdsPageProductionFormFactory'
+        },
+        'SEC Mals': {
+            'formFactory': 'secMalsProductionFormFactory'
+        },
+        'SPR': {
+            'formFactory': 'sprProductionFormFactory'
         }
     })
 ;

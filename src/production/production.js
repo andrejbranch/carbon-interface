@@ -1,7 +1,12 @@
 angular.module('production', [
     'production.dna',
     'production.protein',
-    'production.purification',
     'production.pipeline',
-    'production.analysis'
+    'production.affinityPurification',
+    'production.sizeExclusionPurification',
+    'production.nativeGel',
+    'production.sdsPage',
+    'production.westernGel',
+    'production.secMals',
+    'production.spr'
 ]);

@@ -1,0 +1,218 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="production_size_exclusion_purification.index">Size Exclusion Purification Requests</a></li>
+                <li class="active">
+                    <span>Size Exclusion Purification Request {{sizeExclusionPurificationRequest.alias}}</span>
+                </li>
+            </ol>
+        </div>
+        <div class="hpanel">
+            <div class="panel-body">
+
+                  <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(sizeExclusionPurificationRequest)"><i class="fa fa-edit"/></button>
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li>
+                                    <a class="dropdown-item" ui-sref="production_purification.complete({id:sizeExclusionPurificationRequest.id})"><i class="fa fa-check m-r-xs" />Complete</a>
+                                    <a class="dropdown-item" href=""><i class="fa fa-trash m-r-xs" />Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs inline">
+                      Purification Request {{sizeExclusionPurificationRequest.alias}}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <h2><span class="label label-pill label-{{labelClass}} block">{{sizeExclusionPurificationRequest.status}}</span></h2>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-info" />
+                        Details
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Id</td>
+                                <td>{{sizeExclusionPurificationRequest.id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{sizeExclusionPurificationRequest.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Protocol</td>
+                                <td>
+                                    <a ui-sref="protocol.detail({id:sizeExclusionPurificationRequest.protocol.id})">{{sizeExclusionPurificationRequest.protocol.stringLabel}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Requested Concentration</td>
+                                <td>{{sizeExclusionPurificationRequest.concentrationString}}</td>
+                            </tr>
+                            <tr>
+                                <td>Requested Volume</td>
+                                <td>{{sizeExclusionPurificationRequest.volumeString}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-users"></i>
+                        People
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Created By</td>
+                                <td>{{sizeExclusionPurificationRequest.createdBy.fullName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Updated By</td>
+                                <td>{{sizeExclusionPurificationRequest.updatedBy.fullName}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-calendar"></i>
+                        Dates
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table-detail">
+                            <tr>
+                                <td>Created At</td>
+                                <td>{{sizeExclusionPurificationRequest.createdAt | date:'medium'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Updated At</td>
+                                <td>{{sizeExclusionPurificationRequest.updatedAt | date:'medium'}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        Projects
+                    </div>
+                    <div class="panel-body no-padding">
+                        <grid grid="projectGrid" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-flask"></i>
+                        Input Samples
+                    </div>
+                    <div class="panel-body no-padding">
+                        <grid grid="inputSampleGrid" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12" ng-if="sizeExclusionPurificationRequest.status == 'Completed'">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-flask"></i>
+                        Output Samples
+                    </div>
+                    <div class="panel-body no-padding">
+                        <grid grid="outputSampleGrid" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <cb-attachments object-id="sizeExclusionPurificationRequest.id" object-class="AppBundle\Entity\Production\DNA"></cb-attachments>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                     <uib-tabset active="active">
+                        <uib-tab index="0">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-comment"></i> Comments
+                            </uib-tab-heading>
+                            <div class="panel-body">
+                                <cb-object-comments object-type="sizeExclusionPurificationRequest" object-id="sizeExclusionPurificationRequest.id"></cb-object-comments>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
+                            {{tab.content}}
+                        </uib-tab>
+                        <uib-tab index="3" select="alertMe()">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-bell"></i> Activity
+                            </uib-tab-heading>
+                            <div class="panel-body no-padding">
+                                <object-history object-class="AppBundle\Entity\Production\DNA" object-id="sizeExclusionPurificationRequest.id"></object-history>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

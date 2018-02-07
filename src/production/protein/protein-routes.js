@@ -109,6 +109,17 @@ angular.module('production.protein.routes', [ 'ui.router', 'ui.router.stateHelpe
 
                                         return $cbResource.getOne('/storage/sample-type?id[EQ]=2');
 
+                                    },
+
+                                    catalogName: function ($cbResource, proteinRequest) {
+
+                                        var data = {
+                                            id: proteinRequest.id,
+                                            entity: "AppBundle\\Entity\\Production\\ProteinRequest"
+                                        };
+
+                                        return $cbResource.create('/production/catalog-name-decide', data);
+
                                     }
 
                                 }

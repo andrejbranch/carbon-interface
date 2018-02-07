@@ -22,9 +22,6 @@ angular.module('production.pipeline.pipelineCreateCtrl', [])
             ;
 
             $scope.save = function () {
-
-                console.log($scope.pipeline);
-
                 $scope.cbForm.save($scope.pipelineForm, $scope);
             }
 

@@ -1,15 +1,21 @@
 angular.module('production.protein.proteinProductionCompleteCtrl', [])
 
-    .controller('proteinProductionCompleteCtrl', ['$scope', 'proteinRequest', '$cbResource', 'sampleGridFactory', 'API', 'proteinSampleType', '$localStorage', 'sampleImportManager', 'StepsService',
+    .controller('proteinProductionCompleteCtrl', ['$scope', 'proteinRequest', '$cbResource', 'sampleGridFactory', 'API', 'proteinSampleType', '$localStorage', 'sampleImportManager', 'StepsService', 'catalogName',
 
-        function ($scope, proteinRequest, $cbResource, sampleGridFactory, API, proteinSampleType, $localStorage, sampleImportManager, StepsService) {
+        function ($scope, proteinRequest, $cbResource, sampleGridFactory, API, proteinSampleType, $localStorage, sampleImportManager, StepsService, catalogName) {
 
             var fileInput;
 
             $scope.proteinRequest = proteinRequest;
             $scope.sampleType = proteinSampleType;
-            $scope.importForm = {};
             $scope.sampleImportManager = sampleImportManager;
+            $scope.catalogName = catalogName.data.catalogName;
+            $scope.importForm = {};
+
+            $scope.formData = {
+                catalogName: $scope.catalogName,
+                sampleCount: null
+            };
 
             $scope.steps = [
                 {
@@ -39,19 +45,26 @@ angular.module('production.protein.proteinProductionCompleteCtrl', [])
                 }
             ];
 
-            $scope.selectTotalSamples = function (totalSamples) {
-                $scope.totalSamples = totalSamples;
+            $scope.specifyOutput = function (importForm) {
+
+                importForm.$submitted = true;
+
+                if (!importForm.$valid) {
+                    return;
+                }
+
                 StepsService.steps('proteinProductionComplete').next();
-            }
+
+            };
 
             $scope.currentStep = 'step_1'
             $scope.acceptedSampleCount = [1,2,3,4,5,6,7,8,9,10];
 
             $scope.download = function () {
 
-                $cbResource.get('/production/protein-request/' + $scope.proteinRequest.id + '/download-output-template/' + $scope.totalSamples).then(function (response) {
+                $cbResource.create('/production/protein-request/' + $scope.proteinRequest.id + '/download-output-template', $scope.formData).then(function (response) {
 
-                    var blob = new Blob([response], {type:'octet/stream'});
+                    var blob = new Blob([response.data], {type:'octet/stream'});
 
                     var windowUrl = window.URL || window.webkitURL;
                     var url = windowUrl.createObjectURL(blob);

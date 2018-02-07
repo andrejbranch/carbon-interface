@@ -6,8 +6,8 @@ angular.module('production.protein.proteinProductionGridFactory', [])
 
             var proteinProductionGridFactory = {
 
-                url: '/production/protein-request',
-                // url: '/production/protein-request?status[NE][]=Pending-Pipeline',
+                // url: '/production/protein-request',
+                url: '/production/protein-request?status[NE][]=Pending-Pipeline',
 
                 actionTemplate: 'production/protein/partials/protein-production-row-actions-tpl.html',
 

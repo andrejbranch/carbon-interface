@@ -50,13 +50,29 @@
 
                                 <div class="container p-md" ng-hide="isUploading">
 
-                                    <h2 class="text-center font-bold m-b-lg">Specify Output</h2>
+                                    <form name="importForm" method="get" class="form-horizontal" ng-submit="specifyOutput(importForm)" novalidate>
 
-                                    <p class="fa-1-2x">
-                                        Select how many samples, download your CSV template, then upload your completed CSV
-                                    </p>
+                                        <h2 class="text-center font-bold m-b-lg">Specify Output</h2>
 
-                                    <cb-dropdown cb-dropdown-info cb-on-select="selectTotalSamples"name="sampleCount" ng-model="importForm.sampleCount" label="Total samples" items="acceptedSampleCount"></cb-dropdown>
+                                        <cb-form-group label="Catalog Name" name="catalogName">
+                                            <div class="col-sm-10">
+                                                <input name="catalogName" type="text" class="form-control" ng-model="formData.catalogName" required>
+                                                <div ng-messages="importForm.catalogName.$error" ng-show="submitted">
+                                                    <p ng-message="required" class="text-danger">This field is required</p>
+                                                </div>
+                                            </div>
+                                        </cb-form-group>
+
+                                        <cb-form-group label="Total Samples Produced" name="sampleCount">
+                                            <div class="col-sm-10">
+                                                <cb-dropdown cb-on-select="selectTotalSamples" name="sampleCount" ng-model="formData.sampleCount" label="Total samples" items="acceptedSampleCount" required></cb-dropdown>
+                                            </div>
+                                        </cb-form-group>
+
+                                        <button type="submit" class="btn btn-primary col-xs-6">Save</button>
+                                        <button type="button" class="btn btn-default col-xs-6" ng-click="close()">Cancel</button>
+
+                                    </form>
 
                                 </div>
 
