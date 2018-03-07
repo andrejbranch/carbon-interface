@@ -3,7 +3,7 @@
     <div class="normalheader">
         <div id="hbreadcrumb">
             <ol class="hbreadcrumb breadcrumb">
-                <li><a ui-sref="production_dna.index">Protein Production</a></li>
+                <li><a ui-sref="production_protein.index">Protein Production</a></li>
                 <li class="active">
                     <span>Protein Request {{proteinRequest.alias}}</span>
                 </li>
@@ -182,7 +182,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <cb-attachments object-id="proteinRequest.id" object-class="AppBundle\Entity\Production\DNA"></cb-attachments>
+                <cb-attachments object-id="proteinRequest.id" object-class="AppBundle\Entity\Production\ProteinRequest"></cb-attachments>
             </div>
         </div>
 
@@ -206,7 +206,7 @@
                                 <i class="glyphicon glyphicon-bell"></i> Activity
                             </uib-tab-heading>
                             <div class="panel-body no-padding">
-                                <object-history object-class="AppBundle\Entity\Production\DNA" object-id="proteinRequest.id"></object-history>
+                                <object-history object-class="AppBundle\Entity\Production\ProteinRequest" object-id="proteinRequest.id"></object-history>
                             </div>
                         </uib-tab>
                     </uib-tabset>

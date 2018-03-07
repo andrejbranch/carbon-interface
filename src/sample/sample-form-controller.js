@@ -1,8 +1,8 @@
 angular.module('sample.sampleFormCtrl', [])
 
-    .controller('sampleFormCtrl', ['$scope', 'sample', '$cbResource', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'projectGrids', '$cbForm',
+    .controller('sampleFormCtrl', ['$scope', 'sample', '$cbResource', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'projectGrids', '$cbForm', 'catalogGrid',
 
-        function ($scope, sample, $cbResource, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, projectGrids, $cbForm) {
+        function ($scope, sample, $cbResource, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, projectGrids, $cbForm, catalogGrid) {
 
             $scope.sample = sample ? angular.copy(sample) : {};
             $scope.sampleForm = {};
@@ -14,7 +14,9 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.currentStep = {name: 'sampleDetails'};
             $scope.divisionGrid = divisionGrid;
             $scope.projectGrids = projectGrids;
+            $scope.catalogGrid = catalogGrid;
             $scope.showLocation = false;
+            $scope.formProps = {};
 
             $scope.cbForm = $cbForm.create()
                 .setType('Sample')

@@ -27,14 +27,25 @@
                         </div>
                     </cb-form-group>
 
-                    <cb-form-group label="Name" name="name">
-                        <div class="col-sm-10">
-                            <input name="name" type="text" class="form-control" ng-model="sample.name" required>
-                            <div ng-messages="sampleForm.name.$error" ng-show="submitted">
+                    <div class="hr-line-dashed"></div>
+
+                    <cb-form-group label="Catalog" name="catalog">
+                        <div class="col-sm-10" ng-if="!sample.id">
+                            <cb-boolean name="catalog_is_new" true-text="New Catalog" false-text="Existing Catalog" cb-boolean-primary ng-model="formProps.isNewCatalog"></cb-boolean>
+                        </div>
+                        <div class="col-sm-2" ng-if="!sample.id"></div>
+                        <div class="col-sm-10 m-t-md" ng-if="formProps.isNewCatalog">
+                            <input name="catalog" type="text" class="form-control" ng-model="sample.catalog" required>
+                            <div ng-messages="sampleForm.catalog.$error" ng-show="submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
+                        <div class="col-sm-10" ng-class="{'m-t-md': !sample.id}" ng-if="!formProps.isNewCatalog || sample.id">
+                            <one-to-one name="catalog" grid="catalogGrid" ng-model="sample.catalog" parent-object="sample" bind-to="catalog" placeholder="Link Catalog.."></one-to-one>
+                        </div>
                     </cb-form-group>
+
+                    <div class="hr-line-dashed"></div>
 
                     <cb-form-group label="Description" name="description">
                         <div class="col-sm-10">
@@ -69,12 +80,6 @@
                     <cb-form-group label="Projects" name="projects">
                         <div class="col-sm-10">
                             <one-to-many grid="projectGrids[0]" search-grid="projectGrids[1]" parent-object="sample" bind-to="projects"  placeholder="Add Project.."></one-to-many>
-                        </div>
-                    </cb-form-group>
-
-                    <cb-form-group label="Linked Samples" name="linkedSamples">
-                        <div class="col-sm-10">
-                            <one-to-many grid="linkedSampleGrids[0]" search-grid="linkedSampleGrids[1]" parent-object="sample" bind-to="linkedSamples" resource-url="/storage/sample" placeholder="Add Sample.."></one-to-many-v2>
                         </div>
                     </cb-form-group>
 

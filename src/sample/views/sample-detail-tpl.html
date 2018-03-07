@@ -13,7 +13,7 @@
             <div class="panel-body">
                 <button ng-click="edit(sample)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
                 <h2 class="font-light m-b-xs inline">
-                  Sample {{sample.id}} - {{sample.name}}
+                  Sample {{sample.id}} - {{sample.catalog.name}}
                 </h2>
                 <small class="block">{{sample.description}}</small>
             </div>
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="sample.division">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
@@ -43,7 +43,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <a ui-sref="storage.division.detail({id:sample.divisionId})">{{sample.division.title}} - Row {{sample.divisionRow}} - Column {{sample.divisionColumn}}</a>
+                                    <a ui-sref="storage.division.detail({id:sample.divisionId, sampleId: sample.id})">{{sample.division.title}} - Row {{sample.divisionRow}} - Column {{sample.divisionColumn}}</a>
                                 </td>
                             </tr>
                         </table>
@@ -70,8 +70,8 @@
                                 <td>{{sample.id}}</td>
                             </tr>
                             <tr>
-                                <td>Name</td>
-                                <td>{{sample.name}}</td>
+                                <td>Catalog</td>
+                                <td><a ui-sref="catalog.detail({id:sample.catalog.id})">{{sample.catalog.name}}</a></td>
                             </tr>
                         </table>
                     </div>

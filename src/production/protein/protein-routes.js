@@ -111,7 +111,13 @@ angular.module('production.protein.routes', [ 'ui.router', 'ui.router.stateHelpe
 
                                     },
 
-                                    catalogName: function ($cbResource, proteinRequest) {
+                                    dnaSampleType: function ($cbResource) {
+
+                                        return $cbResource.getOne('/storage/sample-type?id[EQ]=1');
+
+                                    },
+
+                                    catalogData: function ($cbResource, proteinRequest) {
 
                                         var data = {
                                             id: proteinRequest.id,

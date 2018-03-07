@@ -27,11 +27,11 @@ angular.module('sample.sampleGridFactory', [])
                         templateUrl: 'sample/partials/sample-status-column-tpl.html'
                     },
                     {
-                        header: 'Name',
-                        bindTo: 'name',
-                        name: 'name',
+                        header: 'Catalog',
+                        bindTo: 'catalog.name',
+                        name: 'catalog',
                         isSortable: true,
-                        sref: 'sample.detail({id:result.id})'
+                        sref: 'catalog.detail({id:result.catalogId})'
                     },
                     {
                         header: 'Sample Type',
@@ -176,6 +176,15 @@ angular.module('sample.sampleGridFactory', [])
                 filters: [
                     {
                         type: 'relation',
+                        title: 'Catalog',
+                        accessProperty: 'id',
+                        filterProperty: 'catalogId',
+                        resourceUrl: '/storage/catalog',
+                        bindTo: 'name',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
                         title: 'Sample Type',
                         accessProperty: 'id',
                         filterProperty: 'sampleTypeId',
@@ -235,12 +244,6 @@ angular.module('sample.sampleGridFactory', [])
                     },
                     {
                         type: 'string',
-                        title: 'Name',
-                        filterProperty: 'name',
-                        isVisible: false
-                    },
-                    {
-                        type: 'string',
                         title: 'Lot',
                         filterProperty: 'lot',
                         isVisible: false
@@ -297,6 +300,10 @@ angular.module('sample.sampleGridFactory', [])
                             ngClass: ngClass
                         };
 
+                        if (responseColumn.header === 'Catalog') {
+                            column.bindTo = 'catalog';
+                        }
+
                         if (responseColumn.header === 'Division') {
                             column.templateUrl = 'sample/partials/sample-storage-import-division-column-1-tpl.html';
                         }
@@ -339,9 +346,9 @@ angular.module('sample.sampleGridFactory', [])
 
                     var columns = [
                         {
-                            header: 'Name',
-                            bindTo: 'name',
-                            name: 'name'
+                            header: 'Catalog',
+                            bindTo: 'catalog',
+                            name: 'catalog',
                         },
                         {
                             header: 'Sample Type',
@@ -374,10 +381,10 @@ angular.module('sample.sampleGridFactory', [])
 
                 },
 
-                getCatalogGrid: function (catalogName, sampleTypeId) {
+                getCatalogGrid: function (catalog, sampleTypeId) {
 
                     var grid = this.create();
-                    var resourceUrl = '/storage/sample?name[EQ]=' + catalogName + '&sampleTypeId[EQ]=' + sampleTypeId;
+                    var resourceUrl = '/storage/sample?catalogId[EQ]=' + catalog.id + '&sampleTypeId[EQ]=' + sampleTypeId;
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
 
                     grid.setResourceUrl(resourceUrl);

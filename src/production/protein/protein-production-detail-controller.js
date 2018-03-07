@@ -1,14 +1,14 @@
 angular.module('production.protein.proteinProductionDetailCtrl', [])
 
-    .controller('proteinProductionDetailCtrl', ['$scope', 'proteinRequest', 'inputSampleGrid', 'outputSampleGrid', 'dnaProductionFormFactory', 'projectGrid',
+    .controller('proteinProductionDetailCtrl', ['$scope', 'proteinRequest', 'inputSampleGrid', 'outputSampleGrid', 'proteinProductionFormFactory', 'projectGrid',
 
-        function ($scope, proteinRequest, inputSampleGrid, outputSampleGrid, dnaProductionFormFactory, projectGrid) {
+        function ($scope, proteinRequest, inputSampleGrid, outputSampleGrid, proteinProductionFormFactory, projectGrid) {
 
             $scope.proteinRequest = proteinRequest;
             $scope.inputSampleGrid = inputSampleGrid;
             $scope.outputSampleGrid = outputSampleGrid;
             $scope.projectGrid = projectGrid;
-            $scope.edit = dnaProductionFormFactory.openFormModal;
+            $scope.edit = proteinProductionFormFactory.openFormModal;
 
             $scope.statusLabelMapping = {
                 'Pending': 'warning',

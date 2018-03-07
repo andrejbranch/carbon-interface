@@ -43,6 +43,12 @@ angular.module('sample.formFactory', [])
 
                             },
 
+                            catalogGrid: function () {
+
+                                return $cbGridBuilder.buildSelectSingle('catalogGridFactory');
+
+                            },
+
                             projectGrids: function () {
 
                                 return $cbGridBuilder.buildMTMGrids('/storage/project-sample/sample/', 'projectGridFactory', sample, true)

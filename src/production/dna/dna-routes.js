@@ -109,6 +109,17 @@ angular.module('production.dna.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return $cbResource.getOne('/storage/sample-type?id[EQ]=1');
 
+                                    },
+
+                                    catalogData: function ($cbResource, dnaRequest) {
+
+                                        var data = {
+                                            id: dnaRequest.id,
+                                            entity: "AppBundle\\Entity\\Production\\DNA"
+                                        };
+
+                                        return $cbResource.create('/production/catalog-name-decide', data);
+
                                     }
 
                                 }
