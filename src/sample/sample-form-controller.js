@@ -10,6 +10,7 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.storageContainers = storageContainers.data;
             $scope.statuses = ['Available', 'Depleted', 'Destroyed', 'Shipped'];
             $scope.concentrationUnits = ['mg/mL', 'ng/uL', 'Molar'];
+            $scope.volumeUnits = ['mL', 'uL'];
             $scope.linkedSampleGrids = linkedSampleGrids;
             $scope.currentStep = {name: 'sampleDetails'};
             $scope.divisionGrid = divisionGrid;

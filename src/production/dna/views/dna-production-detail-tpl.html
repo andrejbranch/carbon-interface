@@ -21,8 +21,10 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <li>
+                                <li ng-if="dnaRequest.status != 'Completed'">
                                     <a class="dropdown-item" ui-sref="production_dna.complete({id:dnaRequest.id})"><i class="fa fa-check m-r-xs" />Complete</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href=""><i class="fa fa-trash m-r-xs" />Delete</a>
                                 </li>
                             </ul>
@@ -40,7 +42,6 @@
     </div>
 
     <div class="content">
-
 
         <div class="row">
 

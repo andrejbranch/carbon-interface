@@ -58,6 +58,36 @@
                 </div>
             </cb-form-group>
 
+            <cb-form-group label="Volume to Inject" name="volume">
+                <div class="col-sm-5">
+                    <input name="volume" type="text" class="form-control" ng-model="secMalsProduction.volume" money min="0" precision="3">
+                    <div ng-messages="secMalsProductionForm.volume.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+                <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultVolumeUnits()">
+                    <cb-dropdown name="volumeUnits" ng-model="secMalsProduction.volumeUnits" label="Volume Unit" items="volumeUnits"></cb-dropdown>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Column" name="column">
+                <div class="col-sm-10">
+                    <input name="column" type="text" class="form-control" ng-model="secMalsProduction.column" required>
+                    <div ng-messages="secMalsProductionForm.column.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Comments" name="comments">
+                <div class="col-sm-10">
+                    <textarea name="comments" type="text" class="form-control" ng-model="secMalsProduction.comments" required />
+                    <div ng-messages="secMalsProductionForm.comments.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
         </div>
 
         <div class="modal-footer">

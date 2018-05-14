@@ -89,6 +89,33 @@
                         </div>
                     </cb-form-group>
 
+                    <cb-form-group label="Concentration" name="concentration">
+
+                        <div class="col-sm-5">
+                            <input name="concentration" type="text" class="form-control" ng-model="sample.concentration" required money min="0" precision="3">
+                            <div ng-messages="sampleForm.concentration.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultConcentrationUnits()">
+                            <cb-dropdown name="concentrationUnits" ng-model="sample.concentrationUnits" label="Concentration Unit" items="concentrationUnits" required></cb-dropdown>
+                        </div>
+
+                    </cb-form-group>
+
+                    <cb-form-group label="Volume" name="volume">
+                        <div class="col-sm-5">
+                            <input name="volume" type="text" class="form-control" ng-model="sample.volume" money min="0" precision="3">
+                            <div ng-messages="sampleForm.volume.$error" ng-show="submitted">
+                                <p ng-message="required" class="text-danger">This field is required</p>
+                            </div>
+                        </div>
+                        <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultVolumeUnits()">
+                            <cb-dropdown name="volumeUnits" ng-model="sample.volumeUnits" label="Volume Unit" items="volumeUnits"></cb-dropdown>
+                        </div>
+                    </cb-form-group>
+
                     <!-- DNA -->
                     <div ng-if="sample.sampleType.name === 'DNA'">
 
@@ -101,21 +128,6 @@
                                     <p ng-message="required" class="text-danger">This field is required</p>
                                 </div>
                             </div>
-                        </cb-form-group>
-
-                        <cb-form-group label="Concentration" name="concentration">
-
-                            <div class="col-sm-5">
-                                <input name="concentration" type="text" class="form-control" ng-model="sample.concentration" required money min="0" precision="3">
-                                <div ng-messages="sampleForm.concentration.$error" ng-show="submitted">
-                                    <p ng-message="required" class="text-danger">This field is required</p>
-                                </div>
-                            </div>
-
-                            <div class="btn-group block col-sm-5" dropdown ng-init="setDefaultConcentrationUnits()">
-                                <cb-dropdown name="concentrationUnits" ng-model="sample.concentrationUnits" label="Concentration Unit" items="concentrationUnits" required></cb-dropdown>
-                            </div>
-
                         </cb-form-group>
 
                         <cb-form-group label="DNA Sequence" name="dnaSequence">

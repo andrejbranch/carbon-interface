@@ -1,63 +1,32 @@
 angular.module('project.projectFormCtrl', [])
 
-    .controller('projectFormCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'callback', 'toastr', 'project', 'sampleGrids',
+    .controller('projectFormCtrl', ['$scope', 'project', 'sampleGrids', '$cbForm',
 
-        function ($scope, $modalInstance, $cbResource, callback, toastr, project, sampleGrids) {
+        function ($scope, project, sampleGrids, $cbForm) {
 
             $scope.project = project ? angular.copy(project) : {};
-            $scope.errors = [];
             $scope.projectForm = {};
             $scope.statuses = ['Ongoing', 'Completed'];
             $scope.sampleGrids = sampleGrids;
 
+            $scope.cbForm = $cbForm.create()
+                .setType('Project')
+                .setObject($scope.project)
+                .setUrl('/project')
+                .setObjectClass('AppBundle\\Entity\\Project')
+            ;
+
             $scope.close = function () {
 
-                // @TODO
-                if ($scope.projectForm.$pristine === false) {
-                    // console.log('not pristine');
-
-                }
-                console.log
-
-                $modalInstance.close();
+                $scope.cbForm.close($scope.projectForm, $scope);
 
             };
 
-            $scope.submit = function (isValid) {
+            $scope.save = function () {
 
-                $scope.$broadcast('form:submit');
+                $scope.cbForm.save($scope.projectForm, $scope);
 
-                $scope.submitted = true;
-
-                if (!isValid) {
-                    return;
-                }
-
-                var method = $scope.project.id !== undefined ? 'update' : 'create';
-                var url = method === 'update'
-                    ? '/project?id[EQ]=' + $scope.project.id
-                    : '/project'
-                ;
-
-                $cbResource[method](url, $scope.project).then(
-
-                    function (response) {
-
-                        toastr.info('Project ' + method + 'd successfully');
-                        $scope.close();
-                        callback();
-
-                    },
-
-                    function (response) {
-
-                        $scope.errors = response.data;
-
-                    }
-
-                );
-
-            }
+            };
 
         }
 

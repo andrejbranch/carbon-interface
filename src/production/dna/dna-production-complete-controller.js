@@ -4,6 +4,7 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
 
         function ($scope, dnaRequest, dnaSampleType, catalogData, productionPipelineFactory) {
 
+            $scope.dnaRequest = dnaRequest;
             $scope.productionCompleteConfig  = productionPipelineFactory.create();
             $scope.productionCompleteConfig
                 .setScope($scope)
@@ -58,6 +59,8 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
                     templateUrl: 'common/production-pipeline/partials/confirmation-step-type-tpl.html'
                 })
             ;
+
+            $scope.productionCompleteConfig.setCurrentStep('step_5');
         }
 
     ])

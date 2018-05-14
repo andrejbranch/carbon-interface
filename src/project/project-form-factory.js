@@ -1,8 +1,8 @@
 angular.module('project.projectFormFactory', [])
 
-    .factory('projectFormFactory', ['$uibModal', '$state', '$stateParams', '$cbGridBuilder',
+    .factory('projectFormFactory', ['$uibModal', '$state', '$stateParams', '$cbGridBuilder', 'cbFormHelper',
 
-        function ($modal, $state, $stateParams, $cbGridBuilder) {
+        function ($modal, $state, $stateParams, $cbGridBuilder, cbFormHelper) {
 
             var projectFormFactory = {
 
@@ -43,7 +43,27 @@ angular.module('project.projectFormFactory', [])
 
                     });
 
+                },
+
+                openDeleteForm: function (project, returnState) {
+
+                    cbFormHelper.openForm("delete", "Project - " + project.name , project.id, '/project', returnState);
+
+                },
+
+
+                openRestoreForm: function (project, returnState) {
+
+                    cbFormHelper.openForm("restore", "Project - " + project.name, project.id, '/project', returnState);
+
+                },
+
+                openPurgeForm: function (project, returnState) {
+
+                    cbFormHelper.openForm("purge", "Project - " + project.name, project.id, '/project', returnState);
+
                 }
+
 
             };
 

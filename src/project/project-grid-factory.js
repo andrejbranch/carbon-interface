@@ -31,6 +31,30 @@ angular.module('project.projectGridFactory', [])
                         bindTo: 'status',
                         name: 'status',
                         isSortable: true
+                    },
+                    {
+                        header: 'Created By',
+                        bindTo: 'createdBy.fullName',
+                        name: 'createdBy'
+                    },
+                    {
+                        header: 'Updated By',
+                        bindTo: 'updatedBy.fullName',
+                        name: 'updatedBy',
+                        isVisible: false
+                    },
+                    {
+                        header: 'Date Created',
+                        bindTo: 'createdAt | date:\'MMM d, y\'',
+                        name: 'createdAt',
+                        isSortable: true
+                    },
+                    {
+                        header: 'Date Updated',
+                        bindTo: 'updatedAt | date:\'MMM d, y\'',
+                        name: 'updatedAt',
+                        isSortable: true,
+                        isVisible: false
                     }
                 ],
 
@@ -39,6 +63,60 @@ angular.module('project.projectGridFactory', [])
                         type: 'string',
                         title: 'Name',
                         filterProperty: 'name',
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Created By',
+                        accessProperty: 'id',
+                        filterProperty: 'createdById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Updated By',
+                        accessProperty: 'id',
+                        filterProperty: 'updatedById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Created By',
+                        accessProperty: 'id',
+                        filterProperty: 'createdById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Updated By',
+                        accessProperty: 'id',
+                        filterProperty: 'updatedById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
+                        type: 'date',
+                        title: 'Created At',
+                        filterProperty: 'createdAt',
+                        isVisible: false
+                    },
+                    {
+                        type: 'date',
+                        title: 'Updated At',
+                        filterProperty: 'updatedAt',
+                        isVisible: false
+                    },
+                    {
+                        type: 'deleted',
+                        title: 'Show Deleted',
+                        filterProperty: 'cShowDeleted',
                         isVisible: false
                     }
                 ],

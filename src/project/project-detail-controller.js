@@ -6,6 +6,7 @@ angular.module('project.projectDetailCtrl', [])
 
             $scope.project = project;
             $scope.edit = projectFormFactory.openFormModal;
+            $scope.delete = projectFormFactory.openDeleteForm;
             $scope.sampleGrid = sampleGrid;
 
             $scope.statusLabelMapping = {

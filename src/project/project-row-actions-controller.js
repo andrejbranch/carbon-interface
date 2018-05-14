@@ -4,11 +4,10 @@ angular.module('project.projectRowActionsCtrl', [])
 
         function ($scope, projectFormFactory) {
 
-            $scope.edit = function (project) {
-
-                projectFormFactory.openFormModal(project);
-
-            };
+            $scope.edit = projectFormFactory.openFormModal;
+            $scope.delete = projectFormFactory.openDeleteForm
+            $scope.restore = projectFormFactory.openRestoreForm
+            $scope.purge = projectFormFactory.openPurgeForm
 
         }
 
