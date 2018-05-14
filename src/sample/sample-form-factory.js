@@ -64,6 +64,12 @@ angular.module('sample.formFactory', [])
 
                             },
 
+                            tagGrids: function () {
+
+                                return $cbGridBuilder.buildMTMGrids('/storage/sample-tag/sample/', 'tagGridFactory', sample, true)
+
+                            },
+
                             callback: function () {
 
                                 return function () {

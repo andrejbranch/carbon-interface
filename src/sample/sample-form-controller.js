@@ -1,10 +1,10 @@
 angular.module('sample.sampleFormCtrl', [])
 
-    .controller('sampleFormCtrl', ['$scope', 'sample', '$cbResource', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'projectGrids', '$cbForm', 'catalogGrid',
+    .controller('sampleFormCtrl', ['$scope', 'sample', '$cbResource', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'projectGrids', '$cbForm', 'catalogGrid', 'tagGrids',
 
-        function ($scope, sample, $cbResource, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, projectGrids, $cbForm, catalogGrid) {
+        function ($scope, sample, $cbResource, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, projectGrids, $cbForm, catalogGrid, tagGrids) {
 
-            $scope.sample = sample ? angular.copy(sample) : {};
+            $scope.sample = sample ? angular.copy(sample) : {status:'Available'};
             $scope.sampleForm = {};
             $scope.sampleTypes = sampleTypes.data;
             $scope.storageContainers = storageContainers.data;
@@ -18,6 +18,7 @@ angular.module('sample.sampleFormCtrl', [])
             $scope.catalogGrid = catalogGrid;
             $scope.showLocation = false;
             $scope.formProps = {};
+            $scope.tagGrids = tagGrids;
 
             $scope.cbForm = $cbForm.create()
                 .setType('Sample')
@@ -25,6 +26,10 @@ angular.module('sample.sampleFormCtrl', [])
                 .setUrl('/storage/sample')
                 .setObjectClass('AppBundle\\Entity\\Storage\\Sample')
             ;
+
+            $scope.catalogBoolOnToggle = function(){
+                $scope.sample.catalog = undefined;
+            }
 
             $scope.setDefaultConcentrationUnits = function () {
 
@@ -34,7 +39,6 @@ angular.module('sample.sampleFormCtrl', [])
                 }
 
             };
-
 
             $scope.selectDivision = function (isValid) {
 
@@ -54,6 +58,22 @@ angular.module('sample.sampleFormCtrl', [])
 
                 $cbResource.get(url, {}).then(function (response) {
 
+                    if (response.data.length == 0) {
+
+                        swal({
+                            title: "Insufficient Storage Space",
+                            text: "There is no available storage for your sample. Check that any storage owned by you supports the sample type and storage container, or speak with your inventory admin about getting more space.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        $scope.sampleForm.$pristine = true;
+                        $scope.close();
+
+                    }
+
                     $scope.divisionGrid.columns[0].sortDirection = 'None';
 
                     $scope.divisionGrid
@@ -70,13 +90,16 @@ angular.module('sample.sampleFormCtrl', [])
                     StepsService.steps('sampleFormFlow').goTo(1);
 
                     if (response.unpaginatedTotal === 0) {
-                        // alert here?
-                        alert('no matched divisions');
+
                         return;
+
                     }
 
-
-                    $scope.onDivisionChange(response.data[0], true)
+                    if (!$scope.sample.division) {
+                        $scope.onDivisionChange(response.data[0], true)
+                    } else {
+                        $scope.onDivisionChange($scope.sample.division, true)
+                    }
 
                 });
 
@@ -86,6 +109,14 @@ angular.module('sample.sampleFormCtrl', [])
 
                 $scope.divisionGrid.selectedItem = division;
                 $scope.sample.division = $scope.divisionGrid.selectedItem;
+
+                if (!division || !division.hasDimension) {
+                    $scope.rowColumnMap = {};
+                    $scope.rows = [];
+                    $scope.sample.divisionRow = null;
+                    $scope.sample.divisionColumn = null;
+                    return;
+                }
 
                 $cbResource.get('/storage/division/' + division.id + '/available-cells' ).then(function (response) {
                     var rowIndex = 0, columnIndex = 0;
@@ -97,7 +128,7 @@ angular.module('sample.sampleFormCtrl', [])
                         $scope.rows.push(rowKey);
                         $scope.rowColumnMap[rowKey] = {'columns': []};
 
-                        if ($scope.sample.divisionRow === undefined && rowIndex === 0) {
+                        if (!$scope.sample.divisionRow && rowIndex === 0) {
                             $scope.sample.divisionRow = rowKey;
                         }
 
@@ -105,7 +136,7 @@ angular.module('sample.sampleFormCtrl', [])
 
                             $scope.rowColumnMap[rowKey].columns.push(cellKey);
 
-                            if ($scope.sample.divisionColumn === undefined && columnIndex === 0) {
+                            if (!$scope.sample.divisionColumn && columnIndex === 0) {
                                 $scope.sample.divisionColumn = cellKey;
                             }
 
@@ -116,11 +147,6 @@ angular.module('sample.sampleFormCtrl', [])
                         rowIndex++;
 
                     });
-
-                    if (isInit === undefined) {
-                        $scope.sample.divisionRow = null;
-                        $scope.sample.divisionColumn = null;
-                    }
 
                 });
 

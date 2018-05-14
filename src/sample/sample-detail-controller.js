@@ -1,13 +1,14 @@
 angular.module('sample.sampleDetailCtrl', [])
 
-    .controller('sampleDetailCtrl', ['$scope', 'sample', 'linkedSamplesGrid', 'sampleFormFactory', 'projectGrid',
+    .controller('sampleDetailCtrl', ['$scope', 'sample', 'linkedSamplesGrid', 'sampleFormFactory', 'projectGrid', 'storageDivisionManager', '$state', 'tags',
 
-        function ($scope, sample, linkedSamplesGrid, sampleFormFactory, projectGrid) {
+        function ($scope, sample, linkedSamplesGrid, sampleFormFactory, projectGrid, storageDivisionManager, $state, tags) {
 
             $scope.sample = sample;
             $scope.linkedSamplesGrid = linkedSamplesGrid;
             $scope.edit = sampleFormFactory.openSampleFormModal;
             $scope.projectGrid = projectGrid;
+            $scope.tags = tags;
 
             $scope.statusLabelMapping = {
                 'Available': 'primary',
@@ -29,6 +30,11 @@ angular.module('sample.sampleDetailCtrl', [])
 
             $scope.labelClass = $scope.statusLabelMapping[$scope.sample.status];
             $scope.iconFile = $scope.sampleTypeIconMapping[$scope.sample.sampleType.name];
+
+            $scope.goToLocation = function () {
+                storageDivisionManager.initSampleId = $scope.sample.id;
+                $state.go('storage.division.detail', {id:$scope.sample.divisionId});
+            };
 
         }
 

@@ -31,17 +31,17 @@
 
                     <cb-form-group label="Catalog" name="catalog">
                         <div class="col-sm-10" ng-if="!sample.id">
-                            <cb-boolean name="catalog_is_new" true-text="New Catalog" false-text="Existing Catalog" cb-boolean-primary ng-model="formProps.isNewCatalog"></cb-boolean>
+                            <cb-boolean name="catalog_is_new" true-text="New Catalog" false-text="Existing Catalog" cb-boolean-primary ng-model="formProps.isNewCatalog" on-toggle="catalogBoolOnToggle"></cb-boolean>
                         </div>
                         <div class="col-sm-2" ng-if="!sample.id"></div>
                         <div class="col-sm-10 m-t-md" ng-if="formProps.isNewCatalog">
                             <input name="catalog" type="text" class="form-control" ng-model="sample.catalog" required>
-                            <div ng-messages="sampleForm.catalog.$error" ng-show="submitted">
+                            <div ng-messages="sampleForm.catalog.$error" ng-show="sampleForm.$submitted">
                                 <p ng-message="required" class="text-danger">This field is required</p>
                             </div>
                         </div>
                         <div class="col-sm-10" ng-class="{'m-t-md': !sample.id}" ng-if="!formProps.isNewCatalog || sample.id">
-                            <one-to-one name="catalog" grid="catalogGrid" ng-model="sample.catalog" parent-object="sample" bind-to="catalog" placeholder="Link Catalog.."></one-to-one>
+                            <one-to-one name="catalog" grid="catalogGrid" ng-model="sample.catalog" parent-object="sample" bind-to="catalog" placeholder="Link Catalog.." required></one-to-one>
                         </div>
                     </cb-form-group>
 
@@ -86,6 +86,12 @@
                     <cb-form-group label="Sample Type" name="sampleType">
                         <div class="col-sm-10">
                             <cb-dropdown cb-dropdown-primary bind-to="name" name="sampleType" ng-model="sample.sampleType" label="Sample Type" items="sampleTypes" disabled="sample.id" required></cb-dropdown>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Tags" name="tags">
+                        <div class="col-sm-10">
+                            <one-to-many grid="tagGrids[0]" search-grid="tagGrids[1]" parent-object="sample" bind-to="tags" placeholder="Add Tags.."></one-to-many>
                         </div>
                     </cb-form-group>
 
@@ -267,8 +273,15 @@
                     </div>
                 </div>
 
-                <div class="modal-footer">
+<!--                 <div class="modal-footer">
                     <button type="button" ng-click="selectDivision(sampleForm.$valid)" class="btn btn-primary">Select Location</button>
+                    <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+                </div>
+ -->
+                <div class="modal-footer">
+                    <button type="submit" ng-if="(sample.id && sample.division) || sample.status != 'Available' || sample.skipLocationSelect" class="btn btn-primary">Save</button>
+                    <button type="button" ng-if="!sample.id && sample.skipLocationSelect == undefined && sample.status =='Available'" ng-click="selectDivision(sampleForm.$valid)" class="btn btn-primary">Select Location</button>
+                    <button type="button" ng-if="sample.id && sample.skipLocationSelect == undefined && sample.status == 'Available'" ng-click="selectDivision(sampleForm.$valid)" class="btn btn-info">Update Location</button>
                     <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
                 </div>
 

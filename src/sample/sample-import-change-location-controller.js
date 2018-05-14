@@ -4,7 +4,7 @@ angular.module('sample.sampleImportChangeLocationCtrl', [])
 
         function ($scope, sample, divisionGrid, $cbResource, sampleImportManager) {
 
-            $scope.sample = sample;
+            $scope.sample = angular.copy(sample);
             $scope.sampleImportForm = {};
             $scope.oldDivision = $scope.sample.division;
             $scope.oldDivisionRow = $scope.sample.divisionRow;
@@ -18,7 +18,6 @@ angular.module('sample.sampleImportChangeLocationCtrl', [])
 
                     $scope.rows = [];
                     $scope.rowColumnMap = {};
-                    delete $scope.sampleImportManager.selectedCells[$scope.oldDivision.id][$scope.oldDivisionRow][$scope.oldDivisionColumn];
 
                     $scope.sample.divisionRow = null;
                     $scope.sample.divisionColumn = null;
@@ -30,16 +29,21 @@ angular.module('sample.sampleImportChangeLocationCtrl', [])
                 $scope.divisionGrid.selectedItem = division;
                 $scope.sample.division = $scope.divisionGrid.selectedItem;
 
-                $scope.sampleImportManager.getAvailableCells(division, $scope.sample).then(function (availableCellData) {
+                if (division.hasDimension) {
 
-                    $scope.rows = availableCellData[0];
-                    $scope.rowColumnMap = availableCellData[1];
+                    $scope.sampleImportManager.getAvailableCells(division, $scope.sample).then(function (availableCellData) {
 
-                });
+                        $scope.rows = availableCellData[0];
+                        $scope.rowColumnMap = availableCellData[1];
 
-                if (isInit === undefined) {
-                    $scope.sample.divisionRow = null;
-                    $scope.sample.divisionColumn = null;
+                    });
+
+                }
+
+                if ($scope.oldDivision.hasDimension) {
+
+                    delete $scope.sampleImportManager.selectedCells[$scope.oldDivision.id][$scope.oldDivisionRow][$scope.oldDivisionColumn];
+
                 }
 
             };
@@ -64,6 +68,23 @@ angular.module('sample.sampleImportChangeLocationCtrl', [])
                 }
 
                 sampleImportManager.setSelectedCells();
+
+                sample.division = $scope.sample.division;
+
+                if ($scope.sample.division.hasDimension) {
+
+                    sample.divisionRow = $scope.sample.divisionRow;
+                    sample.divisionColumn = $scope.sample.divisionColumn;
+
+                    $scope.sampleImportManager.setSelectedWell($scope.sample.division.id, $scope.sample.divisionRow, $scope.sample.divisionColumn);
+
+                }
+
+                if ($scope.oldDivision.hasDimension) {
+
+                    delete $scope.sampleImportManager.selectedCells[$scope.oldDivision.id][$scope.oldDivisionRow][$scope.oldDivisionColumn];
+
+                }
 
                 $scope.$close();
 

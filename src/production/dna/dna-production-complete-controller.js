@@ -59,8 +59,6 @@ angular.module('production.dna.dnaProductionCompleteCtrl', [])
                     templateUrl: 'common/production-pipeline/partials/confirmation-step-type-tpl.html'
                 })
             ;
-
-            $scope.productionCompleteConfig.setCurrentStep('step_5');
         }
 
     ])

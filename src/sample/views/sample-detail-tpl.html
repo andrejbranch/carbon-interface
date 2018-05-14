@@ -11,11 +11,32 @@
         </div>
         <div class="hpanel">
             <div class="panel-body">
-                <button ng-click="edit(sample)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
-                <h2 class="font-light m-b-xs inline">
-                  Sample {{sample.id}} - {{sample.catalog.name}}
-                </h2>
-                <small class="block">{{sample.description}}</small>
+
+                <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(sample)"><i class="fa fa-edit"/></button>
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li cb-object-watch entity-id="sample.id" entity="AppBundle\Entity\Storage\Sample" object-description="Sample" url="/storage/sample"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs inline">
+                        <i class="fa fa-flask" />
+                        Sample {{sample.id}} - {{sample.catalog.name}}
+                    </h2>
+                    <div class="block">
+                        {{sample.description}}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -23,13 +44,12 @@
     <div class="content">
 
         <div class="row">
+
             <div class="col-sm-12">
                 <h2><span class="label label-pill label-{{labelClass}} block">{{sample.status}}</span></h2>
             </div>
-        </div>
 
-        <div class="row" ng-if="sample.division">
-            <div class="col-sm-12">
+            <div class="col-sm-12" ng-if="sample.divisionId || sample.locationSecured">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
@@ -41,18 +61,21 @@
                     <div class="panel-body no-padding">
                         <table class="table-detail">
                             <tr>
-                                <td></td>
-                                <td>
-                                    <a ui-sref="storage.division.detail({id:sample.divisionId, sampleId: sample.id})">{{sample.division.title}} - Row {{sample.divisionRow}} - Column {{sample.divisionColumn}}</a>
+                                <td style="width:1%;"></td>
+                                <td ng-if="!sample.locationSecured">
+                                    <a ng-click="goToLocation()" ng-if="sample.division.hasDimension" ui-sref="storage.division.detail({id:sample.divisionId})">{{sample.division.path}} - Row {{sample.divisionRow}} - Column {{sample.divisionColumn}}</a>
+                                    <a ng-click="goToLocation()" ng-if="!sample.division.hasDimension" ui-sref="storage.division.detail({id:sample.divisionId})">{{sample.division.path}}</a>
+                                </td>
+                                <td ng-if="sample.locationSecured">
+                                    <span class="text-danger">
+                                        <strong>You do not have permission to see the location of this sample</strong>
+                                    </span>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
 
             <div class="col-sm-4">
                 <div class="hpanel">
@@ -73,6 +96,24 @@
                                 <td>Catalog</td>
                                 <td><a ui-sref="catalog.detail({id:sample.catalog.id})">{{sample.catalog.name}}</a></td>
                             </tr>
+                            <tr ng-if="sample.tagString">
+                                <td>Tags</td>
+                                <td ng-if="sample.tagString">{{sample.tagString}}</td>
+                                <td ng-if="!sample.tagString">N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Lot</td>
+                                <td ng-if="sample.lot">{{sample.lot}}</td>
+                                <td ng-if="!sample.lot">N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Concentration</td>
+                                <td>{{sample.concentrationString}}</td>
+                            </tr>
+                            <tr>
+                                <td>Volume</td>
+                                <td>{{sample.volumeString}}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -91,13 +132,20 @@
                         <table class="table-detail">
                             <tr>
                                 <td>Created By</td>
-                                <td>{{sample.createdBy.fullName}}</td>
+                                <td>
+                                    <cb-user-avatar user="sample.createdBy" class="xs"></cb-user-avatar>
+                                    {{sample.createdBy.fullName}}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Updated By</td>
-                                <td>{{sample.updatedBy.fullName}}</td>
+                                <td>
+                                    <cb-user-avatar user="sample.updatedBy" class="xs"></cb-user-avatar>
+                                    {{sample.updatedBy.fullName}}
+                                </td>
                             </tr>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -125,15 +173,11 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-sm-12">
                 <cb-attachments object-id="sample.id" object-class="AppBundle\Entity\Storage\Sample"></cb-attachments>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
@@ -231,9 +275,7 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
@@ -249,9 +291,7 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
@@ -267,9 +307,7 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-sm-12">
                 <div class="hpanel">
                      <uib-tabset active="active">
@@ -296,6 +334,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

@@ -46,6 +46,21 @@ angular.module('sample.sampleImportManager', [])
 
                 },
 
+                setSelectedWell: function (divisionId, divisionRow, divisionColumn) {
+
+                    if (this.selectedCells[divisionId] == undefined) {
+                        this.selectedCells[divisionId] = {};
+                    }
+
+                    if (this.selectedCells[divisionId][divisionRow] == undefined) {
+                        this.selectedCells[divisionId][divisionRow] = [];
+                    }
+
+
+                    this.selectedCells[divisionId][divisionRow][divisionColumn] = true;
+
+                },
+
                 getAvailableCells: function (division, sample) {
 
                     return $cbResource.get('/storage/division/' + division.id + '/available-cells' ).then(function (response) {

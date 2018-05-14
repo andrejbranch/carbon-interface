@@ -12,10 +12,10 @@ angular.module('production.dna.dnaProductionGridFactory', [])
 
                 columns: [
                     {
-                        header: 'Id',
+                        header: 'ID',
                         bindTo: 'alias',
                         isSortable: true,
-                        name: 'alias',
+                        name: 'id',
                         isPrimary: true,
                         sref: 'production_dna.detail({id:result.id})'
                     },

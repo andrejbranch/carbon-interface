@@ -1,0 +1,53 @@
+<form name="tagForm" method="get" class="form-horizontal" ng-submit="save(tagForm.$valid)" novalidate autocomplete="off">
+
+    <div id="user-form-container">
+
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">{{ tag.id ? 'Edit Tag' : 'Create Tag' }} {{tag.id}}</h4>
+            <small>{{tag.name}}</small>
+        </div>
+
+        <div class="modal-body">
+
+            <cb-form form="cbForm">
+
+                <div class="col-sm-12 alert alert-danger m-b-md" ng-show="cbForm.errors.length !== 0">
+                    <p ng-repeat="error in cbForm.errors">
+                        <strong>{{error}}</strong>
+                    </p>
+                </div>
+
+                <cb-form-group label="Attachments" name="attachments">
+                    <div class="col-sm-10">
+                        <cb-form-attachments form="cbForm"></cb-form-attachments>
+                    </div>
+                </cb-form-group>
+
+                <cb-form-group label="Name" name="name">
+                    <div class="col-sm-10">
+                        <input name="name" type="text" class="form-control" ng-model="tag.name" required>
+                        <div ng-messages="tagForm.name.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">this field is required</p>
+                        </div>
+                    </div>
+                </cb-form-group>
+
+                <cb-form-group label="Description" name="description">
+                    <div class="col-sm-10">
+                        <input name="description" type="text" class="form-control" ng-model="tag.description">
+                    </div>
+                </cb-form-group>
+
+            </cb-form>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+        </div>
+
+    </div>
+
+</form>

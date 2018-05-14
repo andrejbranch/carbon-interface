@@ -52,6 +52,12 @@ angular.module('sample.sampleGridFactory', [])
                         isSortable: true
                     },
                     {
+                        header: 'Tags',
+                        bindTo: 'tagString',
+                        name: 'tagString',
+                        isSortable: false
+                    },
+                    {
                         header: 'Storage Location',
                         bindTo: 'division.path',
                         name: 'division',
@@ -181,7 +187,7 @@ angular.module('sample.sampleGridFactory', [])
                         filterProperty: 'catalogId',
                         resourceUrl: '/storage/catalog',
                         bindTo: 'name',
-                        isVisible: true
+                        isVisible: false
                     },
                     {
                         type: 'relation',
@@ -190,7 +196,7 @@ angular.module('sample.sampleGridFactory', [])
                         filterProperty: 'sampleTypeId',
                         resourceUrl: '/storage/sample-type',
                         bindTo: 'name',
-                        isVisible: true
+                        isVisible: false
                     },
                     {
                         type: 'relation',
@@ -206,7 +212,16 @@ angular.module('sample.sampleGridFactory', [])
                         filterProperty: 'status',
                         bindTo: 'status',
                         enum: ['Available', 'Depleted', 'Destroyed', 'Shipped'],
-                        isVisible: true
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Tags',
+                        accessProperty: 'id',
+                        filterProperty: 'sampleTags.tagId',
+                        resourceUrl: '/storage/tag',
+                        bindTo: 'name',
+                        isVisible: false
                     },
                     {
                         type: 'relation',

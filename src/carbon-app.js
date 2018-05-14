@@ -7,7 +7,8 @@ var scrippsApp = angular.module('scrippsApp', [
     'sample',
     'project',
     'production',
-    'protocol'
+    'protocol',
+    'tag'
 ]);
 
 angular.module('scrippsApp').run(

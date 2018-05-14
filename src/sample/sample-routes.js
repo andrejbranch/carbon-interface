@@ -102,6 +102,14 @@ angular.module('sample.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     },
 
+                                    tags: function ($cbGridBuilder, sample) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/storage/sample-tag/sample/', 'tagGridFactory', sample, false
+                                        );
+
+                                    },
+
                                     projectGrid: function ($cbGridBuilder, sample) {
 
                                         return $cbGridBuilder.buildOTM(
