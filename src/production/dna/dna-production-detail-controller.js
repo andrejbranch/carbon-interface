@@ -9,6 +9,7 @@ angular.module('production.dna.dnaProductionDetailCtrl', [])
             $scope.outputSampleGrid = outputSampleGrid;
             $scope.projectGrid = projectGrid;
             $scope.edit = dnaProductionFormFactory.openFormModal;
+            $scope.delete = dnaProductionFormFactory.openDeleteForm;
 
             $scope.statusLabelMapping = {
                 'Pending': 'warning',

@@ -13,11 +13,33 @@
         <div class="hpanel">
             <div class="panel-body">
 
-                <h2 class="font-light m-b-xs">
-                  DNA Production Requests
-                </h2>
+                <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li cb-user-object-notifications entity="AppBundle\Entity\Production\DNA" object-description="DNA Production Request" url="/production/dna">
+                                    <a class="dropdown-item text-danger" ><i class="fa fa-bell m-r-xs" />Notifications</a>
+                                </li>
+                                <li cb-object-notifications entity="AppBundle\Entity\Production\DNA" object-description="DNA Production Request" admin-role="ROLE_DNA_ADMIN" url="/production/dna">
+                                    <a class="dropdown-item text-danger" ><i class="fa fa-lock m-r-xs" /><i class="fa fa-bell m-r-xs" />Admin Notifications</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs">
+                        DNA Production Requests
+                    </h2>
+                </div>
 
                 <small>Manage DNA Production Requests</small>
+
             </div>
         </div>
     </div>
@@ -27,9 +49,6 @@
         <div class="row">
             <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                 <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="create()">Create Request</button>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <button ui-sref="sample.import()" class="btn btn-info btn-block btn-mobile-stack">Import Requests</button>
             </div>
         </div>
 

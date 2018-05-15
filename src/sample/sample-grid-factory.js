@@ -58,6 +58,12 @@ angular.module('sample.sampleGridFactory', [])
                         isSortable: false
                     },
                     {
+                        header: 'Projects',
+                        bindTo: 'projectString',
+                        name: 'projects',
+                        isSortable: false
+                    },
+                    {
                         header: 'Storage Location',
                         bindTo: 'division.path',
                         name: 'division',
@@ -225,6 +231,15 @@ angular.module('sample.sampleGridFactory', [])
                     },
                     {
                         type: 'relation',
+                        title: 'Projects',
+                        accessProperty: 'id',
+                        filterProperty: 'projectSamples.projectId',
+                        resourceUrl: '/project',
+                        bindTo: 'name',
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
                         title: 'Updated By',
                         accessProperty: 'id',
                         filterProperty: 'updatedById',
@@ -311,7 +326,7 @@ angular.module('sample.sampleGridFactory', [])
 
                         var column = {
                             header: responseColumn.header,
-                            bindTo: responseColumn.bindTo,
+                            bindTo: responseColumn.frontendBindTo,
                             ngClass: ngClass
                         };
 

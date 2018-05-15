@@ -1,8 +1,8 @@
 angular.module('production.dna.dnaProductionFormFactory', [])
 
-    .factory('dnaProductionFormFactory', ['$uibModal', '$cbGridBuilder',
+    .factory('dnaProductionFormFactory', ['$uibModal', '$cbGridBuilder', 'cbFormHelper',
 
-        function ($modal, $cbGridBuilder) {
+        function ($modal, $cbGridBuilder, cbFormHelper) {
 
             var dnaProductionFormFactory = {
 
@@ -55,6 +55,24 @@ angular.module('production.dna.dnaProductionFormFactory', [])
                         }
 
                     });
+
+                },
+
+                openDeleteForm: function (dnaRequest, returnState) {
+
+                    cbFormHelper.openForm("delete", "DNA Purification Request", dnaRequest.id, '/production/dna', returnState);
+
+                },
+
+                openRestoreForm: function (dnaRequest, returnState) {
+
+                    cbFormHelper.openForm("restore", "DNA Purification Request", dnaRequest.id, '/production/dna', returnState);
+
+                },
+
+                openPurgeForm: function (dnaRequest, returnState) {
+
+                    cbFormHelper.openForm("purge", "DNA Purification Request", dnaRequest.id, '/production/dna', returnState);
 
                 }
 

@@ -4,11 +4,10 @@ angular.module('production.dna.dnaProductionRowActionsCtrl', [])
 
         function ($scope, dnaProductionFormFactory) {
 
-            $scope.edit = function (sample) {
-
-                dnaProductionFormFactory.openFormModal(sample);
-
-            };
+            $scope.edit = dnaProductionFormFactory.openFormModal;
+            $scope.delete = dnaProductionFormFactory.openDeleteForm;
+            $scope.restore = dnaProductionFormFactory.openRestoreForm;
+            $scope.purge = dnaProductionFormFactory.openPurgeForm;
 
         }
 

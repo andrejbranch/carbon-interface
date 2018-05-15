@@ -58,71 +58,56 @@ angular.module('production.dna.dnaProductionGridFactory', [])
                 ],
 
                 filters: [
-                    // {
-                    //     type: 'relation',
-                    //     title: 'Sample Type',
-                    //     accessProperty: 'id',
-                    //     filterProperty: 'sampleTypeId',
-                    //     resourceUrl: '/storage/sample-type',
-                    //     bindTo: 'name',
-                    //     isVisible: true
-                    // },
-                    // {
-                    //     type: 'relation',
-                    //     title: 'Created By',
-                    //     accessProperty: 'id',
-                    //     filterProperty: 'createdById',
-                    //     resourceUrl: '/user',
-                    //     bindTo: 'fullName'
-                    // },
-                    // {
-                    //     type: 'enum',
-                    //     title: 'Status',
-                    //     filterProperty: 'status',
-                    //     bindTo: 'status',
-                    //     enum: ['Available', 'Depleted', 'Destroyed', 'Shipped'],
-                    //     isVisible: true
-                    // },
-                    // {
-                    //     type: 'relation',
-                    //     title: 'Updated By',
-                    //     accessProperty: 'id',
-                    //     filterProperty: 'updatedById',
-                    //     resourceUrl: '/user',
-                    //     bindTo: 'fullName',
-                    //     isVisible: false
-                    // },
-                    // {
-                    //     type: 'integer',
-                    //     title: 'Concentration',
-                    //     // accessProperty: 'id',
-                    //     filterProperty: 'concentration',
-                    //     // bindTo: 'fullName'
-                    //     isVisible: false
-                    // },
-                    // {
-                    //     type: 'integer',
-                    //     title: 'Mass (g)',
-                    //     // accessProperty: 'id',
-                    //     filterProperty: 'mass',
-                    //     // bindTo: 'fullName'
-                    //     isVisible: false
-                    // },
-                    // {
-                    //     type: 'enum',
-                    //     title: 'Species',
-                    //     filterProperty: 'species',
-                    //     bindTo: 'species',
-                    //     enum: ['human'],
-                    //     isVisible: false
-
-                    // },
-                    // {
-                    //     type: 'string',
-                    //     title: 'Name',
-                    //     filterProperty: 'name',
-                    //     isVisible: false
-                    // }
+                    {
+                        type: 'string',
+                        title: 'ID',
+                        filterProperty: 'alias',
+                        isVisible: false
+                    },
+                    {
+                        type: 'enum',
+                        title: 'Status',
+                        filterProperty: 'status',
+                        bindTo: 'status',
+                        enum: ['Available', 'Depleted', 'Destroyed', 'Shipped'],
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Created By',
+                        accessProperty: 'id',
+                        filterProperty: 'createdById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Updated By',
+                        accessProperty: 'id',
+                        filterProperty: 'updatedById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
+                        type: 'date',
+                        title: 'Created At',
+                        filterProperty: 'createdAt',
+                        isVisible: false
+                    },
+                    {
+                        type: 'date',
+                        title: 'Updated At',
+                        filterProperty: 'updatedAt',
+                        isVisible: false
+                    },
+                    {
+                        type: 'deleted',
+                        title: 'Show Deleted',
+                        filterProperty: 'cShowDeleted',
+                        isVisible: false
+                    }
                 ],
 
                 create: function () {
