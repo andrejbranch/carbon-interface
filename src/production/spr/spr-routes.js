@@ -66,11 +66,12 @@ angular.module('production.spr.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     },
 
-                                    inputSampleGrid: function ($cbGridBuilder, sprRequest) {
+                                    bindingPartnerGrid: function ($cbGridBuilder, sprRequest) {
 
-                                        return $cbGridBuilder.buildOTM(
-                                            '/production/analysis/spr-request-input-sample/spr-request/', 'sampleGridFactory', sprRequest, false
-                                        );
+                                        return $cbGridBuilder.buildIndex('sprBindingPartnerGridFactory', {
+                                            url: '/production/analysis/spr-request-binding-partner?requestId[EQ]=' + sprRequest.id,
+                                            bindToState: false
+                                        });
 
                                     }
 

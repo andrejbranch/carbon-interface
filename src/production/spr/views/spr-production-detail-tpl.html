@@ -141,29 +141,24 @@
             </div>
 
             <div class="col-sm-12">
+                <cb-attachments object-id="sprRequest.id" object-class="AppBundle\Entity\Production\Analysis\SprRequest"></cb-attachments>
+            </div>
+
+            <div class="col-sm-12" ng-if="bindingPartnerGrid.initResultCount">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        <i class="fa fa-flask"></i>
-                        Input Samples
+                        <i class="fa fa-flask" style="font-size:15px"></i>
+                        Binding Partners linked to SPR Request {{sprRequest.alias}}
                     </div>
                     <div class="panel-body no-padding">
-                        <grid grid="inputSampleGrid" />
+                        <grid grid="bindingPartnerGrid"></grid>
                     </div>
                 </div>
             </div>
 
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <cb-attachments object-id="sprRequest.id" object-class="AppBundle\Entity\Production\DNA"></cb-attachments>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-sm-12">
                 <div class="hpanel">
                      <uib-tabset active="active">

@@ -1,17 +1,17 @@
 angular.module('production.spr.sprProductionFormCtrl', [])
 
-    .controller('sprProductionFormCtrl', ['$scope', 'sprProduction', '$cbForm', 'sampleGrids', 'projectGrids', 'protocolGrid', 'isPipeline', '$uibModalInstance', 'pipelineStepIndex',
+    .controller('sprProductionFormCtrl', ['$scope', 'sprProduction', '$cbForm', 'projectGrids', 'protocolGrid', 'isPipeline', '$uibModalInstance', 'pipelineStepIndex', 'sampleGrid',
 
-        function ($scope, sprProduction, $cbForm, sampleGrids, projectGrids, protocolGrid, isPipeline, $uibModalInstance, pipelineStepIndex) {
+        function ($scope, sprProduction, $cbForm, projectGrids, protocolGrid, isPipeline, $uibModalInstance, pipelineStepIndex, sampleGrid) {
 
             $scope.sprProduction = sprProduction ? angular.copy(sprProduction) : {status:'Pending', type: 'SDS-PAGE'};
             $scope.sprProductionForm = {};
             $scope.statuses = ['Pending', 'Processing', 'Aborted', 'Completed'];
-            $scope.sampleGrids = sampleGrids;
             $scope.projectGrids = projectGrids;
             $scope.protocolGrid = protocolGrid;
             $scope.isPipeline = isPipeline;
             $scope.pipelineStepIndex = pipelineStepIndex;
+            $scope.sampleGrid = sampleGrid;
 
             $scope.concentrationUnits = ['mg/mL', 'ng/uL', 'Molar'];
             $scope.volumeUnits = ['uL', 'mL'];

@@ -52,11 +52,11 @@
                 </div>
             </cb-form-group>
 
-            <cb-form-group label="Samples" name="samples" tooltip="Select the samples needed for this request." ng-hide="isPipeline && pipelineStepIndex > 0">
-                <div class="col-sm-10">
-                    <one-to-many grid="sampleGrids[0]" search-grid="sampleGrids[1]" parent-object="sprProduction" bind-to="samples" placeholder="Add Samples..."></one-to-many>
-                </div>
-            </cb-form-group>
+            <div class="hr-line-dashed"></div>
+
+            <h3 class="align-center">Binding Partners</h3>
+            <spr-binding-partner request="sprProduction" sample-grid="sampleGrid"></spr-binding-partner>
+
 
         </div>
 

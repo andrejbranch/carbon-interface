@@ -5,5 +5,8 @@ angular.module('production.spr', [
     'production.spr.sprProductionFormFactory',
     'production.spr.sprProductionFormCtrl',
     'production.spr.sprProductionDetailCtrl',
-    'production.spr.sprProductionCompleteCtrl'
+    'production.spr.sprProductionCompleteCtrl',
+    'production.spr.sprBindingPartnerDirective',
+    'production.spr.sprProductionRowActionsCtrl',
+    'production.spr.sprBindingPartnerGridFactory'
 ]);

@@ -23,15 +23,15 @@ angular.module('production.spr.sprProductionFormFactory', [])
 
                             },
 
-                            sampleGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/production/analysis/spr-request-input-sample/spr-request/', 'sampleGridFactory', sprProduction, true);
-
-                            },
-
                             projectGrids: function () {
 
                                 return $cbGridBuilder.buildMTMGrids('/production/analysis/spr-request-project/spr-request/', 'projectGridFactory', sprProduction, true);
+
+                            },
+
+                            sampleGrid: function () {
+
+                                return $cbGridBuilder.buildSelectSingle('sampleGridFactory');
 
                             },
 

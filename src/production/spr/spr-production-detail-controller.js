@@ -1,13 +1,13 @@
 angular.module('production.spr.sprProductionDetailCtrl', [])
 
-    .controller('sprProductionDetailCtrl', ['$scope', 'sprRequest', 'inputSampleGrid', 'dnaProductionFormFactory', 'projectGrid',
+    .controller('sprProductionDetailCtrl', ['$scope', 'sprRequest', 'sprProductionFormFactory', 'projectGrid', 'bindingPartnerGrid',
 
-        function ($scope, sprRequest, inputSampleGrid, dnaProductionFormFactory, projectGrid) {
+        function ($scope, sprRequest, sprProductionFormFactory, projectGrid, bindingPartnerGrid) {
 
             $scope.sprRequest = sprRequest;
-            $scope.inputSampleGrid = inputSampleGrid;
             $scope.projectGrid = projectGrid;
-            $scope.edit = dnaProductionFormFactory.openFormModal;
+            $scope.bindingPartnerGrid = bindingPartnerGrid;
+            $scope.edit = sprProductionFormFactory.openFormModal;
 
             $scope.statusLabelMapping = {
                 'Pending': 'warning',

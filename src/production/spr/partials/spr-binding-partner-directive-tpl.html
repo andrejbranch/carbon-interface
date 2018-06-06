@@ -1,0 +1,31 @@
+<div class="hr-line-dashed" ng-if="request.requestBindingPartners.length"></div>
+
+<cb-form-group label="" name="" ng-repeat="bindingPartner in request.requestBindingPartners">
+    <div class="col-sm-10" >
+        <span class="label label-pill label-primary m-r-lg">ID {{bindingPartner.ligand.id}} - {{bindingPartner.ligand.catalog.name}}</span>
+        <i class="fa fa-arrow-right m-r-lg"/>
+        <span class="label label-pill label-primary m-r-lg">ID {{bindingPartner.analyte.id}} - {{bindingPartner.analyte.catalog.name}}</span>
+        <a ng-click="removeBindingPartner(bindingPartner)"><i class="fa fa-remove pull-right text-danger"/></a>
+    </div>
+</cb-form-group>
+
+<div class="hr-line-dashed" ng-if="request.requestBindingPartners.length"></div>
+
+<cb-form-group label="Ligand" name="ligand">
+    <div class="col-sm-10">
+        <one-to-one name="ligand" grid="ligandGrid" ng-model="bindingPartnerModel.ligand" parent-object="bindingPartnerModel" bind-to="ligand" placeholder="Link Ligand.."></one-to-one>
+    </div>
+</cb-form-group>
+
+<cb-form-group label="Analyte" name="analyte">
+    <div class="col-sm-10">
+        <one-to-one name="analyte" grid="analyteGrid" ng-model="bindingPartnerModel.analyte" parent-object="bindingPartnerModel" bind-to="analyte" placeholder="Link Analyte.."></one-to-one>
+    </div>
+</cb-form-group>
+
+<cb-form-group label="" name="">
+    <div class="col-sm-10">
+        <button ng-click="addBindingPartner()" type="button" class="btn btn-info btn-block">Add Binding Partner</button>
+    </div>
+</cb-form-group>
+
