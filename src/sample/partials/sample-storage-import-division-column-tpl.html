@@ -1,4 +1,8 @@
-<div>
+<div ng-if="result.status == 'Available'">
     <i ng-if="result.storageRecommended" class="fa fa-certificate text-primary m-r-sm" tooltip-placement="right-top" uib-tooltip="Recommended Location"/>
-    Division {{result.division.path}} - Row {{result.divisionRow}} - Column {{result.divisionColumn}}
+    <span ng-if="result.division.hasDimension">Division {{result.division.path}} - Row {{result.divisionRow}} - Column {{result.divisionColumn}}</span>
+    <span ng-if="!result.division.hasDimension">Division {{result.division.path}}</span>
+</div>
+<div ng-if="result.status != 'Available'">
+    N/A
 </div>
