@@ -10,6 +10,8 @@ angular.module('sample.sampleRowActionsCtrl', [])
 
             };
 
+            $scope.receive = sampleFormFactory.openReceiveForm;
+
             $scope.delete = function (sample)  {
                 swal({
                     title: "Are you sure?",

@@ -9,5 +9,6 @@ angular.module('sample', [
     'sample.sampleImportCtrl',
     'sample.sampleImportChangeLocationCtrl',
     'sample.sampleImportRowActionsCtrl',
-    'sample.sampleImportManager'
+    'sample.sampleImportManager',
+    'sample.sampleReceiveController'
 ]);

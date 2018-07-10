@@ -21,6 +21,9 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li ng-if="sample.status == 'Incoming'">
+                                    <a ng-click="receive(sample)"><i class="fa fa-hand-grab-o m-r-xs"/>Receive Sample</a>
+                                </li>
                                 <li cb-object-watch entity-id="sample.id" entity="AppBundle\Entity\Storage\Sample" object-description="Sample" url="/storage/sample"></li>
                             </ul>
                         </div>

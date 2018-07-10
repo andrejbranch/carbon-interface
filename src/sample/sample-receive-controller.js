@@ -1,24 +1,13 @@
-angular.module('sample.sampleFormCtrl', [])
+angular.module('sample.sampleReceiveController', [])
 
-    .controller('sampleFormCtrl', ['$scope', 'sample', '$cbResource', 'sampleTypes', 'storageContainers', 'linkedSampleGrids', 'StepsService', 'divisionGrid', 'projectGrids', '$cbForm', 'catalogGrid', 'tagGrids',
+    .controller('sampleReceiveController', ['$scope', 'sample', 'divisionGrid', '$cbResource', '$cbForm',
 
-        function ($scope, sample, $cbResource, sampleTypes, storageContainers, linkedSampleGrids, StepsService, divisionGrid, projectGrids, $cbForm, catalogGrid, tagGrids) {
+        function ($scope, sample, divisionGrid, $cbResource, $cbForm) {
 
-            $scope.sample = sample ? angular.copy(sample) : {status:'Available'};
-            $scope.sampleForm = {};
-            $scope.sampleTypes = sampleTypes.data;
-            $scope.storageContainers = storageContainers.data;
-            $scope.statuses = ['Available', 'Depleted', 'Destroyed', 'Shipped', 'Incoming'];
-            $scope.concentrationUnits = ['mg/mL', 'ng/uL', 'Molar'];
-            $scope.volumeUnits = ['mL', 'uL'];
-            $scope.linkedSampleGrids = linkedSampleGrids;
-            $scope.currentStep = {name: 'sampleDetails'};
+            $scope.sample = angular.copy(sample);
+            $scope.sample.status = 'Available';
             $scope.divisionGrid = divisionGrid;
-            $scope.projectGrids = projectGrids;
-            $scope.catalogGrid = catalogGrid;
-            $scope.showLocation = false;
-            $scope.formProps = {};
-            $scope.tagGrids = tagGrids;
+            $scope.sampleReceiveForm = {};
 
             $scope.cbForm = $cbForm.create()
                 .setType('Sample')
@@ -27,29 +16,7 @@ angular.module('sample.sampleFormCtrl', [])
                 .setObjectClass('AppBundle\\Entity\\Storage\\Sample')
             ;
 
-            $scope.catalogBoolOnToggle = function(){
-                $scope.sample.catalog = undefined;
-            }
-
-            $scope.setDefaultConcentrationUnits = function () {
-
-                if ($scope.sample.concentrationUnits === undefined) {
-
-                    $scope.sample.concentrationUnits = $scope.concentrationUnits[0];
-                }
-
-            };
-
-            $scope.selectDivision = function (isValid) {
-
-                $scope.sampleForm.$submitted = true;
-                $scope.$broadcast('form:submit');
-
-                if (!isValid) {
-                    return;
-                }
-
-                $scope.sampleForm.$submitted = false;
+            $scope.selectDivision = function () {
 
                 var url = '/storage/division/match/' + $scope.sample.sampleType.id + '/' + $scope.sample.storageContainer.id;
                 $scope.divisionGrid.setResourceUrl(url)
@@ -86,8 +53,6 @@ angular.module('sample.sampleFormCtrl', [])
                         .setInitResultCount(response.unpaginatedTotal)
                         .setSelectItemCallback($scope.onDivisionChange)
                     ;
-
-                    StepsService.steps('sampleFormFlow').goTo(1);
 
                     if (response.unpaginatedTotal === 0) {
 
@@ -152,16 +117,20 @@ angular.module('sample.sampleFormCtrl', [])
 
             };
 
-            $scope.close = function () {
-                $scope.cbForm.close($scope.sampleForm, $scope);
-            };
+            $scope.submit = function () {
 
-            $scope.save = function () {
-
-                $scope.cbForm.save($scope.sampleForm, $scope);
+                $scope.cbForm.save($scope.sampleReceiveForm, $scope);
 
             };
 
+            $scope.cancel = function () {
+
+                $scope.cbForm.close($scope.sampleReceiveForm, $scope);
+
+            };
+
+
+            $scope.selectDivision();
         }
 
     ])

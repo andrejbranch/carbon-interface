@@ -126,6 +126,48 @@ angular.module('sample.formFactory', [])
 
                     });
 
+                },
+
+                openReceiveForm: function (sample) {
+
+                    $modal.open({
+                        templateUrl: 'sample/partials/sample-receive-tpl.html',
+                        controller: 'sampleReceiveController',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            sample: function () {
+
+                                return sample;
+
+                            },
+
+                            divisionGrid: function () {
+
+                                var sampleTypeId = sample ? sample.sampleType.id : null;
+                                var storageContainerId = sample ? sample.storageContainer.id : null;
+
+                                return storageGridFactory.getDivisionMatchGrid(sampleTypeId, storageContainerId);
+
+                            },
+
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                };
+
+                            }
+
+                        }
+
+                    });
+
                 }
 
             };

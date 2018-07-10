@@ -1,4 +1,4 @@
-<span ng-hide="result.deletedAt" class="label label-pill" ng-class="{'label-warning': result.status == 'Depleted','label-primary': result.status == 'Available', 'label-danger': result.status == 'Destroyed', 'label-default': result.status == 'Shipped'}">{{result.status}}</span>
+<span ng-hide="result.deletedAt" class="label label-pill" ng-class="{'label-warning': result.status == 'Depleted','label-primary': result.status == 'Available', 'label-danger': result.status == 'Destroyed', 'label-default': result.status == 'Shipped', 'label-info': result.status == 'Incoming'}">{{result.status}}</span>
 <span ng-show="result.deletedAt" class="label label-pill label-danger">
     <i class="fa fa-exclamation-triangle"/>
     Deleted

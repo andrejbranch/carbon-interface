@@ -7,6 +7,7 @@ angular.module('sample.sampleDetailCtrl', [])
             $scope.sample = sample;
             $scope.linkedSamplesGrid = linkedSamplesGrid;
             $scope.edit = sampleFormFactory.openSampleFormModal;
+            $scope.receive = sampleFormFactory.openReceiveForm;
             $scope.projectGrid = projectGrid;
             $scope.tags = tags;
 
@@ -14,7 +15,8 @@ angular.module('sample.sampleDetailCtrl', [])
                 'Available': 'primary',
                 'Depleted': 'warning',
                 'Destroyed': 'danger',
-                'Shipped': 'default'
+                'Shipped': 'default',
+                'Incoming': 'info'
             };
 
             $scope.sampleTypeIconMapping = {
